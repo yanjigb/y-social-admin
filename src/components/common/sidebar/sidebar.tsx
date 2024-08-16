@@ -30,7 +30,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
 
   useEffect(() => {
 
-    const mainContent:any = document.querySelector(".main-content");
+    const mainContent: any = document.querySelector(".main-content");
     mainContent.addEventListener('click', menuClose);
     window.addEventListener('resize', menuResizeFn);
   }, []);
@@ -320,12 +320,12 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       hasParentLevel += 1;
       setMenuAncestorsActive(parent);
     }
-   else if (!hasParent) {
+    else if (!hasParent) {
       if (theme.dataVerticalStyle == 'doublemenu') {
         // console.log("closee")
         // html.setAttribute('data-toggled', 'double-menu-close');
         ThemeChanger({ ...theme, toggled: "double-menu-close" });
-    }
+      }
     }
   }
   function removeActiveOtherMenus(item: any) {
@@ -365,27 +365,27 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
     };
     setSubmenuRecursively(MENUITEMS);
   }
- const [previousUrl , setPreviousUrl]= useState('/')
+  const [previousUrl, setPreviousUrl] = useState('/')
 
   useEffect(() => {
 
-        // Select the target element
-        const targetElement = document.documentElement;
+    // Select the target element
+    const targetElement = document.documentElement;
 
-        // Create a MutationObserver instance
-        const observer = new MutationObserver(handleAttributeChange);
-    
-        // Configure the observer to watch for attribute changes
-        const config = { attributes: true };
-    
-        // Start observing the target element
-        observer.observe(targetElement, config);
-        let currentPath = location.pathname.endsWith("/") ? location.pathname.slice(0, -1) : location.pathname;
-        
-        if (currentPath !== previousUrl) {
-          setMenuUsingUrl(currentPath);
-          setPreviousUrl(currentPath)
-        }
+    // Create a MutationObserver instance
+    const observer = new MutationObserver(handleAttributeChange);
+
+    // Configure the observer to watch for attribute changes
+    const config = { attributes: true };
+
+    // Start observing the target element
+    observer.observe(targetElement, config);
+    let currentPath = location.pathname.endsWith("/") ? location.pathname.slice(0, -1) : location.pathname;
+
+    if (currentPath !== previousUrl) {
+      setMenuUsingUrl(currentPath);
+      setPreviousUrl(currentPath)
+    }
 
     // ... the rest of your useEffect code
   }, [location]);
@@ -519,25 +519,25 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       if (html.getAttribute('icon-overlay') != 'open') {
         html.setAttribute('icon-overlay', 'open');
       }
-   
+
     }
   }
 
 
- function handleAttributeChange(mutationsList:any) {
+  function handleAttributeChange(mutationsList: any) {
     for (const mutation of mutationsList) {
       if (mutation.type === 'attributes' && (mutation.attributeName === 'data-nav-layout' || mutation.attributeName === 'data-vertical-style')) {
-            const newValue = mutation.target.getAttribute('data-nav-layout');
-            if (newValue == 'vertical') {
-                let currentPath = location.pathname.endsWith('/') ? location.pathname.slice(0, -1) : location.pathname;
-                currentPath = !currentPath ? '/dashboard/ecommerce' : currentPath;
-                setMenuUsingUrl(currentPath);
-            } else {
-                closeMenuFn();
-            }
+        const newValue = mutation.target.getAttribute('data-nav-layout');
+        if (newValue == 'vertical') {
+          let currentPath = location.pathname.endsWith('/') ? location.pathname.slice(0, -1) : location.pathname;
+          currentPath = !currentPath ? '/dashboard/ecommerce' : currentPath;
+          setMenuUsingUrl(currentPath);
+        } else {
+          closeMenuFn();
         }
+      }
     }
-}
+  }
 
   return (
     <Fragment>

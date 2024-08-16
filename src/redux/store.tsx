@@ -1,6 +1,6 @@
 import reducer from "./reducer";
 import thunk from "redux-thunk";
-import {  configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { Middleware } from "redux"; // Import Middleware type
 
 const middleware: Middleware[] = [thunk]; // Define an array of middleware

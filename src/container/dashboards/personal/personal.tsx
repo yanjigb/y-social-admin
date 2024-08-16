@@ -1,4 +1,4 @@
-import  { FC, Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Sleeptracking, Watertracking } from './personaldata';
 import Pageheader from '../../../components/common/pageheader/pageheader';
@@ -16,12 +16,12 @@ import face12 from "../../../assets/images/faces/12.jpg";
 import face13 from "../../../assets/images/faces/13.jpg";
 import face14 from "../../../assets/images/faces/14.jpg";
 
-interface PersonalProps {}
+interface PersonalProps { }
 
 const Personal: FC<PersonalProps> = () => {
-  return(
-  <Fragment>
-     <Pageheader currentpage="Personal" activepage="Dashboards" mainpage="Personal" />
+    return (
+        <Fragment>
+            <Pageheader currentpage="Personal" activepage="Dashboards" mainpage="Personal" />
             <div className="grid grid-cols-12 gap-x-6">
                 <div className="xxl:col-span-9 xl:col-span-12 col-span-12">
                     <div className="grid grid-cols-12 gap-x-6">
@@ -51,7 +51,7 @@ const Personal: FC<PersonalProps> = () => {
                                                 </div>
                                             </div>
                                             <div id="waterTrack">
-                                                <Watertracking/>
+                                                <Watertracking />
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@ const Personal: FC<PersonalProps> = () => {
                                                 </div>
                                             </div>
                                             <div id="sleepTrack">
-                                                <Sleeptracking/>
+                                                <Sleeptracking />
                                             </div>
                                         </div>
                                     </div>
@@ -696,7 +696,8 @@ const Personal: FC<PersonalProps> = () => {
                     </div>
                 </div>
             </div>
-  </Fragment>
-);}
+        </Fragment>
+    );
+}
 
 export default Personal;

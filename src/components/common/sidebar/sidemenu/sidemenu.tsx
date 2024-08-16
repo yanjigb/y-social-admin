@@ -26,7 +26,9 @@ export const MENUITEMS = [
           { path: `${import.meta.env.BASE_URL}dashboards/hrm`, type: 'link', active: false, selected: false, title: 'HRM' },
           { path: `${import.meta.env.BASE_URL}dashboards/stocks`, type: 'link', active: false, selected: false, title: 'Stocks' },
           { path: `${import.meta.env.BASE_URL}dashboards/courses`, type: 'link', active: false, selected: false, title: 'Courses' },
-          { path: `${import.meta.env.BASE_URL}dashboards/personal`, type: 'link', active: false, selected: false, title: 'Personal' }
+          { path: `${import.meta.env.BASE_URL}dashboards/personal`, type: 'link', active: false, selected: false, title: 'Personal' },
+          { path: `${import.meta.env.BASE_URL}dashboards/users`, type: 'link', active: false, selected: false, title: 'Users' },
+          { path: `${import.meta.env.BASE_URL}dashboards/posts`, type: 'link', active: false, selected: false, title: 'Posts' }
         ]
       },
   {

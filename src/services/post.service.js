@@ -1,10 +1,11 @@
 import { APIClient } from "../helpers/api_helper";
 
-const baseUrl = `api/v1/user`;
+const baseUrl = `api/v1/post`;
 const api = new APIClient();
 
 export const Get = (params) => api.get(baseUrl, params);
 export const GetById = (id) => api.get(baseUrl + `/${id}`);
+export const GetByUserId = (id) => api.get(baseUrl + `/${id}`);
 export const Create = (params) => api.create(baseUrl, params);
 export const Delete = (params) => api.delete(baseUrl + '/delete', params);
 export const UpdateInfo = (params) => api.update(baseUrl + `/update/${params.userId}`, '', params);

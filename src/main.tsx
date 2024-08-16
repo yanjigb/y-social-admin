@@ -14,6 +14,7 @@ import Hrm from './container/dashboards/hrm/hrm.tsx'
 import Stocks from './container/dashboards/stocks/stocks.tsx'
 import Courses from './container/dashboards/courses/courses.tsx'
 import Personal from './container/dashboards/personal/personal.tsx'
+import Users from './container/dashboards/users/users.tsx'
 import Aboutus from './container/pages/aboutus/aboutus.tsx'
 import Blog from './container/pages/blogs/blog/blog.tsx'
 import Blogdetails from './container/pages/blogs/blogdetails/blogdetails.tsx'
@@ -172,6 +173,7 @@ import Login from './firebase/login.tsx'
 import Signup from './firebase/signup.tsx'
 import Scrollspy from './container/advancedui/scrollspy/scrollspy.tsx'
 import Indicators from './container/uielements/indicators/indicators.tsx'
+import Posts from './container/dashboards/posts/posts.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.Fragment>
@@ -196,6 +198,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path={`${import.meta.env.BASE_URL}dashboards/stocks`} element={<Stocks />} />
             <Route path={`${import.meta.env.BASE_URL}dashboards/courses`} element={<Courses />} />
             <Route path={`${import.meta.env.BASE_URL}dashboards/personal`} element={<Personal />} />
+            <Route path={`${import.meta.env.BASE_URL}dashboards/users`} element={<Users />} />
+            <Route path={`${import.meta.env.BASE_URL}dashboards/posts`} element={<Posts />} />
 
             <Route path={`${import.meta.env.BASE_URL}pages/aboutus`} element={<Aboutus />} />
 

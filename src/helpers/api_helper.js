@@ -2,7 +2,7 @@ import axios from 'axios';
 let isRefreshing = false;
 let failedQueue = [];
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL + '/',
+  baseURL: import.meta.env.VITE_SOCKET_URL + '/',
   headers: {
     'Content-Type': 'application/json'
   }
@@ -89,6 +89,10 @@ class APIClient {
     }
     return response;
   };
+
+  getAll = (url, query) => {
+    return api.get(url + query)
+  }
 
   create = (url, data, config) => {
     return api.post(url, data, config);

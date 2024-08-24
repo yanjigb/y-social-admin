@@ -50,14 +50,12 @@ const UserSocialMediaButtons: FC<{ user: IUser }> = ({ user }) => {
 };
 
 const UserDetail: FC<Readonly<UserDetailProps>> = ({ user }) => {
-  console.log(user)
-
   return <div className="hs-overlay hidden ti-offcanvas ti-offcanvas-right !max-w-[25rem] !border-0" tabIndex={-1} id="hs-overlay-contacts" aria-labelledby="offcanvasExample">
     <div className="ti-offcanvas-body !p-0">
       <div className="sm:flex items-start p-6 border-b border-dashed border-defaultborder dark:border-defaultborder/10 main-profile-cover">
         <div>
           <span className="avatar avatar-xxl avatar-rounded me-3 bg-light/10 p-2">
-            <img src={user.profilePicture || '/images/default-avatar.svg'} alt={user.username} className="object-cover aspect-square"/>
+            <img src={user.profilePicture || '/images/default-avatar.svg'} alt={user.username} className="object-cover aspect-square" />
           </span>
         </div>
         <div className="flex-fill main-profile-info w-full">

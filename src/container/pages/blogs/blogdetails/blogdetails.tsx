@@ -1,4 +1,4 @@
-import  { FC, Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Exploretopicsdata, Populartagsdata } from './blogdetailsdata';
 // import Pageheader from '../../../../components/common/pageheader/pageheader';
@@ -10,11 +10,11 @@ import media23 from "../../../../assets/images/media/media-23.jpg";
 import face15 from "../../../../assets/images/faces/15.jpg";
 import face2 from "../../../../assets/images/faces/2.jpg";
 
-interface BlogdetailsProps {}
+interface BlogdetailsProps { }
 
 const Blogdetails: FC<BlogdetailsProps> = () => {
-  return(
-  <Fragment>
+    return (
+        <Fragment>
             <div className="container my-[3rem]">
                 <div className="grid grid-cols-12 gap-x-6">
                     <div className="xl:col-span-8  col-span-12">
@@ -258,27 +258,27 @@ const Blogdetails: FC<BlogdetailsProps> = () => {
                             </div>
                             <div className="box-body">
                                 <ul className="list-group">
-                                    {Exploretopicsdata.map((idx) =>(
+                                    {Exploretopicsdata.map((idx) => (
 
-                                    <li className="list-group-item" key={Math.random()}>
-                                        <Link to="#">
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex items-center">
-                                                    <div>
-                                                        <span className={`avatar avatar-xs bg-${idx.color} text-white !text-[0.65rem] avatar-rounded`}>
-                                                           {idx.title}
-                                                        </span>
+                                        <li className="list-group-item" key={Math.random()}>
+                                            <Link to="#">
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center">
+                                                        <div>
+                                                            <span className={`avatar avatar-xs bg-${idx.color} text-white !text-[0.65rem] avatar-rounded`}>
+                                                                {idx.title}
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <span className="font-semibold ms-2">{idx.text}</span>
+                                                        </div>
                                                     </div>
                                                     <div>
-                                                        <span className="font-semibold ms-2">{idx.text}</span>
+                                                        <span className="badge bg-light text-default !rounded-full">{idx.badge}</span>
                                                     </div>
                                                 </div>
-                                                <div>
-                                                    <span className="badge bg-light text-default !rounded-full">{idx.badge}</span>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </li>
+                                            </Link>
+                                        </li>
                                     ))}
                                 </ul>
                             </div>
@@ -292,9 +292,9 @@ const Blogdetails: FC<BlogdetailsProps> = () => {
                             <div className="box-body">
                                 <div className="blog-popular-tags">
                                     {Populartagsdata.map((idx) => (
-                                    <Link to="#" key={Math.random()}>
-                                        <span className="badge bg-light text-[#8c9097] dark:text-white">{idx.text}</span>
-                                    </Link>
+                                        <Link to="#" key={Math.random()}>
+                                            <span className="badge bg-light text-[#8c9097] dark:text-white">{idx.text}</span>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
@@ -303,7 +303,8 @@ const Blogdetails: FC<BlogdetailsProps> = () => {
                 </div>
 
             </div>
-  </Fragment>
-);}
+        </Fragment>
+    );
+}
 
 export default Blogdetails;

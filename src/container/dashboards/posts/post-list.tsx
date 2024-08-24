@@ -3,24 +3,24 @@ import isEqual from "react-fast-compare"
 
 import Pageheader from "../../../components/common/pageheader/pageheader";
 
-import UserTable from "./components/user-table";
-import { AllUsers } from "../../../services/user.service";
+import { AllPosts } from "../../../services/post.service";
+import PostTable from "./components/post-table";
 
 interface UsersProps { }
 
-const Posts: FC<UsersProps> = () => {
-  const [totalUsers, setTotalUsers] = useState(0)
+const PostList: FC<UsersProps> = () => {
+  const [totalPosts, setTotalPosts] = useState(0)
 
   useEffect(() => {
-    AllUsers('/').then((response: any) => {
-      const { totalUsers } = response
-      setTotalUsers(totalUsers)
+    AllPosts('/').then((response: any) => {
+      const { length } = response
+      setTotalPosts(length)
     })
   }, [])
 
   return (
     <>
-      <Pageheader currentpage="Users" activepage="Dashboards" mainpage="Users" />
+      <Pageheader currentpage="Posts" activepage="Dashboards" mainpage="Posts" />
 
       <div className="grid grid-cols-12 gap-x-6">
         <div className="xl:col-col-12 col-span-12">
@@ -28,11 +28,11 @@ const Posts: FC<UsersProps> = () => {
             <div className="box">
               <div className="box-header justify-between flex-wrap">
                 <h2 className="box-title mb-2 sm:mb-0">
-                  Manage User: {totalUsers}
+                  Total Post: {totalPosts}
                 </h2>
               </div>
 
-              <UserTable />
+              <PostTable />
             </div>
           </div>
         </div>
@@ -41,4 +41,4 @@ const Posts: FC<UsersProps> = () => {
   )
 }
 
-export default memo(Posts, isEqual)
+export default memo(PostList, isEqual)

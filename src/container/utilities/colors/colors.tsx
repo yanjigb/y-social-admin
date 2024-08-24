@@ -1,22 +1,22 @@
-import  { FC, Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import Pageheader from '../../../components/common/pageheader/pageheader';
 
 
-interface ColorsProps {}
+interface ColorsProps { }
 
-const Colors: FC<ColorsProps> = () =>{ 
-   const Background = [
-    {id:1, color:"primary"},
-    {id:2, color:"secondary"},
-    {id:3, color:"warning"},
-    {id:4, color:"info"},
-    {id:5, color:"success"},
-    {id:6, color:"danger"},
-    {id:7, color:"light"},
-    {id:8, color:"black"},
-]
-  return(
-  <Fragment>
+const Colors: FC<ColorsProps> = () => {
+    const Background = [
+        { id: 1, color: "primary" },
+        { id: 2, color: "secondary" },
+        { id: 3, color: "warning" },
+        { id: 4, color: "info" },
+        { id: 5, color: "success" },
+        { id: 6, color: "danger" },
+        { id: 7, color: "light" },
+        { id: 8, color: "black" },
+    ]
+    return (
+        <Fragment>
             <Pageheader currentpage="Colors" activepage="Utilities" mainpage="Colors" />
             <div className="grid grid-cols-12 gap-x-6">
                 <div className="col-span-12">
@@ -28,11 +28,11 @@ const Colors: FC<ColorsProps> = () =>{
                         </div>
                         <div className="box-body">
                             <div className="grid md:grid-cols-8 grid-cols-1 sm:grid-cols-4  items-center">
-                                {Background.map((idx)=>(
-                                <div className="p-4 col-span-1" key={Math.random()}>
-                                    <div className={`m-2 bg-${idx.color} mx-auto color-container`}></div>
-                                    <p className="pb-0 mb-0 font-semibold text-center"><code>bg-{idx.color}</code></p>
-                                </div>
+                                {Background.map((idx) => (
+                                    <div className="p-4 col-span-1" key={Math.random()}>
+                                        <div className={`m-2 bg-${idx.color} mx-auto color-container`}></div>
+                                        <p className="pb-0 mb-0 font-semibold text-center"><code>bg-{idx.color}</code></p>
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -47,11 +47,11 @@ const Colors: FC<ColorsProps> = () =>{
                         </div>
                         <div className="box-body">
                             <div className="grid md:grid-cols-8 grid-cols-1 sm:grid-cols-4  items-center">
-                                {Background.map((idx)=>(
-                                <div className="p-4 col" key={Math.random()}>
-                                    <div className={`m-2 border border-${idx.color} mx-auto color-container`}></div>
-                                    <p className="pb-0 mb-0 font-semibold text-center"><code>border-{idx.color}</code></p>
-                                </div>
+                                {Background.map((idx) => (
+                                    <div className="p-4 col" key={Math.random()}>
+                                        <div className={`m-2 border border-${idx.color} mx-auto color-container`}></div>
+                                        <p className="pb-0 mb-0 font-semibold text-center"><code>border-{idx.color}</code></p>
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -455,7 +455,8 @@ const Colors: FC<ColorsProps> = () =>{
                     </div>
                 </div>
             </div>
-  </Fragment>
-);}
+        </Fragment>
+    );
+}
 
 export default Colors;

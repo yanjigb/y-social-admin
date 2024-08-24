@@ -173,7 +173,8 @@ import Login from './firebase/login.tsx'
 import Signup from './firebase/signup.tsx'
 import Scrollspy from './container/advancedui/scrollspy/scrollspy.tsx'
 import Indicators from './container/uielements/indicators/indicators.tsx'
-import Posts from './container/dashboards/posts/posts.tsx'
+import PostDetail from './container/dashboards/posts/components/post-detail.tsx'
+import PostList from './container/dashboards/posts/post-list.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.Fragment>
@@ -199,7 +200,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path={`${import.meta.env.BASE_URL}dashboards/courses`} element={<Courses />} />
             <Route path={`${import.meta.env.BASE_URL}dashboards/personal`} element={<Personal />} />
             <Route path={`${import.meta.env.BASE_URL}dashboards/users`} element={<Users />} />
-            <Route path={`${import.meta.env.BASE_URL}dashboards/posts`} element={<Posts />} />
+            <Route path={`${import.meta.env.BASE_URL}dashboards/posts`} element={<PostList />} />
+            <Route path={`${import.meta.env.BASE_URL}dashboards/post/:id`} element={<PostDetail />} />
 
             <Route path={`${import.meta.env.BASE_URL}pages/aboutus`} element={<Aboutus />} />
 

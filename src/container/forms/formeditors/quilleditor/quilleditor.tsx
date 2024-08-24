@@ -1,15 +1,15 @@
-import  { FC, Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import Pageheader from '../../../../components/common/pageheader/pageheader';
 import Editor from '../quilldata';
 import Editor1 from '../bubbledata';
 
 
-interface QuilleditorProps {}
+interface QuilleditorProps { }
 
 const Quilleditor: FC<QuilleditorProps> = () => {
-  return(
-  <Fragment>
-                <Pageheader currentpage="Quill Editor" activepage="Form Editors" mainpage="Quill Editor" />
+    return (
+        <Fragment>
+            <Pageheader currentpage="Quill Editor" activepage="Form Editors" mainpage="Quill Editor" />
             <div className="grid grid-cols-12 gp-6">
                 <div className="xl:col-span-12 col-span-12">
                     <div className="box">
@@ -38,7 +38,8 @@ const Quilleditor: FC<QuilleditorProps> = () => {
                     </div>
                 </div>
             </div>
-  </Fragment>
-);}
+        </Fragment>
+    );
+}
 
 export default Quilleditor;

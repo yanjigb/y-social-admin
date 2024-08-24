@@ -11,7 +11,7 @@ interface FileuploadsProps { }
 const uploader = Uploader({
     // Get production API keys from Upload.io
     apiKey: 'free'
-  });
+});
 const Fileuploads: FC<FileuploadsProps> = () => {
 
 
@@ -102,12 +102,12 @@ const Fileuploads: FC<FileuploadsProps> = () => {
                             <h5 className="box-title">Dropzone File Upload</h5>
                         </div>
                         <div className="box-body dropzone-file-upload">
-                        <UploadButton uploader={uploader} options={{ multi: true }}>
-                   
-                   {({ onClick }) =>
-                     <input className='file_input text-center' onClick={onClick} placeholder='Drop files here to upload' />
-                   }
-                 </UploadButton>
+                            <UploadButton uploader={uploader} options={{ multi: true }}>
+
+                                {({ onClick }) =>
+                                    <input className='file_input text-center' onClick={onClick} placeholder='Drop files here to upload' />
+                                }
+                            </UploadButton>
                         </div>
                     </div>
                 </div>
@@ -121,8 +121,8 @@ const Fileuploads: FC<FileuploadsProps> = () => {
                         <div className="box-body">
                             <FilePond className="basic-filepond" accepted-file-types={["application/pdf", "image/png", "image/jpeg", "image/gif"]}
                                 // server="/api" 
-                                allowReorder={true} 
-                                files={files1} 
+                                allowReorder={true}
+                                files={files1}
                                 onupdatefiles={setFiles1} allowMultiple={false} allowImagePreview={true} maxFiles={10} name="filepond"
                                 labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>' />
                         </div>

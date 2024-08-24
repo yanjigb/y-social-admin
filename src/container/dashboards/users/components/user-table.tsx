@@ -10,6 +10,7 @@ import { AllUsers, GetById } from "../../../../services/user.service";
 import UpsertModal from "./upsert-modal";
 import DeleteModal from "./delete-modal";
 import UserDetail from "./user-detail";
+import AppAvatar from "../../../../components/features/app-avatar";
 
 const TableHeadList = [
   'ID',
@@ -131,14 +132,7 @@ function UserTable() {
                   <td>{user.username}</td>
                   <td>
                     <div className="avatar avatar-sm avatar-rounded">
-                      <img
-                        src={user.profilePicture || '/images/default-avatar.svg'}
-                        alt={`${user.username} avatar`}
-                        width={30}
-                        height={30}
-                        loading="lazy"
-                        className="aspect-square object-cover"
-                      />
+                      <AppAvatar imageSrc={user?.profilePicture} userId={user._id} label={user.username} customClass='bg-info' />
                     </div>
                   </td>
                   <td>

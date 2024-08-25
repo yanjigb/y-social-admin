@@ -98,6 +98,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/node": "^22.5.0",
     "@types/qs": "^6.9.15",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
@@ -107,6 +108,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "postcss": "^8.4.33",

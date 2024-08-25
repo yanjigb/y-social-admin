@@ -21,7 +21,6 @@ import MEDIA from '../../../../constants/media';
 interface UpsertModalProps {
   open: boolean;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
-  userId: string;
   fetchPostList: Function
   post: IPost
 }
@@ -53,7 +52,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
   const cloudMediaUrl = {
     img: previewImage || "",
     video: previewVideo || ""
-  }
+  };
 
   const { register, handleSubmit, formState: { errors } } = useForm<IFormData>({
     resolver: zodResolver(PostSchema),
@@ -83,7 +82,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
       if (videoCloudUrl) {
         let updatedVideoUrl = cloudMediaUrl.video;
         const videoURL = await updateMedia(videoCloudUrl, true);
-        updatedImgUrl = ""
+        updatedImgUrl = "";
         updatedVideoUrl = videoURL;
 
         await Update(post._id, {
@@ -112,7 +111,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
       cancelButtonColor: "#d33",
       confirmButtonText: "Update Now"
     });
-    onClose(false)
+    onClose(false);
     return result.isConfirmed;
   };
 
@@ -139,45 +138,12 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   setIsLoading(true);
-  //   e.preventDefault();
-
-  //   const updatedPost = {
-  //     desc: newContent,
-  //     postID: postID,
-  //     img: previewImage,
-  //   };
-
-  //   if (previewImage) {
-  //     const result = await cloudStorage(imageCloud);
-  //     const imageURL = result?.secure_url;
-  //     updatedPost.img = imageURL;
-  //   } else if (!oldImageSrc) {
-  //     updatedPost.img = null;
-  //   }
-  //   if (newVideoSrc) {
-  //     const result = await cloudStorage(videoCloudUrl, true);
-  //     const videoURL = result?.secure_url;
-  //     updatedPost.video = videoURL;
-  //   }
-
-  //   updatePost(updatedPost, dispatch)
-  //     .then(async (data) => {
-  //       await socket.emit("update-post", data.data);
-  //     })
-  //     .catch((err) => console.error("Failed to update post", err));
-
-  //   setIsLoading(false);
-  //   onPopup();
-  // };
-
   React.useEffect(() => {
     if (post) {
-      setOldImageSrc(post.img)
-      setOldVideoSrc(post.video)
+      setOldImageSrc(post.img);
+      setOldVideoSrc(post.video);
     }
-  }, [post])
+  }, [post]);
 
   const handleUploadImgFile = () => {
     if (uploadImg.current) {
@@ -192,26 +158,13 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
     if (!file) return;
 
     if (file.size > MEDIA.FILE_SIZE_LIMIT) {
-      onClose(false)
+      onClose(false);
       Swal.fire({
         title: "Error",
         text: "You cannot upload file more than > 10MB",
       });
       return;
     }
-
-    // if (file.type === "video/mp4") {
-    //   setVideoCloud(file);
-    //   setOldVideoSrc("")
-
-    //   setPreviewVideo(fileUrl);
-    //   setOldImageSrc("");
-    // } else {
-    //   setImageCloud(file);
-    //   setOldImageSrc("")
-
-    //   setPreviewImage(fileUrl);
-    // }
 
     if (file.type === "video/mp4") {
       // Handle video upload
@@ -239,7 +192,6 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
 
     if (uploadImg.current) uploadImg.current.value = "";
   };
-
 
   return (
     <Dialog

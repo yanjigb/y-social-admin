@@ -3,16 +3,18 @@ import isEqual from "react-fast-compare";
 import { useDebounce } from "use-debounce";
 
 import formatDate from "../../../../utils/date";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import AppPagination from "../../../../components/common/app-pagination";
-import { GetById } from "../../../../services/post.service";
+import { GetById, AllPosts, GetByContent } from "../../../../services/post.service";
 import { GetById as GetUserInfo } from "../../../../services/user.service";
 import UpsertModal from "./upsert-modal";
 import DeleteModal from "./delete-modal";
-import { AllPosts } from "../../../../services/post.service";
 import { IPost } from "../../../../types/post";
 import UserDetail from "../../users/components/user-detail";
 import { IUser } from "../../../../types/user";
+import usePersistState from "../../../../hooks/usePresistState";
+import LocalStorageKeys from "../../../../constants/local-storage-keys";
+import ResponseTime from "../../../../constants/resonse-time";
 
 const TableHeadList = [
   'ID',
@@ -25,82 +27,98 @@ const TableHeadList = [
   'Updated At',
   'Action',
 ];
+const ITEM_PER_PAGE = 14;
 
 function PostTable() {
   const [postList, setPostList] = useState<IPost[]>([]);
-  const [totalPosts, setTotalPosts] = useState(0)
+  const [totalPosts, setTotalPosts] = usePersistState(0, LocalStorageKeys.TOTAL_POST);
   const [searching, setSearching] = useState('');
   const [isEmpty, setIsEmpty] = useState(false);
 
-  const [debouncedFilter] = useDebounce(searching, 1000);
   const [searchParams] = useSearchParams();
-  const pageNumber = parseInt(searchParams.get('page') || '1', 10);
-  const ITEM_PER_PAGE = 14;
-  const [userId, setUserId] = useState<string>("");
+  const [debouncedFilter] = useDebounce(searching, ResponseTime.DEFAULT);
 
-  const [openUpsertModal, setOpenUpsertModal] = useState(false)
-  const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const [post, setPost] = useState<IPost | any>({})
-  const navigate = useNavigate()
-  const [author, setAuthor] = useState<IUser | any>({})
+  const [openUpsertModal, setOpenUpsertModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [post, setPost] = useState<IPost | any>({});
+  const [author, setAuthor] = useState<IUser | any>({});
 
-  const fetchPosts = useCallback(async (filter: string) => {
+  const navigate = useNavigate();
+  const pageNumber = parseInt(searchParams.get('page') ?? '1', 10);
+
+  const fetchBySearch = useCallback(async (filter: string) => {
+    GetByContent(filter).then((response: any) => {
+      const { data } = response
+
+      if (data.length > 0) {
+        setPostList(data);
+        setIsEmpty(false);
+      } else {
+        setPostList([]);
+        setIsEmpty(true);
+      }
+    })
+  }, [debouncedFilter])
+
+  useEffect(() => {
+    fetchBySearch(debouncedFilter)
+  }, [debouncedFilter])
+
+  const fetchPostList = useCallback(async () => {
     const query = `?limit=${ITEM_PER_PAGE}&skip=${(pageNumber - 1) * 14}`;
 
     AllPosts(query).then((response: any) => {
-      const { posts, length } = response
-      setTotalPosts(length)
+      const { posts, length } = response;
+      setTotalPosts(length);
 
       if (posts.length > 0) {
         setPostList(posts);
-        setIsEmpty(false)
+        setIsEmpty(false);
       } else {
         setPostList([]);
-        setIsEmpty(true)
+        setIsEmpty(true);
       }
-    })
+    });
   }, [pageNumber]);
 
-
   useEffect(() => {
-    fetchPosts(debouncedFilter);
-  }, [pageNumber, debouncedFilter]);
+    fetchPostList();
+  }, [pageNumber]);
 
   const handleOpenDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const userId = e.currentTarget.getAttribute('data-id');
-    GetById(userId).then((response: any) => {
-      // setUser(response.post);
-    })
+    const postId = e.currentTarget.getAttribute('data-id');
+    GetById(postId).then((response: any) => {
+      setPost(response.data);
+    });
 
-    setOpenDeleteModal(true)
-  }
+    setOpenDeleteModal(true);
+  };
 
   const handleOpenUpsertPost = (e: React.MouseEvent<HTMLButtonElement>) => {
     const postId = e.currentTarget.getAttribute('data-id');
     GetById(postId).then(response => {
-      setPost(response.data)
-    })
-    setOpenUpsertModal(!openUpsertModal)
-  }
+      setPost(response.data);
+    });
+    setOpenUpsertModal(!openUpsertModal);
+  };
 
   const handleOpenDetailPost = (e: React.MouseEvent<HTMLButtonElement>) => {
     const postId = e.currentTarget.getAttribute('data-id');
-    navigate(`/dashboards/post/${postId}`)
-  }
+    navigate(`/dashboards/post/${postId}`);
+  };
 
   const handleOpenDetailUser = (e: React.MouseEvent<HTMLButtonElement>) => {
     const userId = e.currentTarget.getAttribute('data-id');
     GetUserInfo(userId).then((response: any) => {
       setAuthor(response.user);
-    })
-  }
-
+    });
+  };
 
   return (
     <>
       <div className="box-body">
         <div className="filter-container">
-          <label htmlFor="search" className="form-label">Search user</label>
+          <label htmlFor="search" className="form-label">Search post</label>
           <input
             id="search"
             type="text"
@@ -168,9 +186,8 @@ function PostTable() {
         </div>
       </div >
 
-      {openUpsertModal && <UpsertModal open={openUpsertModal} onClose={setOpenUpsertModal} userId={userId} fetchPostList={fetchPosts} post={post} />}
-      {/* <DeleteModal open={openDeleteModal} onClose={setOpenDeleteModal} fetchUserList={fetchPosts} post={post} /> */}
-      {/* <PostDetail author={author} /> */}
+      {openUpsertModal && <UpsertModal open={openUpsertModal} onClose={setOpenUpsertModal} fetchPostList={fetchPostList} post={post} />}
+      {openDeleteModal && <DeleteModal open={openDeleteModal} onClose={setOpenDeleteModal} fetchPostList={fetchPostList} post={post} />}
       <UserDetail user={author} />
 
       <div className="box-footer">
@@ -179,7 +196,7 @@ function PostTable() {
         />
       </div>
     </>
-  )
+  );
 }
 
-export default memo(PostTable, isEqual)
+export default memo(PostTable, isEqual);

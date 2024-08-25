@@ -91,8 +91,8 @@ class APIClient {
   };
 
   getAll = (url, query) => {
-    return api.get(url + query)
-  }
+    return api.get(url + query);
+  };
 
   create = (url, data, config) => {
     return api.post(url, data, config);

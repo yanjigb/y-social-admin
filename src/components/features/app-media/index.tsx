@@ -59,7 +59,7 @@ const AppMedia: FC<AppMediaProps> = ({
           </LazyLoadComponent>
         </div>
       ) : (
-        <a href={imageSrc} target="_blank" className="w-full" style={photoStyles}>
+        <a href={imageSrc} target="_blank" className="w-full" style={photoStyles} rel="noreferrer">
           <LazyLoadImage {...lazyLoadImageProps} src={imageSrc} title={label} className="object-cover aspect-video" width={500} height={500} />
         </a>
       )}

@@ -4,6 +4,7 @@
     "useDefineForClassFields": true,
     "allowJs": true,
     "checkJs": false,
+    "baseUrl": ".",
     "lib": [
       "ES2020",
       "DOM",
@@ -31,5 +32,8 @@
     {
       "path": "./tsconfig.node.json"
     }
+  ],
+  "exclude": [
+    "node_modules", "build"
   ]
 }

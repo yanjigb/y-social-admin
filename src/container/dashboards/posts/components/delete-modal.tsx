@@ -6,60 +6,68 @@ import DialogTitle from '@mui/material/DialogTitle';
 import isEqual from 'react-fast-compare';
 import Swal from 'sweetalert2';
 
-import { Delete } from '../../../../services/user.service';
-import { IUser } from '../../../../types/user';
+import { Delete } from '../../../../services/post.service';
+import { IPost } from '../../../../types/post';
+import ErrorType from '../../../../constants/error';
 
 interface DeleteModalProps {
   open: boolean;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
-  fetchUserList: Function;
-  user: IUser;
+  fetchPostList: Function;
+  post: IPost;
 }
 
-const DeleteModal: React.FC<Readonly<DeleteModalProps>> = ({ open = false, onClose, fetchUserList, user }) => {
-  const [confirmAlert, setConfirmAlert] = React.useState(false);
-
-  React.useEffect(() => {
-    if (confirmAlert) {
-      Swal.fire({
-        title: "Are you sure you want to delete this user?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Delete(user._id)
-            .then(() => {
-              Swal.fire({
-                title: "Deleted!",
-                text: "This user has been deleted.",
-                icon: "success",
-              });
-              fetchUserList();
-              onClose(false);
-            })
-            .catch((error) => {
-              Swal.fire({
-                title: "Error!",
-                text: "There was an error deleting the user.",
-                icon: "error",
-              });
-              console.log(error)
-            });
-          setConfirmAlert(false);
-        } else {
-          setConfirmAlert(false);
-        }
+const DeleteModal: React.FC<Readonly<DeleteModalProps>> = ({ open = false, onClose, fetchPostList, post }) => {
+  const handleDeletePost = (postID: string) => {
+    Delete(postID)
+      .then(() => {
+        fetchPostList();
+        onClose(false);
+      })
+      .catch(() => {
+        Swal.fire({
+          title: `[${ErrorType.DELETE_POST}] Failed to delete this post`,
+          text: "There was an error deleting the post.",
+          icon: "error",
+        });
       });
-    }
-  }, [confirmAlert, fetchUserList, user._id, onClose]);
+  };
 
-  const handleDelete = () => {
-    setConfirmAlert(true);
-    onClose(false)
+  const showConfirmationDialog = async (): Promise<boolean> => {
+    const result = await Swal.fire({
+      title: "Are you sure you want to delete this post?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    });
+    onClose(false);
+    return result.isConfirmed;
+  };
+
+  const handleDelete = async () => {
+    onClose(false);
+
+    const confirmed = await showConfirmationDialog();
+
+    if (confirmed) {
+      try {
+        handleDeletePost(post._id);
+        Swal.fire({
+          title: "Deleted!",
+          text: "This post has been deleted.",
+          icon: "success",
+        });
+      } catch (error) {
+        Swal.fire({
+          title: `[${ErrorType.DELETE_POST}] Failed to delete this post`,
+          text: "There was an error deleting the post.",
+          icon: "error",
+        });
+      }
+    }
   };
 
   return (
@@ -70,8 +78,7 @@ const DeleteModal: React.FC<Readonly<DeleteModalProps>> = ({ open = false, onClo
       fullWidth={true}
     >
       <DialogTitle>
-        Delete User
-        <b> {user.username} ?</b>
+        Delete This Post ?
       </DialogTitle>
 
       <DialogActions>

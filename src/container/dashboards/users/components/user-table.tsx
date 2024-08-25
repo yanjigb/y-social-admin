@@ -11,6 +11,9 @@ import UpsertModal from "./upsert-modal";
 import DeleteModal from "./delete-modal";
 import UserDetail from "./user-detail";
 import AppAvatar from "../../../../components/features/app-avatar";
+import usePersistState from "../../../../hooks/usePresistState";
+import LocalStorageKeys from "../../../../constants/local-storage-keys";
+import ResponseTime from "../../../../constants/resonse-time";
 
 const TableHeadList = [
   'ID',
@@ -29,19 +32,19 @@ const TableHeadList = [
 
 function UserTable() {
   const [userList, setUserList] = useState<IUser[]>([]);
-  const [totalUsers, setTotalUsers] = useState(0)
+  const [totalUsers, setTotalUsers] = usePersistState(0, LocalStorageKeys.TOTAL_USER);
   const [searching, setSearching] = useState('');
   const [isEmpty, setIsEmpty] = useState(false);
 
-  const [debouncedFilter] = useDebounce(searching, 1000);
+  const [debouncedFilter] = useDebounce(searching, ResponseTime.DEFAULT);
   const [searchParams] = useSearchParams();
   const pageNumber = parseInt(searchParams.get('page') || '1', 10);
   const ITEM_PER_PAGE = 14;
   const [userId, setUserId] = useState<string>("");
 
-  const [openUpsertModal, setOpenUpsertModal] = useState(false)
-  const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const [user, setUser] = useState<IUser | any>({})
+  const [openUpsertModal, setOpenUpsertModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [user, setUser] = useState<IUser | any>({});
 
   const fetchUsers = useCallback(async (filter: string) => {
     const query = filter
@@ -49,51 +52,49 @@ function UserTable() {
       : `?limit=${ITEM_PER_PAGE}&skip=${pageNumber * 14}`;
 
     AllUsers(query).then((response: any) => {
-      const { users, totalUsers } = response
+      const { users, totalUsers } = response;
       const userList = users;
-      setTotalUsers(totalUsers)
+      setTotalUsers(totalUsers);
 
       if (userList.length > 0) {
         setUserList(userList);
-        setIsEmpty(false)
+        setIsEmpty(false);
       } else {
         setUserList([]);
-        setIsEmpty(true)
+        setIsEmpty(true);
       }
-    })
+    });
   }, [pageNumber]);
-
 
   useEffect(() => {
     fetchUsers(debouncedFilter);
   }, [pageNumber, debouncedFilter]);
 
-
   const handleOpenUpsertModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     const userId = e.currentTarget.getAttribute('data-id');
-    setOpenUpsertModal(!openUpsertModal)
-    setUserId(userId!)
+    setOpenUpsertModal(!openUpsertModal);
+    setUserId(userId!);
 
     GetById(userId).then((response: any) => {
       setUser(response.user);
-    })
-  }
+    });
+  };
 
   const handleOpenDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     const userId = e.currentTarget.getAttribute('data-id');
     GetById(userId).then((response: any) => {
       setUser(response.user);
-    })
+    });
 
-    setOpenDeleteModal(true)
-  }
+    setOpenDeleteModal(true);
+  };
 
   const handleOpenDetailUser = (e: React.MouseEvent<HTMLButtonElement>) => {
     const userId = e.currentTarget.getAttribute('data-id');
     GetById(userId).then((response: any) => {
       setUser(response.user);
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -194,7 +195,7 @@ function UserTable() {
         />
       </div>
     </>
-  )
+  );
 }
 
-export default memo(UserTable, isEqual)
+export default memo(UserTable, isEqual);

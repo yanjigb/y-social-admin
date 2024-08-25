@@ -1,5 +1,7 @@
 const LocalStorageKeys = {
-  UserList: 'user-list'
-}
+  USER_LIST: 'user-list',
+  TOTAL_POST: 'total-post',
+  TOTAL_USER: 'total-user'
+};
 
-export default LocalStorageKeys
+export default LocalStorageKeys;

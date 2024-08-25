@@ -47,7 +47,7 @@ const DeleteModal: React.FC<Readonly<DeleteModalProps>> = ({ open = false, onClo
                 text: "There was an error deleting the user.",
                 icon: "error",
               });
-              console.log(error)
+              console.log(error);
             });
           setConfirmAlert(false);
         } else {
@@ -59,7 +59,7 @@ const DeleteModal: React.FC<Readonly<DeleteModalProps>> = ({ open = false, onClo
 
   const handleDelete = () => {
     setConfirmAlert(true);
-    onClose(false)
+    onClose(false);
   };
 
   return (

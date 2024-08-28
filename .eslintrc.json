@@ -52,6 +52,6 @@
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/no-unknown-property": "off",
-    "embeddedLanguageFormatting": "auto"
+    "embeddedLanguageFormatting": "off"
   }
 }

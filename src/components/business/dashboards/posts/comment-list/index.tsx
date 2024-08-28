@@ -10,7 +10,7 @@ interface CommentListProps {
   postID: string;
 }
 
-const CommentList: FC<CommentListProps> = ({ user, postID }) => {
+const CommentList: FC<CommentListProps> = ({ postID }) => {
   const [comments, setComments] = useState<IComment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

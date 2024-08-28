@@ -10,7 +10,7 @@ interface CommentProps {
   userID: string
 }
 
-const Comment: FC<CommentProps> = ({ userID, commentID }) => {
+const Comment: FC<CommentProps> = ({ commentID }) => {
   const [user, setUser] = useState<IUser | any>({})
   const [content, setContent] = useState("")
   const [isLoading, setIsLoading] = useState(false);

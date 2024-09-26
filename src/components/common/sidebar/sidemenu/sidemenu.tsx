@@ -1,5 +1,4 @@
 
-
 export const MENUITEMS = [
   {
     menutitle: 'MAIN',
@@ -15,6 +14,7 @@ export const MENUITEMS = [
     badgetxt: '12',
     class: 'badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2',
     children: [
+      { path: `${import.meta.env.BASE_URL}dashboards/advertises`, type: 'link', active: false, selected: false, title: 'Advertises' },
       { path: `${import.meta.env.BASE_URL}dashboards/crm`, type: 'link', active: false, selected: false, title: 'CRM' },
       { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, type: 'link', active: false, selected: false, title: 'Ecommerce' },
       { path: `${import.meta.env.BASE_URL}dashboards/crypto`, type: 'link', active: false, selected: false, title: 'Crypto' },
@@ -1238,7 +1238,6 @@ export const MENUITEMS = [
       },
     ],
   },
-
 
   {
     menutitle: "MAPS & ICONS",

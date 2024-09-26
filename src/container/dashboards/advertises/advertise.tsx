@@ -3,12 +3,12 @@ import isEqual from "react-fast-compare";
 
 import Pageheader from "../../../components/common/pageheader/pageheader";
 
-import UserTable from "./components/user-table";
+import AdvertiseTable from "./components/advertise-table";
 import { AllUsers } from "../../../services/user.service";
 
 interface UsersProps {}
 
-const Users: FC<UsersProps> = () => {
+const Advertises: FC<UsersProps> = () => {
   const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
@@ -21,9 +21,9 @@ const Users: FC<UsersProps> = () => {
   return (
     <>
       <Pageheader
-        currentpage="Users"
+        currentpage="Advertises"
         activepage="Dashboards"
-        mainpage="Users"
+        mainpage="Advertises"
       />
 
       <div className="grid grid-cols-12 gap-x-6">
@@ -32,11 +32,11 @@ const Users: FC<UsersProps> = () => {
             <div className="box">
               <div className="box-header justify-between flex-wrap">
                 <h2 className="box-title mb-2 sm:mb-0">
-                  Manage User: {totalUsers}
+                  Manage Ads: {totalUsers}
                 </h2>
               </div>
 
-              <UserTable />
+              <AdvertiseTable />
             </div>
           </div>
         </div>
@@ -45,4 +45,4 @@ const Users: FC<UsersProps> = () => {
   );
 };
 
-export default memo(Users, isEqual);
+export default memo(Advertises, isEqual);

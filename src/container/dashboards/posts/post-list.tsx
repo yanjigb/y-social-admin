@@ -1,26 +1,30 @@
 import { FC, memo, useEffect, useState } from "react";
-import isEqual from "react-fast-compare"
+import isEqual from "react-fast-compare";
 
 import Pageheader from "../../../components/common/pageheader/pageheader";
 
 import { AllPosts } from "../../../services/post.service";
 import PostTable from "./components/post-table";
 
-interface UsersProps { }
+interface UsersProps {}
 
 const PostList: FC<UsersProps> = () => {
-  const [totalPosts, setTotalPosts] = useState(0)
+  const [totalPosts, setTotalPosts] = useState(0);
 
   useEffect(() => {
-    AllPosts('/').then((response: any) => {
-      const { length } = response
-      setTotalPosts(length)
-    })
-  }, [])
+    AllPosts("/").then((response: any) => {
+      const { length } = response;
+      setTotalPosts(length);
+    });
+  }, []);
 
   return (
     <>
-      <Pageheader currentpage="Posts" activepage="Dashboards" mainpage="Posts" />
+      <Pageheader
+        currentpage="Posts"
+        activepage="Dashboards"
+        mainpage="Posts"
+      />
 
       <div className="grid grid-cols-12 gap-x-6">
         <div className="xl:col-col-12 col-span-12">
@@ -38,7 +42,7 @@ const PostList: FC<UsersProps> = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default memo(PostList, isEqual)
+export default memo(PostList, isEqual);

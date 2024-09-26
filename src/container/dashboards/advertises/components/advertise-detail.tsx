@@ -99,7 +99,7 @@ const UserSocialMediaButtons: FC<{ user: IUser }> = ({ user }) => {
   );
 };
 
-const UserDetail: FC<Readonly<UserDetailProps>> = ({ user }) => {
+const AdvertiseDetail: FC<Readonly<UserDetailProps>> = ({ user }) => {
   return (
     <div
       className="hs-overlay hidden ti-offcanvas ti-offcanvas-right !max-w-[25rem] !border-0"
@@ -212,4 +212,4 @@ const UserDetail: FC<Readonly<UserDetailProps>> = ({ user }) => {
   );
 };
 
-export default memo(UserDetail, isEqual);
+export default memo(AdvertiseDetail, isEqual);

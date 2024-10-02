@@ -349,7 +349,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
   }
   function getParentObject(obj: any, childObject: any) {
     for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
         if (
           typeof obj[key] === "object" &&
           JSON.stringify(obj[key]) === JSON.stringify(childObject)
@@ -642,15 +642,10 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       >
         <div className="main-sidebar-header">
           <a
-            href={`${import.meta.env.BASE_URL}dashboards/crm/`}
-            className="header-logo"
+            href={`${import.meta.env.BASE_URL}dashboards/advertises/`}
+            className="text-white font-bold fs-1"
           >
-            <img src={logo1} alt="logo" className="desktop-logo" />
-            <img src={logo2} alt="logo" className="toggle-logo" />
-            <img src={logo3} alt="logo" className="desktop-dark" />
-            <img src={logo4} alt="logo" className="toggle-dark" />
-            <img src={logo5} alt="logo" className="desktop-white" />
-            <img src={logo6} alt="logo" className="toggle-white" />
+            YANJI SOCIAL
           </a>
         </div>
         <SimpleBar className="main-sidebar" id="sidebar-scroll">
@@ -680,7 +675,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     className={`${
                       levelone.menutitle ? "slide__category" : ""
                     } ${levelone.type === "link" ? "slide" : ""}
-                       ${levelone.type === "sub" ? "slide has-sub" : ""} ${
+                      ${levelone.type === "sub" ? "slide has-sub" : ""} ${
                       levelone?.active ? "open" : ""
                     } ${levelone?.selected ? "active" : ""}`}
                   >

@@ -1,43 +1,48 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import isEqual from 'react-fast-compare';
-import Swal from 'sweetalert2';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import isEqual from "react-fast-compare";
+import Swal from "sweetalert2";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { IPost } from '../../../../types/post';
-import AppPreviewImage from '../../../../components/features/app-preview-image';
-import { Image, X } from 'lucide-react';
-import { Update } from '../../../../services/post.service';
-import BRAND_NAME from '../../../../constants/brand-name';
-import { uploadMedia } from '../../../../api/media/uploadMedia';
-import MEDIA from '../../../../constants/media';
+import { IPost } from "../../../../types/post";
+import AppPreviewImage from "../../../../components/features/app-preview-image";
+import { Image, X } from "lucide-react";
+import { Update } from "../../../../services/post.service";
+import BRAND_NAME from "../../../../constants/brand-name";
+import { uploadMedia } from "../../../../api/media/uploadMedia";
+import MEDIA from "../../../../constants/media";
 
 interface UpsertModalProps {
   open: boolean;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
-  fetchPostList: Function
-  post: IPost
+  fetchPostList: Function;
+  post: IPost;
 }
 
 interface IFormData {
-  desc?: string
-  img?: string,
-  video?: string
+  desc?: string;
+  img?: string;
+  video?: string;
 }
 
 const PostSchema = z.object({
   desc: z.string().optional(),
   img: z.string().optional(),
-  video: z.string().optional()
+  video: z.string().optional(),
 });
 
-const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClose, fetchPostList, post }) => {
+const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
+  open = false,
+  onClose,
+  fetchPostList,
+  post,
+}) => {
   const uploadImg = React.useRef<HTMLInputElement>(null);
   // For upload cloud
   const [videoCloudUrl, setVideoCloud] = React.useState<File | null>(null);
@@ -51,10 +56,14 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
 
   const cloudMediaUrl = {
     img: previewImage || "",
-    video: previewVideo || ""
+    video: previewVideo || "",
   };
 
-  const { register, handleSubmit, formState: { errors } } = useForm<IFormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormData>({
     resolver: zodResolver(PostSchema),
   });
 
@@ -96,7 +105,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
       Swal.fire({
         title: "Error",
         text: "Failed to update post. Please try again.",
-        icon: "error"
+        icon: "error",
       });
     }
   };
@@ -109,13 +118,16 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Update Now"
+      confirmButtonText: "Update Now",
     });
     onClose(false);
     return result.isConfirmed;
   };
 
-  const submitData: SubmitHandler<IFormData> = async (data: IFormData, event) => {
+  const submitData: SubmitHandler<IFormData> = async (
+    data: IFormData,
+    event
+  ) => {
     event?.preventDefault();
     onClose(false);
 
@@ -132,7 +144,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
         Swal.fire({
           title: "Error",
           text: "Failed to update post. Please try again.",
-          icon: "error"
+          icon: "error",
         });
       }
     }
@@ -169,18 +181,18 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
     if (file.type === "video/mp4") {
       // Handle video upload
       setVideoCloud(file);
-      setOldVideoSrc("");        // Clear existing video source
-      setPreviewVideo(fileUrl);  // Set new video preview
-      setImageCloud(null);       // Clear the image file
-      setPreviewImage("");       // Clear image preview
+      setOldVideoSrc(""); // Clear existing video source
+      setPreviewVideo(fileUrl); // Set new video preview
+      setImageCloud(null); // Clear the image file
+      setPreviewImage(""); // Clear image preview
       setOldImageSrc("");
     } else {
       // Handle image upload
       setImageCloud(file);
-      setOldImageSrc("");        // Clear existing image source
-      setPreviewImage(fileUrl);  // Set new image preview
-      setVideoCloud(null);       // Clear the video file
-      setPreviewVideo("");       // Clear video preview
+      setOldImageSrc(""); // Clear existing image source
+      setPreviewImage(fileUrl); // Set new image preview
+      setVideoCloud(null); // Clear the video file
+      setPreviewVideo(""); // Clear video preview
       setOldVideoSrc("");
     }
   };
@@ -198,40 +210,42 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
       open={open}
       onClose={() => onClose(false)}
       PaperProps={{
-        component: 'form',
-        onSubmit: handleSubmit(submitData)
+        component: "form",
+        onSubmit: handleSubmit(submitData),
       }}
       maxWidth="sm"
       fullWidth={true}
     >
-      <DialogTitle>
-        Update Post
-      </DialogTitle>
+      <DialogTitle>Update Post</DialogTitle>
 
-      <DialogContent className='grid grid-cols-1 gap-6'>
+      <DialogContent className="grid grid-cols-1 gap-6">
         <div>
-          <label htmlFor="desc" aria-labelledby='post content'>Content</label>
+          <label htmlFor="desc" aria-labelledby="post content">
+            Content
+          </label>
           <textarea
             {...register("desc")}
             id="username"
-            placeholder='your content'
+            placeholder="your content"
             className="block w-full rounded-md bg-gray-200 border-transparent focus:ring-0"
-            aria-labelledby='username'
+            aria-labelledby="username"
             aria-invalid={errors.desc ? "true" : "false"}
             defaultValue={post.desc}
           />
-          {errors.desc && <span className='text-red'>{errors.desc.message}</span>}
+          {errors.desc && (
+            <span className="text-red">{errors.desc.message}</span>
+          )}
         </div>
 
         <div>
-          <label htmlFor='media'>Media</label>
-          <div className='flex gap-2 items-center'>
+          <label htmlFor="media">Media</label>
+          <div className="flex gap-2 items-center">
             <input
               id="media"
               type="text"
-              placeholder='upload file from your device'
+              placeholder="upload file from your device"
               className="block w-full rounded-md bg-gray-200 border-transparent focus:ring-0 min-h-10 px-2"
-              value={oldImageSrc || oldVideoSrc || ''}
+              value={oldImageSrc || oldVideoSrc || ""}
               readOnly
             />
             <div
@@ -245,14 +259,21 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
                 onChange={handleMediaUpload}
                 accept=".jpg, .jpeg, .webp, .png, .mp4"
               />
-              <span><Image size={20} /></span>
+              <span>
+                <Image size={20} />
+              </span>
             </div>
           </div>
         </div>
 
         {(oldImageSrc || previewImage) && (
           <div className="w-100 relative">
-            <AppPreviewImage imgSrc={oldImageSrc || previewImage} width='200' height='200' alt={BRAND_NAME.YANJI_SOCIAL} />
+            <AppPreviewImage
+              imgSrc={oldImageSrc || previewImage}
+              width="200"
+              height="200"
+              alt={BRAND_NAME.YANJI_SOCIAL}
+            />
             <button
               className="absolute top-0 left-[12.5rem] text-white bg-danger"
               onClick={handleDeleteImage}
@@ -263,13 +284,22 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
         )}
 
         {(oldVideoSrc || previewVideo) && (
-          <video src={oldVideoSrc || previewVideo} width='200' height='200' controls></video>
+          <video
+            src={oldVideoSrc || previewVideo}
+            width="200"
+            height="200"
+            controls
+          ></video>
         )}
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={() => onClose(false)} color='error'>Cancel</Button>
-        <Button type="submit" variant='contained'>Update</Button>
+        <Button onClick={() => onClose(false)} color="error">
+          Cancel
+        </Button>
+        <Button type="submit" variant="contained">
+          Update
+        </Button>
       </DialogActions>
     </Dialog>
   );

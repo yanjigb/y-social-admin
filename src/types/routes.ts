@@ -14,4 +14,14 @@ export enum RouteNames {
   COOKIE_POLICY = "/cookie-policy",
   PRIVACY_POLICY = "/privacy-policy",
   EXPLORE = "/explore",
-};
+  ADVERTISES = "dashboards/advertises",
+  USERS = "dashboards/users",
+  POSTS = "dashboards/posts",
+  ANALYTICS = "dashboards/analytics",
+  ECOMMERCE = "dashboards/ecommerce",
+  SALES = "dashboards/sales",
+  PERSONAL = "dashboards/personal",
+  PAYMENTS = "dashboards/payments",
+  LIST_VIEW = "listview",
+  CRM = "dashboards/crm"
+}

@@ -11,7 +11,7 @@ import UpsertModal from "./upsert-modal";
 import DeleteModal from "./delete-modal";
 import UserDetail from "./user-detail";
 import AppAvatar from "../../../../components/features/app-avatar";
-import usePersistState from "../../../../hooks/usePresistState";
+import usePersistState from "../../../../hooks/use-presist-state";
 import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ResponseTime from "../../../../constants/resonse-time";
 

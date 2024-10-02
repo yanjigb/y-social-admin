@@ -1,7 +1,7 @@
 import { IBase } from "./base";
 import { CURRENCY } from "../constants/currency";
 
-type TCurrency = keyof typeof CURRENCY;
+export type TCurrency = keyof typeof CURRENCY;
 
 export interface IDailyAdAnalytics {
   date: Date;
@@ -12,7 +12,6 @@ export interface IDailyAdAnalytics {
 }
 
 export interface IGoal {
-  adID: string;
   goalID: string;
 }
 
@@ -24,11 +23,21 @@ export interface ITargetAudience {
   interest?: string;
 }
 
+export interface IAdsTarget {
+  key: string;
+  title: string;
+  description: string;
+  pros: {
+    title: string;
+    description: string;
+  }[];
+}
+
 export interface IAdvertise extends IBase {
   userID: string;
   title: string;
   description: string;
-  media_content?: string;
+  media_content: string;
   budget: number;
   currency: TCurrency;
   schedule_start: Date;

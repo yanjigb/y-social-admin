@@ -5,34 +5,41 @@ import { useDebounce } from "use-debounce";
 import formatDate from "../../../../utils/date";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AppPagination from "../../../../components/common/app-pagination";
-import { GetById, AllPosts, GetByContent } from "../../../../services/post.service";
+import {
+  GetById,
+  AllPosts,
+  GetByContent,
+} from "../../../../services/post.service";
 import { GetById as GetUserInfo } from "../../../../services/user.service";
 import UpsertModal from "./upsert-modal";
 import DeleteModal from "./delete-modal";
 import { IPost } from "../../../../types/post";
 import UserDetail from "../../users/components/user-detail";
 import { IUser } from "../../../../types/user";
-import usePersistState from "../../../../hooks/usePresistState";
+import usePersistState from "../../../../hooks/use-presist-state";
 import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ResponseTime from "../../../../constants/resonse-time";
 
 const TableHeadList = [
-  'ID',
-  'Author',
-  'Likes',
-  'Comments',
-  'Shares',
-  'Restrictive',
-  'Created At',
-  'Updated At',
-  'Action',
+  "ID",
+  "Author",
+  "Likes",
+  "Comments",
+  "Shares",
+  "Restrictive",
+  "Created At",
+  "Updated At",
+  "Action",
 ];
 const ITEM_PER_PAGE = 14;
 
 function PostTable() {
   const [postList, setPostList] = useState<IPost[]>([]);
-  const [totalPosts, setTotalPosts] = usePersistState(0, LocalStorageKeys.TOTAL_POST);
-  const [searching, setSearching] = useState('');
+  const [totalPosts, setTotalPosts] = usePersistState(
+    0,
+    LocalStorageKeys.TOTAL_POST
+  );
+  const [searching, setSearching] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
 
   const [searchParams] = useSearchParams();
@@ -44,25 +51,28 @@ function PostTable() {
   const [author, setAuthor] = useState<IUser | any>({});
 
   const navigate = useNavigate();
-  const pageNumber = parseInt(searchParams.get('page') ?? '1', 10);
+  const pageNumber = parseInt(searchParams.get("page") ?? "1", 10);
 
-  const fetchBySearch = useCallback(async (filter: string) => {
-    GetByContent(filter).then((response: any) => {
-      const { data } = response
+  const fetchBySearch = useCallback(
+    async (filter: string) => {
+      GetByContent(filter).then((response: any) => {
+        const { data } = response;
 
-      if (data.length > 0) {
-        setPostList(data);
-        setIsEmpty(false);
-      } else {
-        setPostList([]);
-        setIsEmpty(true);
-      }
-    })
-  }, [debouncedFilter])
+        if (data.length > 0) {
+          setPostList(data);
+          setIsEmpty(false);
+        } else {
+          setPostList([]);
+          setIsEmpty(true);
+        }
+      });
+    },
+    [debouncedFilter]
+  );
 
   useEffect(() => {
-    fetchBySearch(debouncedFilter)
-  }, [debouncedFilter])
+    fetchBySearch(debouncedFilter);
+  }, [debouncedFilter]);
 
   const fetchPostList = useCallback(async () => {
     const query = `?limit=${ITEM_PER_PAGE}&skip=${(pageNumber - 1) * 14}`;
@@ -86,7 +96,7 @@ function PostTable() {
   }, [pageNumber]);
 
   const handleOpenDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const postId = e.currentTarget.getAttribute('data-id');
+    const postId = e.currentTarget.getAttribute("data-id");
     GetById(postId).then((response: any) => {
       setPost(response.data);
     });
@@ -95,20 +105,20 @@ function PostTable() {
   };
 
   const handleOpenUpsertPost = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const postId = e.currentTarget.getAttribute('data-id');
-    GetById(postId).then(response => {
+    const postId = e.currentTarget.getAttribute("data-id");
+    GetById(postId).then((response) => {
       setPost(response.data);
     });
     setOpenUpsertModal(!openUpsertModal);
   };
 
   const handleOpenDetailPost = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const postId = e.currentTarget.getAttribute('data-id');
+    const postId = e.currentTarget.getAttribute("data-id");
     navigate(`/dashboards/post/${postId}`);
   };
 
   const handleOpenDetailUser = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const userId = e.currentTarget.getAttribute('data-id');
+    const userId = e.currentTarget.getAttribute("data-id");
     GetUserInfo(userId).then((response: any) => {
       setAuthor(response.user);
     });
@@ -118,11 +128,13 @@ function PostTable() {
     <>
       <div className="box-body">
         <div className="filter-container">
-          <label htmlFor="search" className="form-label">Search post</label>
+          <label htmlFor="search" className="form-label">
+            Search post
+          </label>
           <input
             id="search"
             type="text"
-            value={searching || ''}
+            value={searching || ""}
             onChange={(e) => setSearching(e.target.value)}
             className="form-control mb-4 border-2"
             placeholder="Search..."
@@ -134,25 +146,35 @@ function PostTable() {
           <table className="table table-hover whitespace-nowrap min-w-full table-bordered">
             <thead>
               <tr>
-                {
-                  TableHeadList.map(title => (
-                    <th key={title} scope="col" className="text-start">
-                      {title}
-                    </th>
-                  ))
-                }
+                {TableHeadList.map((title) => (
+                  <th key={title} scope="col" className="text-start">
+                    {title}
+                  </th>
+                ))}
               </tr>
             </thead>
 
-            {isEmpty ?
+            {isEmpty ? (
               <tr>
                 <td colSpan={TableHeadList.length}>post not found</td>
-              </tr> : <tbody>
+              </tr>
+            ) : (
+              <tbody>
                 {postList.map((post) => (
-                  <tr key={post._id} className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light">
+                  <tr
+                    key={post._id}
+                    className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light"
+                  >
                     <td>{post._id}</td>
                     <td>
-                      <button aria-label="button" type="button" data-hs-overlay="#hs-overlay-contacts" data-id={post.userID} onClick={handleOpenDetailUser} className="text-info">
+                      <button
+                        aria-label="button"
+                        type="button"
+                        data-hs-overlay="#hs-overlay-contacts"
+                        data-id={post.userID}
+                        onClick={handleOpenDetailUser}
+                        className="text-info"
+                      >
                         {post.userID}
                       </button>
                     </td>
@@ -160,40 +182,82 @@ function PostTable() {
                     <td>{post.comments.length}</td>
                     <td>{post.shares.length}</td>
                     <td>
-                      <div
-                        className='py-1 px-2 bg-success/10 text-success !rounded-full'
-                      >
+                      <div className="py-1 px-2 bg-success/10 text-success !rounded-full">
                         😄 Healthy
                       </div>
                     </td>
                     <td>
-                      {formatDate(post.createdAt, "DATE_WITH_MONTH_FIRST_WITH_TIME")}
+                      {formatDate(
+                        post.createdAt,
+                        "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                      )}
                     </td>
                     <td>
-                      {formatDate(post.updatedAt, "DATE_WITH_MONTH_FIRST_WITH_TIME")}
+                      {formatDate(
+                        post.updatedAt,
+                        "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                      )}
                     </td>
                     <td className="flex gap-2">
-                      <div className='space-x-2 rtl:space-x-reverse'>
-                        <button aria-label="button" type="button" className="ti-btn ti-btn-sm ti-btn-warning" data-hs-overlay="#hs-overlay-contacts" data-id={post._id} onClick={handleOpenDetailPost}><i className="ri-eye-line"></i></button>
-                        <button aria-label="button" type="button" className="ti-btn ti-btn-sm ti-btn-info" onClick={handleOpenUpsertPost} data-id={post._id}><i className="ri-pencil-line"></i></button>
-                        <button aria-label="button" type="button" className="ti-btn ti-btn-sm ti-btn-danger contact-delete" data-id={post._id} onClick={handleOpenDeleteModal}><i className="ri-delete-bin-line"></i></button>
+                      <div className="space-x-2 rtl:space-x-reverse">
+                        <button
+                          aria-label="button"
+                          type="button"
+                          className="ti-btn ti-btn-sm ti-btn-warning"
+                          data-hs-overlay="#hs-overlay-contacts"
+                          data-id={post._id}
+                          onClick={handleOpenDetailPost}
+                        >
+                          <i className="ri-eye-line"></i>
+                        </button>
+                        <button
+                          aria-label="button"
+                          type="button"
+                          className="ti-btn ti-btn-sm ti-btn-info"
+                          onClick={handleOpenUpsertPost}
+                          data-id={post._id}
+                        >
+                          <i className="ri-pencil-line"></i>
+                        </button>
+                        <button
+                          aria-label="button"
+                          type="button"
+                          className="ti-btn ti-btn-sm ti-btn-danger contact-delete"
+                          data-id={post._id}
+                          onClick={handleOpenDeleteModal}
+                        >
+                          <i className="ri-delete-bin-line"></i>
+                        </button>
                       </div>
                     </td>
                   </tr>
                 ))}
-              </tbody>}
+              </tbody>
+            )}
           </table>
         </div>
-      </div >
+      </div>
 
-      {openUpsertModal && <UpsertModal open={openUpsertModal} onClose={setOpenUpsertModal} fetchPostList={fetchPostList} post={post} />}
-      {openDeleteModal && <DeleteModal open={openDeleteModal} onClose={setOpenDeleteModal} fetchPostList={fetchPostList} post={post} />}
+      {openUpsertModal && (
+        <UpsertModal
+          open={openUpsertModal}
+          onClose={setOpenUpsertModal}
+          fetchPostList={fetchPostList}
+          post={post}
+        />
+      )}
+      {openDeleteModal && (
+        <DeleteModal
+          open={openDeleteModal}
+          onClose={setOpenDeleteModal}
+          fetchPostList={fetchPostList}
+          post={post}
+        />
+      )}
       <UserDetail user={author} />
 
       <div className="box-footer">
-        <AppPagination
-          pageCount={Math.ceil(totalPosts / ITEM_PER_PAGE)}
-        />
+        <AppPagination pageCount={Math.ceil(totalPosts / ITEM_PER_PAGE)} />
       </div>
     </>
   );

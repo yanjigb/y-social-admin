@@ -1,52 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./pages/App.tsx";
+import "react-quill/dist/quill.snow.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Crm from "./container/dashboards/crm/crm.tsx";
 import Ecommerce from "./container/dashboards/ecommerce/ecommerce.tsx";
-import Crypto from "./container/dashboards/crypto/crypto.tsx";
-import Jobs from "./container/dashboards/jobs/jobs.tsx";
-import Nft from "./container/dashboards/nft/nft.tsx";
 import Sales from "./container/dashboards/sales/sales.tsx";
 import Analytics from "./container/dashboards/analytics/analytics.tsx";
-import Projects from "./container/dashboards/projects/projects.tsx";
-import Hrm from "./container/dashboards/hrm/hrm.tsx";
-import Stocks from "./container/dashboards/stocks/stocks.tsx";
-import Courses from "./container/dashboards/courses/courses.tsx";
 import Personal from "./container/dashboards/personal/personal.tsx";
 import Users from "./container/dashboards/users/users.tsx";
-import Aboutus from "./container/pages/aboutus/aboutus.tsx";
-import Blog from "./container/pages/blogs/blog/blog.tsx";
-import Blogdetails from "./container/pages/blogs/blogdetails/blogdetails.tsx";
-import Createblog from "./container/pages/blogs/createblog/createblog.tsx";
-import Chat from "./container/pages/chat/chat.tsx";
-import Contactus from "./container/pages/contactus/contactus.tsx";
-import Addproducts from "./container/pages/ecommerce/addproducts/addproducts.tsx";
-import Cart from "./container/pages/ecommerce/cart/cart.tsx";
-import Checkout from "./container/pages/ecommerce/checkout/checkout.tsx";
-import Editproducts from "./container/pages/ecommerce/editproducts/editproducts.tsx";
-import Orderdetails from "./container/pages/ecommerce/orderdetails/orderdetails.tsx";
-import Orders from "./container/pages/ecommerce/orders/orders.tsx";
-import Products from "./container/pages/ecommerce/products/products.tsx";
-import Productdetails from "./container/pages/ecommerce/productdetails/productdetails.tsx";
-import Productlist from "./container/pages/ecommerce/productlist/productlist.tsx";
-import Wishlist from "./container/pages/ecommerce/wishlist/wishlist.tsx";
-import Mailapp from "./container/pages/email/mailapp/mailapp.tsx";
-import Mailsettings from "./container/pages/email/mailsettings/mailsettings.tsx";
-import Empty from "./container/pages/empty/empty.tsx";
-import Faqs from "./container/pages/faqs/faqs.tsx";
-import Filemanager from "./container/pages/filemanager/filemanager/filemanager.tsx";
-import Createinvoice from "./container/pages/invoice/createinvoice/createinvoice.tsx";
-import Invoicedetails from "./container/pages/invoice/invoicedetails/invoicedetails.tsx";
-import Invoicelist from "./container/pages/invoice/invoicelist/invoicelist.tsx";
-import Notifications from "./container/pages/notifications/notifications.tsx";
-import Pricing from "./container/pages/pricing/pricing.tsx";
-import Profile from "./container/pages/profile/profile.tsx";
-import Reviews from "./container/pages/reviews/reviews.tsx";
-import Team from "./container/pages/team/team.tsx";
-import Termsconditions from "./container/pages/termsconditions/termsconditions.tsx";
-import Timeline from "./container/pages/timeline/timeline.tsx";
-import Todolist from "./container/pages/todolist/todolist.tsx";
 import Kanbanboard from "./container/task/kanbanboard/kanbanboard.tsx";
 import Listview from "./container/task/listview/listview.tsx";
 import Taskdetails from "./container/task/taskdetails/taskdetails.tsx";
@@ -65,7 +27,6 @@ import Pagination from "./container/uielements/pagination/pagination.tsx";
 import Popovers from "./container/uielements/popovers/popovers.tsx";
 import Progress from "./container/uielements/progress/progress.tsx";
 import Spinners from "./container/uielements/spinners/spinners.tsx";
-import Toasts from "./container/uielements/toasts/toasts.tsx";
 import Tooltips from "./container/uielements/tooltips/tooltips.tsx";
 import Avatars from "./container/utilities/avatars/avatars.tsx";
 import Borders from "./container/utilities/borders/borders.tsx";
@@ -95,30 +56,9 @@ import Swiperjs from "./container/advancedui/swiperjs/swiperjs.tsx";
 import Widgets from "./container/widgets/widgets.tsx";
 import Fullacalendar from "./container/apps/fullacalendar/fullacalendar.tsx";
 import Gallery from "./container/apps/gallery/gallery.tsx";
-import Projectlist from "./container/apps/projects/projectlist/projectlist.tsx";
-import Projectoverview from "./container/apps/projects/projectoverview/projectoverview.tsx";
-import Createproject from "./container/apps/projects/createproject/createproject.tsx";
-import Jobdetails from "./container/apps/jobs/jobdetails/jobdetails.tsx";
-import Searchcompany from "./container/apps/jobs/searchcompany/searchcompany.tsx";
-import Searchjobs from "./container/apps/jobs/searchjobs/searchjobs.tsx";
-import Jobpost from "./container/apps/jobs/jobpost/jobpost.tsx";
-import Joblist from "./container/apps/jobs/joblist/joblist.tsx";
-import Searchcandidate from "./container/apps/jobs/searchcandidate/searchcandidate.tsx";
-import Candidatedetails from "./container/apps/jobs/candidatedetails/candidatedetails.tsx";
-import Marketplace from "./container/apps/nft/marketplace/marketplace.tsx";
-import Nftdetails from "./container/apps/nft/nftdetails/nftdetails.tsx";
-import Createnft from "./container/apps/nft/createnft/createnft.tsx";
-import Walletintegration from "./container/apps/nft/walletintegration/walletintegration.tsx";
-import Liveauction from "./container/apps/nft/liveauction/liveauction.tsx";
-import Contactscrm from "./container/apps/crm/contactscrm/contactscrm.tsx";
 import Companies from "./container/apps/crm/companies/companies.tsx";
 import Deals from "./container/apps/crm/deals/deals.tsx";
 import Leads from "./container/apps/crm/leads/leads.tsx";
-import Transactions from "./container/apps/crypto/transactions/transactions.tsx";
-import Currencyexchange from "./container/apps/crypto/currencyexchange/currencyexchange.tsx";
-import Buysell from "./container/apps/crypto/buysell/buysell.tsx";
-import Marketcap from "./container/apps/crypto/marketcap/marketcap.tsx";
-import Wallet from "./container/apps/crypto/wallet/wallet.tsx";
 import Tables from "./container/tables/tables/tables.tsx";
 import Gridjstables from "./container/tables/gridjstables/gridjstables.tsx";
 import Datatables from "./container/tables/datatables/datatables.tsx";
@@ -145,9 +85,8 @@ import Leafletmaps from "./container/maps/leafletmaps/leafletmaps.tsx";
 import Vectormaps from "./container/maps/vectormaps/vectormaps.tsx";
 import Icons from "./container/icons/icons.tsx";
 import "./index.scss";
+import "react-datepicker/dist/react-datepicker.css";
 import Comingsoon from "./container/authentication/comingsoon/comingsoon.tsx";
-import Landing from "./container/pages/landing/landing.tsx";
-import Jobslanding from "./container/pages/jobslanding/jobslanding.tsx";
 import Undermaintanace from "./container/authentication/undermaintanace/undermaintanace.tsx";
 import Lockbasic from "./container/authentication/lockscreen/lockbasic/lockbasic.tsx";
 import Lockcover from "./container/authentication/lockscreen/lockcover/lockcover.tsx";
@@ -165,8 +104,6 @@ import Authenticationlayout from "./pages/authenticationlayout.tsx";
 import Error401 from "./container/error/401error/401error.tsx";
 import Error404 from "./container/error/404error/404error.tsx";
 import Error500 from "./container/error/500error/500error.tsx";
-import Landinglayout from "./pages/landinglayout.tsx";
-import Contacts from "./container/pages/contacts/contacts.tsx";
 import Ratings from "./container/advancedui/rating/rating.tsx";
 import Auth from "./firebase/auth.tsx";
 import Login from "./firebase/login.tsx";
@@ -176,6 +113,8 @@ import Indicators from "./container/uielements/indicators/indicators.tsx";
 import PostDetail from "./container/dashboards/posts/components/post-detail.tsx";
 import PostList from "./container/dashboards/posts/post-list.tsx";
 import Advertises from "./container/dashboards/advertises/advertise.tsx";
+import Profile from "./container/pages/profile/profile.tsx";
+import Mailsettings from "./container/pages/email/mailsettings/mailsettings.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -199,20 +138,17 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               element={<Crm />}
             />
             <Route
+              path={`${import.meta.env.BASE_URL}pages/profile`}
+              element={<Profile />}
+            />
+            <Route
+              path={`${import.meta.env.BASE_URL
+                }pages/email/mailsettings/`}
+              element={<Mailsettings />}
+            />
+            <Route
               path={`${import.meta.env.BASE_URL}dashboards/ecommerce`}
               element={<Ecommerce />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}dashboards/crypto`}
-              element={<Crypto />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}dashboards/jobs`}
-              element={<Jobs />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}dashboards/nft`}
-              element={<Nft />}
             />
             <Route
               path={`${import.meta.env.BASE_URL}dashboards/sales`}
@@ -221,22 +157,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}dashboards/analytics`}
               element={<Analytics />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}dashboards/projects`}
-              element={<Projects />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}dashboards/hrm`}
-              element={<Hrm />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}dashboards/stocks`}
-              element={<Stocks />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}dashboards/courses`}
-              element={<Courses />}
             />
             <Route
               path={`${import.meta.env.BASE_URL}dashboards/personal`}
@@ -258,148 +178,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               path={`${import.meta.env.BASE_URL}dashboards/post/:id`}
               element={<PostDetail />}
             />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/aboutus`}
-              element={<Aboutus />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/blog/blog`}
-              element={<Blog />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/blog/blogdetails`}
-              element={<Blogdetails />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/blog/createblog`}
-              element={<Createblog />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/chat`}
-              element={<Chat />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/contacts`}
-              element={<Contacts />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/contactus`}
-              element={<Contactus />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/addproducts`}
-              element={<Addproducts />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/cart`}
-              element={<Cart />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/checkout`}
-              element={<Checkout />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/editproducts`}
-              element={<Editproducts />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/orderdetails`}
-              element={<Orderdetails />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/orders`}
-              element={<Orders />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/products`}
-              element={<Products />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/productdetails`}
-              element={<Productdetails />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/productlist`}
-              element={<Productlist />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/ecommerce/wishlist`}
-              element={<Wishlist />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/email/mailapp`}
-              element={<Mailapp />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/email/mailsettings`}
-              element={<Mailsettings />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/empty`}
-              element={<Empty />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/faqs`}
-              element={<Faqs />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/filemanager/filemanager`}
-              element={<Filemanager />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/invoice/createinvoice`}
-              element={<Createinvoice />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/invoice/invoicedetails`}
-              element={<Invoicedetails />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/invoice/invoicelist`}
-              element={<Invoicelist />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/notifications`}
-              element={<Notifications />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/pricing`}
-              element={<Pricing />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/profile`}
-              element={<Profile />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/reviews`}
-              element={<Reviews />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/team`}
-              element={<Team />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/termsconditions`}
-              element={<Termsconditions />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/timeline`}
-              element={<Timeline />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/todolist`}
-              element={<Todolist />}
-            />
-
             <Route
               path={`${import.meta.env.BASE_URL}task/kanbanboard`}
               element={<Kanbanboard />}
@@ -478,10 +256,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               element={<Indicators />}
             />
             <Route
-              path={`${import.meta.env.BASE_URL}uielements/toasts`}
-              element={<Toasts />}
-            />
-            <Route
               path={`${import.meta.env.BASE_URL}uielements/tooltips`}
               element={<Tooltips />}
             />
@@ -516,9 +290,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               element={<Inputs />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }forms/formelements/checksradios`}
+              path={`${import.meta.env.BASE_URL
+                }forms/formelements/checksradios`}
               element={<Checkradios />}
             />
             <Route
@@ -538,15 +311,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               element={<Fileuploads />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }forms/formelements/datetimepicker`}
+              path={`${import.meta.env.BASE_URL
+                }forms/formelements/datetimepicker`}
               element={<Datetimepicker />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }forms/formelements/colorpickers`}
+              path={`${import.meta.env.BASE_URL
+                }forms/formelements/colorpickers`}
               element={<Colorpicker />}
             />
 
@@ -616,73 +387,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             />
 
             <Route
-              path={`${import.meta.env.BASE_URL}apps/projects/projectslist`}
-              element={<Projectlist />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/projects/projectoverview`}
-              element={<Projectoverview />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/projects/createproject`}
-              element={<Createproject />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/jobs/jobdetails`}
-              element={<Jobdetails />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/jobs/searchcompany`}
-              element={<Searchcompany />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/jobs/searchjobs`}
-              element={<Searchjobs />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/jobs/jobpost`}
-              element={<Jobpost />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/jobs/jobslist`}
-              element={<Joblist />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/jobs/searchcandidate`}
-              element={<Searchcandidate />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/jobs/candidatedetails`}
-              element={<Candidatedetails />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/nft/marketplace`}
-              element={<Marketplace />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/nft/nftdetails`}
-              element={<Nftdetails />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/nft/createnft`}
-              element={<Createnft />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/nft/walletintegration`}
-              element={<Walletintegration />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/nft/liveauction`}
-              element={<Liveauction />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/crm/crmcontacts`}
-              element={<Contactscrm />}
-            />
-            <Route
               path={`${import.meta.env.BASE_URL}apps/crm/companies`}
               element={<Companies />}
             />
@@ -693,27 +397,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}apps/crm/leads`}
               element={<Leads />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/crypto/transactions`}
-              element={<Transactions />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/crypto/currencyexchange`}
-              element={<Currencyexchange />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/crypto/buysell`}
-              element={<Buysell />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/crypto/marketcap`}
-              element={<Marketcap />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}apps/crypto/wallet`}
-              element={<Wallet />}
             />
 
             <Route
@@ -830,87 +513,74 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               element={<Comingsoon />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/createpassword/basic`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/createpassword/basic`}
               element={<Createbasic />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/createpassword/cover`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/createpassword/cover`}
               element={<Createcover />}
             />
 
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/lockbasic/lockbasic`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/lockbasic/lockbasic`}
               element={<Lockbasic />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/lockcover/lockcover`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/lockcover/lockcover`}
               element={<Lockcover />}
             />
 
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/resetpassword/resetbasic`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/resetpassword/resetbasic`}
               element={<Resetbasic />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/resetpassword/resetcover`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/resetpassword/resetcover`}
               element={<Resetcover />}
             />
 
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/signup/signupbasic`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/signup/signupbasic`}
               element={<Signupbasic />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/signup/signupcover`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/signup/signupcover`}
               element={<Signupcover />}
             />
 
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/signin/signinbasic`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/signin/signinbasic`}
               element={<Signinbasic />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/signin/signincover`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/signin/signincover`}
               element={<Signincover />}
             />
 
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/twostepverification/twostepbasic`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/twostepverification/twostepbasic`}
               element={<Twostepbasic />}
             />
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/twostepverification/twostepcover`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/twostepverification/twostepcover`}
               element={<Twostepcover />}
             />
 
             <Route
-              path={`${
-                import.meta.env.BASE_URL
-              }authentication/undermaintenance`}
+              path={`${import.meta.env.BASE_URL
+                }authentication/undermaintenance`}
               element={<Undermaintanace />}
             />
 
@@ -925,19 +595,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}error/500error`}
               element={<Error500 />}
-            />
-          </Route>
-          <Route
-            path={`${import.meta.env.BASE_URL}`}
-            element={<Landinglayout />}
-          >
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/landing`}
-              element={<Landing />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}pages/jobslanding`}
-              element={<Jobslanding />}
             />
           </Route>
         </Routes>

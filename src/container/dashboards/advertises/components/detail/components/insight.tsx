@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 import { currencytFormat } from "../../../../../../lib/currency-format";
 
-interface Props {
-}
+// interface Props {
+// }
 
 export default function Insight() {
   return (

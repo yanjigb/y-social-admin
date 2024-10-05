@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';
 import useAdEstimator from '../../../../../hooks/use-adestimate';
 import { HtmlTooltip } from '../../../../../components/ui/html-tooltip';
-import { Fade, Typography } from '@mui/material';
+import { Fade } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { currencytFormat } from '../../../../../lib/currency-format';
 
@@ -15,7 +15,7 @@ interface Props {
 const EngageEstimate = (props: Props) => {
   const { budget, audienceSize, engagementRate } = props;
   const { followEfficiency, estimates } = useAdEstimator(budget, audienceSize, engagementRate);
-
+  console.log(followEfficiency)
   return (
     <div className="bg-gray-200 p-4 rounded-lg flex flex-col gap-4">
       <h5 className="font-bold">Estimated daily results</h5>

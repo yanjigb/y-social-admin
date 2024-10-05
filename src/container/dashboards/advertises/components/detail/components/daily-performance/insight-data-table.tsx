@@ -29,6 +29,7 @@ const InsightDataTable = (props: Props) => {
   }, [result]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
+    console.log(event)
     setPage(newPage);
   };
 

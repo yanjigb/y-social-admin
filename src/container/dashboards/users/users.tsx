@@ -1,26 +1,30 @@
 import { FC, memo, useEffect, useState } from "react";
-import isEqual from "react-fast-compare"
+import isEqual from "react-fast-compare";
 
 import Pageheader from "../../../components/common/pageheader/pageheader";
 
 import UserTable from "./components/user-table";
 import { AllUsers } from "../../../services/user.service";
 
-interface UsersProps { }
+interface UsersProps {}
 
 const Users: FC<UsersProps> = () => {
-  const [totalUsers, setTotalUsers] = useState(0)
+  const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
-    AllUsers('/').then((response: any) => {
-      const { totalUsers } = response
-      setTotalUsers(totalUsers)
-    })
-  }, [])
+    AllUsers("/").then((response: any) => {
+      const { totalUsers } = response;
+      setTotalUsers(totalUsers);
+    });
+  }, []);
 
   return (
     <>
-      <Pageheader currentpage="Users" activepage="Dashboards" mainpage="Users" />
+      <Pageheader
+        currentpage="Users"
+        activepage="Dashboards"
+        mainpage="Users"
+      />
 
       <div className="grid grid-cols-12 gap-x-6">
         <div className="xl:col-col-12 col-span-12">
@@ -38,7 +42,7 @@ const Users: FC<UsersProps> = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default memo(Users, isEqual)
+export default memo(Users, isEqual);

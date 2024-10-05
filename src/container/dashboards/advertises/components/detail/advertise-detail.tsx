@@ -1,215 +1,203 @@
-import { FC, memo } from "react";
-import isEqual from "react-fast-compare";
-import { IUser } from "../../../../types/user";
-import SocialMedia from "../../../../constants/social-media";
+import { useEffect, useState } from "react";
+import { IAdvertise } from "../../../../../types/advertise";
+import { useParams } from "react-router-dom";
+import { GetById } from "../../../../../services/ads.service";
+import { GetById as GetDetailUser } from "../../../../../services/user.service";
+import { Lightbox } from "yet-another-react-lightbox";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Accordion, AccordionDetails, AccordionSummary, Box, CircularProgress, Typography } from "@mui/material";
+import formatDate from "../../../../../utils/date";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { currencytFormat } from "../../../../../lib/currency-format";
+import { CheckAdsTrending } from "../../../../../lib/check-ads-trending";
+import clsx from "clsx";
+import { ArrowDropDownIcon } from "@mui/x-date-pickers/icons";
+import { IUser } from "../../../../../types/user";
+import UserDetail from "../../../../../container/dashboards/users/components/user-detail";
+import Insight from "./components/insight";
+import DailyPerformance from "./components/daily-performance";
 
-interface UserDetailProps {
-  user: IUser;
-}
+export default function AdvertiseDetail() {
+  const { id } = useParams();
+  const [advertise, setAdvertise] = useState<IAdvertise>({} as IAdvertise);
+  const [open, setOpen] = useState<boolean>(false);
+  const { label, className: advertiseScoreClassname } = CheckAdsTrending(advertise?.score);
+  const [user, setUser] = useState<IUser>({} as IUser);
+  const [isOpenUserDetail, setIsOpenUserDetail] = useState<boolean>(false);
 
-const socialMediaMap = [
-  {
-    key: SocialMedia.FACEBOOK.title,
-    iconClass: "ri-facebook-line",
-    buttonClass: "ti-btn-primary",
-    socialBaseLink: SocialMedia.FACEBOOK.link,
-  },
-  {
-    key: SocialMedia.TWITTER.title,
-    iconClass: "ri-twitter-line",
-    buttonClass: "ti-btn-secondary",
-    socialBaseLink: SocialMedia.TWITTER.link,
-  },
-  {
-    key: SocialMedia.INSTAGRAM.title,
-    iconClass: "ri-instagram-line",
-    buttonClass: "ti-btn-warning",
-    socialBaseLink: SocialMedia.INSTAGRAM.link,
-  },
-  {
-    key: SocialMedia.GITHUB.title,
-    iconClass: "ri-github-line",
-    buttonClass: "ti-btn-success",
-    socialBaseLink: SocialMedia.GITHUB.link,
-  },
-  {
-    key: SocialMedia.YOUTUBE.title,
-    iconClass: "ri-youtube-line",
-    buttonClass: "ti-btn-danger",
-    socialBaseLink: SocialMedia.YOUTUBE.link,
-  },
-  {
-    key: SocialMedia.TWITCH.title,
-    iconClass: "ri-twitch-line",
-    buttonClass: "ti-btn-primary",
-    socialBaseLink: SocialMedia.TWITCH.link,
-  },
-  {
-    key: SocialMedia.PINTEREST.title,
-    iconClass: "ri-pinterest-line",
-    buttonClass: "ti-btn-danger",
-    socialBaseLink: SocialMedia.PINTEREST.link,
-  },
-  {
-    key: SocialMedia.LINKEDIN.title,
-    iconClass: "ri-linkedin-line",
-    buttonClass: "ti-btn-secondary",
-    socialBaseLink: SocialMedia.LINKEDIN.link,
-  },
-];
+  const fetchDetailUser = () => {
+    advertise.userID && GetDetailUser(advertise.userID).then((res: any) => {
+      console.log(res);
+      setUser(res.user);
+    });
+  };
 
-const UserSocialMediaButtons: FC<{ user: IUser }> = ({ user }) => {
-  const hasSocialMediaLinks = socialMediaMap.some(
-    ({ key }) => user[key as keyof IUser]
-  );
+  useEffect(() => {
+    GetById(id).then((res: any) => {
+      setAdvertise(res);
+    });
+  }, [id]);
+
+  useEffect(() => {
+    fetchDetailUser();
+  }, [advertise]);
+
+  if (!advertise) {
+    return <Box sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>;
+  }
+
+  const onOpenDetailUser = () => {
+    console.log(123);
+    setIsOpenUserDetail(!isOpenUserDetail);
+  };
 
   return (
     <>
-      {hasSocialMediaLinks ? (
-        <div className="btn-list mb-0 gap-2 flex">
-          {socialMediaMap.map(
-            ({ key, iconClass, buttonClass, socialBaseLink }) => {
-              const url = user[key as keyof IUser];
-              if (!url) return null;
+      <div className="container my-[3rem]">
+        <div className="grid grid-cols-12 gap-x-6">
+          <div className="xl:col-span-7 col-span-12">
+            <div
+              className={clsx("py-2 mb-6 w-max px-4 text-white text-lg text-center rounded-md font-bold",
+                advertise.status ? "bg-success" : "bg-danger")}
+            >
+              {advertise.status ? "Active" : "Disabled"}
+            </div>
 
-              return (
-                <a
-                  key={key}
-                  href={`${socialBaseLink + url}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`${socialBaseLink + url}`}
-                >
-                  <button
-                    aria-label={key}
-                    type="button"
-                    className={`ti-btn w-[1.75rem] h-[1.75rem] text-[0.8rem] py-[0.26rem] px-2 rounded-sm ${buttonClass} mb-0`}
-                  >
-                    <i className={`${iconClass} font-semibold`}></i>
+            <div className="box">
+              <div className="box-body">
+                <div className="sm:flex items-center">
+                  <button type="button" onClick={() => setOpen(true)} className="flex-1">
+                    <LazyLoadImage src={advertise.media_content} title={advertise._id} className="object-cover aspect-video h-full w-full max-w-full max-h-[19.8125rem]" />
                   </button>
-                </a>
-              );
-            }
-          )}
+                </div>
+              </div>
+            </div>
+
+            <div className="box">
+              <div className="box-body">
+                <Typography
+                  variant="h5"
+                >
+                  {advertise.title}
+                </Typography>
+                <Typography
+                  variant="h6"
+                >
+                  {advertise.description}
+                </Typography>
+              </div>
+            </div>
+          </div>
+
+          <div className="xl:col-span-5 col-span-12">
+            <button data-hs-overlay="#hs-overlay-contacts" type="button" className="box w-full" onClick={onOpenDetailUser}>
+              <div className="box-body">
+                <Typography variant="h6">
+                  View Author
+                </Typography>
+              </div>
+            </button>
+
+            <div className="grid grid-cols-2 gap-6">
+              <div className="box">
+                <div className="box-body">
+                  <h6>Start date</h6>
+
+                  <div className="flex items-center gap-2">
+                    <CalendarMonthIcon />
+                    {
+                      advertise.schedule_start && formatDate(
+                        advertise.schedule_start,
+                        "DATE_WITH_TIME"
+                      )
+                    }
+                  </div>
+                </div>
+              </div>
+
+              <div className="box">
+                <div className="box-body">
+                  <h6>End date</h6>
+
+                  <div className="flex items-center gap-2">
+                    <CalendarMonthIcon />
+                    {
+                      advertise.schedule_end && formatDate(
+                        advertise.schedule_end,
+                        "DATE_WITH_TIME"
+                      )
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="box">
+              <div className="box-body flex items-center gap-4">
+                <Typography variant="h6">
+                  Budget per day:
+                </Typography>
+
+                <Typography variant="h4" fontWeight="bold" color="primary">
+                  {currencytFormat(advertise.budget)} {advertise.currency}
+                </Typography>
+              </div>
+            </div>
+
+            <div className="box">
+              <div className="box-body flex items-center gap-4">
+                <Typography variant="h6">
+                  Score:
+                </Typography>
+
+                <Typography variant="h4" fontWeight="bold" color="primary" className="flex items-center justify-between flex-1">
+                  {advertise.score}
+
+                  <div
+                    className={clsx(
+                      "py-1 px-2 text-white text-center rounded-md font-bold text-sm",
+                      advertiseScoreClassname
+                    )}
+                  >
+                    {label}
+                  </div>
+                </Typography>
+              </div>
+            </div>
+
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ArrowDropDownIcon />}
+                aria-controls="panel2-content"
+                id="panel2-header"
+              >
+                <Typography>Advertise Goal</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                  malesuada lacus ex, sit amet blandit leo lobortis eget.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </div>
         </div>
-      ) : (
-        <p className="text-gray-500">Don't have social network links</p>
-      )}
+
+        <Insight />
+        <DailyPerformance result={advertise.result} currency={advertise.currency} />
+      </div>
+
+      <UserDetail user={user} />
+
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={[
+          { src: advertise.media_content },
+        ]}
+      />
     </>
   );
-};
-
-const AdvertiseDetail: FC<Readonly<UserDetailProps>> = ({ user }) => {
-  return (
-    <div
-      className="hs-overlay hidden ti-offcanvas ti-offcanvas-right !max-w-[25rem] !border-0"
-      tabIndex={-1}
-      id="hs-overlay-contacts"
-      aria-labelledby="offcanvasExample"
-    >
-      <div className="ti-offcanvas-body !p-0">
-        <div className="sm:flex items-start p-6 border-b border-dashed border-defaultborder dark:border-defaultborder/10 main-profile-cover">
-          <div>
-            <span className="avatar avatar-xxl avatar-rounded me-3 bg-light/10 p-2">
-              <img
-                src={user.profilePicture || "/images/default-avatar.svg"}
-                alt={user.username}
-                className="object-cover aspect-square"
-              />
-            </span>
-          </div>
-          <div className="flex-fill main-profile-info w-full">
-            <div className="flex items-center justify-between">
-              <h6 className="font-semibold mb-1 text-white">
-                {user.firstName?.trim() || user.lastName?.trim()
-                  ? `${user.firstName?.trim()} ${user.lastName?.trim()}`.trim()
-                  : user.username}
-              </h6>
-              <button
-                type="button"
-                className="ti-btn flex-shrink-0 !p-0  transition-none text-white opacity-70 hover:opacity-100 hover:text-white focus:ring-0 focus:ring-offset-0 focus:ring-offset-transparent focus:outline-0 focus-visible:outline-0 !mb-0"
-                data-hs-overlay="#hs-overlay-contacts"
-              >
-                <span className="sr-only">Close modal</span>
-                <i className="ri-close-line leading-none text-lg"></i>
-              </button>
-            </div>
-            <p className="mb-1 text-white opacity-70">@{user.username}</p>
-            <p className="text-[0.75rem] text-white mb-4 opacity-50">
-              <span>
-                <i className="ri-map-pin-line me-1 align-middle"></i>VIETNAM
-              </span>
-            </p>
-            <div className="flex mb-0">
-              <div className="me-4">
-                <p className="font-bold text-xl text-white text-shadow mb-0">
-                  {user.followers?.length || 0}
-                </p>
-                <p className="mb-0 text-[0.6875rem] opacity-50 text-white">
-                  Followers
-                </p>
-              </div>
-              <div className="me-4">
-                <p className="font-bold text-xl text-white text-shadow mb-0">
-                  {user.followings?.length || 0}
-                </p>
-                <p className="mb-0 text-[0.6875rem] opacity-50 text-white">
-                  Followings
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="p-6 border-b border-dashed border-defaultborder dark:border-defaultborder/10">
-          <div className="mb-0">
-            <p className="text-[0.9375rem] mb-2 font-semibold">User Bio :</p>
-            <p className="text-[#8c9097] dark:text-white/50 op-8 mb-0">
-              {user.bio || "Empty"}
-            </p>
-          </div>
-        </div>
-        <div className="p-6 border-b border-dashed border-defaultborder dark:border-defaultborder/10">
-          <p className="text-[.875rem] mb-2 me-4 font-semibold">
-            Contact Information :
-          </p>
-          <div className="">
-            <div className="flex items-center mb-2">
-              <div className="me-2">
-                <span className="avatar avatar-sm avatar-rounded bg-light !text-[#8c9097] dark:text-white/50">
-                  <i className="ri-mail-line align-middle text-[.875rem]"></i>
-                </span>
-              </div>
-              <div>{user.email}</div>
-            </div>
-            <div className="flex items-center mb-2">
-              <div className="me-2">
-                <span className="avatar avatar-sm avatar-rounded bg-light !text-[#8c9097] dark:text-white/50">
-                  <i className="ri-phone-line align-middle text-[.875rem]"></i>
-                </span>
-              </div>
-              <div>{user.phoneNumber || "no info"}</div>
-            </div>
-            <div className="flex items-center mb-0">
-              <div className="me-2">
-                <span className="avatar avatar-sm avatar-rounded bg-light !text-[#8c9097] dark:text-white/50">
-                  <i className="ri-map-pin-line align-middle text-[.875rem]"></i>
-                </span>
-              </div>
-              <div>VIETNAM</div>
-            </div>
-          </div>
-        </div>
-        <div className="p-6 border-b border-dashed border-defaultborder dark:border-defaultborder/10 flex flex-col gap-2">
-          <p className="text-[.875rem] mb-0 me-4 font-semibold">
-            Social Networks :
-          </p>
-          <div className="btn-list mb-0 gap-1 flex">
-            <UserSocialMediaButtons user={user} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default memo(AdvertiseDetail, isEqual);
+}

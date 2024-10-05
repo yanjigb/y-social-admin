@@ -12,8 +12,6 @@ import CommentList from "../../../../components/business/dashboards/posts/commen
 import AppParagraphWithLink from "../../../../components/features/app-paragraph-with-link";
 import { URL_REGEX } from "../../../../constants/regex";
 
-interface BlogdetailsProps {}
-
 const socialMediaMap = [
   {
     key: SocialMedia.FACEBOOK.title,
@@ -104,7 +102,7 @@ const UserSocialMediaButtons: FC<{ user: IUser }> = ({ user }) => {
   );
 };
 
-const PostDetail: FC<BlogdetailsProps> = () => {
+const PostDetail = () => {
   const params = useParams();
   const POST_ID = params.id;
   const [isValid, setIsValid] = useState(false);

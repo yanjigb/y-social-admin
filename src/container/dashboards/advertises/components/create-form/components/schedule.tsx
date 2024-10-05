@@ -1,23 +1,33 @@
-import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Control, Controller, FieldErrors, UseFormGetValues, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { calculateDateDifferenceInDays } from "../../../../../../lib/calculate-date-differen-in-days";
 import { IAdvertiseForm } from '../schema';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
+import { toast } from 'sonner';
 
 interface Props {
-  schedule_start: Date;
-  schedule_end: Date;
-  control: Control<IAdvertiseForm, any>
-  errors: FieldErrors<IAdvertiseForm>
+  control: Control<IAdvertiseForm, any>;
+  errors: FieldErrors<IAdvertiseForm>;
+  watch: UseFormWatch<IAdvertiseForm>;
+  getValues: UseFormGetValues<IAdvertiseForm>;
 }
 
 function disableDateBeforeNow(date: any) {
   return date.isBefore(dayjs(), 'day');
 }
 
-export default function Schedule({ schedule_start, schedule_end, control }: Props) {
+const defaultDate = dayjs(new Date());
+
+export default function Schedule({ getValues, control, watch }: Props) {
+  const startDate1 = new Date(watch("schedule_start"));
+  const endDate = new Date(watch("schedule_end")!);
+
+  if (endDate < startDate1) {
+    toast.error("Invalid end date");
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-4 flex-col lg:flex-row">
@@ -30,9 +40,24 @@ export default function Schedule({ schedule_start, schedule_end, control }: Prop
             name="schedule_start"
             control={control}
             defaultValue={new Date()}
-            render={() => (
+            rules={{
+              required: {
+                value: true,
+                message: "Start date is required",
+              },
+            }}
+            render={({ field: { onChange } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label="Choose your start date" shouldDisableDate={disableDateBeforeNow} />
+                <DatePicker
+                format="DD-MM-YYYY"
+                views={['day', 'month', 'year']}
+                label="Choose your start date"
+                shouldDisableDate={disableDateBeforeNow}
+                defaultValue={defaultDate}
+                onChange={(date) => {
+                  const dayjsDate = dayjs(date);
+                  onChange(dayjsDate.toDate());
+                }} />
               </LocalizationProvider>
             )}
           />
@@ -47,9 +72,12 @@ export default function Schedule({ schedule_start, schedule_end, control }: Prop
             name="schedule_end"
             control={control}
             defaultValue={new Date()}
-            render={() => (
+            render={({ field: { onChange } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label="Choose your end date" shouldDisableDate={disableDateBeforeNow} />
+                <DatePicker format="DD-MM-YYYY" views={['day', 'month', 'year']} label="Choose your end date" shouldDisableDate={disableDateBeforeNow} defaultValue={defaultDate} onChange={(date) => {
+                  const dayjsDate = dayjs(date);
+                  onChange(dayjsDate.toDate());
+                }} />
               </LocalizationProvider>
             )}
           />
@@ -59,7 +87,7 @@ export default function Schedule({ schedule_start, schedule_end, control }: Prop
       <div className="text-lg flex gap-2">
         <span>Your ads will run in:</span>
         <div className="font-bold flex bg-red-500 gap-2">
-          <span>{calculateDateDifferenceInDays(schedule_start, schedule_end)}</span>
+          <span>{calculateDateDifferenceInDays(getValues("schedule_start"), getValues("schedule_end")!)}</span>
           <span>days</span>
         </div>
       </div>

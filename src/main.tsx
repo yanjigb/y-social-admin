@@ -115,6 +115,7 @@ import PostList from "./container/dashboards/posts/post-list.tsx";
 import Advertises from "./container/dashboards/advertises/advertise.tsx";
 import Profile from "./container/pages/profile/profile.tsx";
 import Mailsettings from "./container/pages/email/mailsettings/mailsettings.tsx";
+import AdvertiseDetail from "./container/dashboards/advertises/components/detail/advertise-detail.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -173,6 +174,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}dashboards/advertises`}
               element={<Advertises />}
+            />
+            <Route
+              path={`${import.meta.env.BASE_URL}dashboards/advertises/:id`}
+              element={<AdvertiseDetail />}
             />
             <Route
               path={`${import.meta.env.BASE_URL}dashboards/post/:id`}

@@ -21,7 +21,7 @@ export default function PreviewCard(props: Props) {
       background: '#e1f5fe'
     }}>
       {
-        media ? <CardMedia
+        media && media.trim() !== "" ? <CardMedia
           image={media}
           title={title}
           sx={{
@@ -29,7 +29,7 @@ export default function PreviewCard(props: Props) {
             maxHeight: 400,
             maxWidth: 716,
           }}
-          className="w-full h-full aspect-[716/400]"
+          className="w-full h-full aspect-[716/400] max-h-[25rem]"
         /> : <div className="w-full flex flex-col h-[25rem] bg-gray-200 items-center justify-center">
           <ImageIcon size={50} />
           <Typography variant="h6" className="text-gray-500">

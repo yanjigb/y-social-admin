@@ -5,18 +5,16 @@ import { Control, Controller } from "react-hook-form";
 import { IAdvertiseForm } from "../schema";
 
 interface Props {
-  onChange: (value: string) => void;
   defaultValue?: string;
   control: Control<IAdvertiseForm, any>
 }
 
-export default function SelectCTA({ onChange, control }: Props) {
+export default function SelectCTA({ control }: Props) {
   const [selectedValue, setSelectedValue] = useState(AdsCTAList[0]);
 
   const handleChangeCTA = (event: SelectChangeEvent<string>) => {
     const selectedKey = event.target.value;
     setSelectedValue(selectedKey);
-    onChange(selectedKey);
   };
 
   return (
@@ -30,7 +28,10 @@ export default function SelectCTA({ onChange, control }: Props) {
           <FormControl fullWidth>
             <Select
               value={selectedValue}
-              onChange={handleChangeCTA}
+              onChange={(e) => {
+                onChange(e.target.value);
+                handleChangeCTA(e);
+              }}
             >
               {AdsCTAList.map((cta) => (
                 <MenuItem key={cta} value={cta}>{cta}</MenuItem>

@@ -1,10 +1,9 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useState } from "react";
 import isEqual from "react-fast-compare";
 
 import Pageheader from "../../../components/common/pageheader/pageheader";
 
 import AdvertiseTable from "./components/advertise-table";
-import { AllUsers } from "../../../services/user.service";
 import { mockAds } from "../../../data/mock-data/mock-ads";
 import UpsertModal from "./components/create-form/upsert-modal";
 import { IAdvertise } from "../../../types/advertise";
@@ -12,9 +11,9 @@ import { IAdvertise } from "../../../types/advertise";
 interface UsersProps { }
 
 const Advertises: FC<UsersProps> = () => {
-  const [totalAds, setTotalAds] = useState(mockAds.length);
+  // const [totalAds, setTotalAds] = useState(mockAds.length);
   const [openUpsertModal, setOpenUpsertModal] = useState(false);
-  const [ads, setAds] = useState<IAdvertise | any>({});
+  // const [ads, setAds] = useState<IAdvertise | any>({});
   // useEffect(() => {
   //   AllUsers("/").then((response: any) => {
   //     const { totalUsers } = response;
@@ -40,7 +39,7 @@ const Advertises: FC<UsersProps> = () => {
             <div className="box">
               <div className="box-header justify-between flex-wrap">
                 <h2 className="box-title mb-2 sm:mb-0">
-                  Manage Ads: {totalAds}
+                  Manage Ads: {mockAds.length}
                 </h2>
 
                 <button
@@ -64,7 +63,7 @@ const Advertises: FC<UsersProps> = () => {
           onClose={handleOpenUpsertPost}
           userId="1234567890"
           fetchAdsList={() => { }}
-          dataEdit={ads}
+          dataEdit={{} as IAdvertise}
         // fetchPostList={fetchPostList}
         />
       )}

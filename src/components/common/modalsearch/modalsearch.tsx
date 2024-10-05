@@ -2,7 +2,7 @@ import { FC, Fragment, useEffect, useState } from "react";
 import { MENUITEMS } from "../sidebar/sidemenu/sidemenu";
 import { Link } from "react-router-dom";
 
-interface ModalsearchProps {}
+interface ModalsearchProps { }
 
 const Modalsearch: FC<ModalsearchProps> = () => {
   //Search functionality
@@ -41,25 +41,6 @@ const Modalsearch: FC<ModalsearchProps> = () => {
 
     const i: any = [];
     const allElement2: any = [];
-
-    MENUITEMS.forEach((mainLevel) => {
-      if (mainLevel.children) {
-        // setShow1(true);
-        // mainLevel.children.forEach((subLevel) => {
-        //   i.push(subLevel);
-        //   if (subLevel.children) {
-        //     subLevel.children.forEach((subLevel1: any) => {
-        //       i.push(subLevel1);
-        //       if (subLevel1.children) {
-        //         subLevel1.children.forEach((subLevel2: any) => {
-        //           i.push(subLevel2);
-        //         });
-        //       }
-        //     });
-        //   }
-        // });
-      }
-    });
 
     for (const allElement of i) {
       if (allElement.title.toLowerCase().includes(inputvalue.toLowerCase())) {

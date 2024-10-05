@@ -4,13 +4,8 @@ import { useDebounce } from "use-debounce";
 
 import { IUser } from "../../../../types/user";
 import formatDate from "../../../../utils/date";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import AppPagination from "../../../../components/common/app-pagination";
-import { AllUsers, GetById } from "../../../../services/user.service";
-import UpsertModal from "./create-form/upsert-modal";
-import DeleteModal from "./delete-modal";
-import AdvertiseDetail from "./advertise-detail";
-import AppAvatar from "../../../../components/features/app-avatar";
 import usePersistState from "../../../../hooks/use-presist-state";
 import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ResponseTime from "../../../../constants/resonse-time";
@@ -18,6 +13,8 @@ import { IAdvertise } from "src/types/advertise";
 import { mockAds } from "../../../../data/mock-data/mock-ads";
 import { CheckAdsTrending } from "../../../../lib/check-ads-trending";
 import clsx from "clsx";
+import { Get, GetById } from "../../../../services/ads.service";
+import { RouteNames } from "../../../../types/routes";
 
 const TableHeadList = [
   "ID",
@@ -44,6 +41,7 @@ function AdvertiseTable() {
   const [searching, setSearching] = useState("");
   // const [isEmpty, setIsEmpty] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const navigate = useNavigate();
 
   const [debouncedFilter] = useDebounce(searching, ResponseTime.DEFAULT);
   const [searchParams] = useSearchParams();
@@ -53,59 +51,52 @@ function AdvertiseTable() {
 
   const [openUpsertModal, setOpenUpsertModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [user, setUser] = useState<IUser | any>({});
+  const [user, setAdvertise] = useState<IUser | any>({});
+  const [advertiseList, setAdvertiseList] = useState<IAdvertise[]>([]);
 
-  // const fetchUsers = useCallback(
-  //   async (filter: string) => {
-  //     const query = filter
-  //       ? `?username=${filter.toLowerCase()}`
-  //       : `?limit=${ITEM_PER_PAGE}&skip=${pageNumber * 14}`;
+  const fetchAdvertiseList = useCallback(
+    async (filter: string) => {
+      const query = filter
+        ? `?username=${filter.toLowerCase()}`
+        : `?limit=${ITEM_PER_PAGE}&skip=${pageNumber * 14}`;
 
-  //     AllUsers(query).then((response: any) => {
-  //       const { users, totalUsers } = response;
-  //       const userList = users;
-  //       setTotalUsers(totalUsers);
-
-  //       if (userList.length > 0) {
-  //         setUserList(userList);
-  //         setIsEmpty(false);
-  //       } else {
-  //         setUserList([]);
-  //         setIsEmpty(true);
-  //       }
-  //     });
-  //   },
-  //   [pageNumber]
-  // );
+      Get().then((res: any) =>
+        setAdvertiseList(res)
+      ).catch(err => console.log(err));
+    },
+    [pageNumber]
+  );
 
   useEffect(() => {
-    // fetchUsers(debouncedFilter);
+    fetchAdvertiseList(debouncedFilter);
   }, [pageNumber, debouncedFilter]);
 
-  const handleOpenUpsertModal = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const userId = e.currentTarget.getAttribute("data-id");
-    setOpenUpsertModal(!openUpsertModal);
-    setUserId(userId!);
+  useEffect(() => {
+    console.log(advertiseList);
+  }, [advertiseList]);
 
-    GetById(userId).then((response: any) => {
-      setUser(response.user);
-    });
+  const handleOpenUpsertModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // const userId = e.currentTarget.getAttribute("data-id");
+    // setOpenUpsertModal(!openUpsertModal);
+    // setUserId(userId!);
+
+    // GetById(userId).then((response: any) => {
+    //   setUser(response.user);
+    // });
   };
 
   const handleOpenDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     const userId = e.currentTarget.getAttribute("data-id");
     GetById(userId).then((response: any) => {
-      setUser(response.user);
+      // setUser(response.user);
     });
 
     setOpenDeleteModal(true);
   };
 
-  const handleOpenDetailUser = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const userId = e.currentTarget.getAttribute("data-id");
-    GetById(userId).then((response: any) => {
-      setUser(response.user);
-    });
+  const handleOpenDetailAdvertise = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.getAttribute("data-id");
+    navigate(`${id}`);
   };
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,7 +137,7 @@ function AdvertiseTable() {
               <td colSpan={TableHeadList.length}>ads not found</td>
             ) : (
               <tbody>
-                {adsList.map((ads) => {
+                {advertiseList.map((ads) => {
                   const { label, className } = CheckAdsTrending(ads.score);
 
                   return (
@@ -163,13 +154,13 @@ function AdvertiseTable() {
                       <td>
                         {formatDate(
                           ads.schedule_start,
-                          "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                          "DATE_WITH_TIME"
                         )}
                       </td>
                       <td>
                         {formatDate(
                           ads.schedule_end!,
-                          "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                          "DATE_WITH_TIME"
                         )}
                       </td>
                       <td>
@@ -193,13 +184,13 @@ function AdvertiseTable() {
                       <td>
                         {formatDate(
                           ads.createdAt,
-                          "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                          "DATE_WITH_TIME"
                         )}
                       </td>
                       <td>
                         {formatDate(
                           ads.updatedAt,
-                          "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                          "DATE_WITH_TIME"
                         )}
                       </td>
                       <td className="flex gap-2">
@@ -208,9 +199,8 @@ function AdvertiseTable() {
                             aria-label="button"
                             type="button"
                             className="ti-btn ti-btn-sm ti-btn-warning"
-                            data-hs-overlay="#hs-overlay-contacts"
-                            data-id={user._id}
-                            onClick={handleOpenDetailUser}
+                            data-id={ads._id}
+                            onClick={handleOpenDetailAdvertise}
                           >
                             <i className="ri-eye-line"></i>
                           </button>

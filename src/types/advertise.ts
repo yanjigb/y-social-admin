@@ -3,12 +3,13 @@ import { CURRENCY } from "../constants/currency";
 
 export type TCurrency = keyof typeof CURRENCY;
 
-export interface IDailyAdAnalytics {
+export interface IResult {
   date: Date;
   impressions: number;
   clicks: number;
   conversions: number;
   cost: number;
+  ctr: number;
 }
 
 export interface IGoal {
@@ -46,6 +47,6 @@ export interface IAdvertise extends IBase {
   status: boolean;
   goal: IGoal;
   adTargetAudience?: ITargetAudience;
-  result: IDailyAdAnalytics[];
+  result: IResult[];
   score: number;
 }

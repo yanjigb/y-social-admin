@@ -1,5 +1,3 @@
-'use client'
-
 import { memo, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import ReactPaginate from 'react-paginate'
@@ -14,7 +12,7 @@ interface Props {
 function AppPagination({ pageCount }: Props) {
   const navigate = useNavigate()
   const location = useLocation()
-  const [searchParams] = useSearchParams() 
+  const [searchParams] = useSearchParams()
 
   const currentPage = useMemo(() => {
     const page = searchParams.get('page') || 1

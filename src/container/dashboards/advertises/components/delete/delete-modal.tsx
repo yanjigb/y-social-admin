@@ -6,14 +6,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import isEqual from 'react-fast-compare';
 import Swal from 'sweetalert2';
 
-import { Delete } from '../../../../services/user.service';
-import { IUser } from '../../../../types/user';
+// import { Delete } from '../../../../services/user.service';
+// import { IUser } from '../../../../types/user';
 
 interface DeleteModalProps {
   open: boolean;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   fetchUserList: Function;
-  user: IUser;
+  user: any;
 }
 
 const DeleteModal: React.FC<Readonly<DeleteModalProps>> = ({ open = false, onClose, fetchUserList, user }) => {
@@ -31,24 +31,24 @@ const DeleteModal: React.FC<Readonly<DeleteModalProps>> = ({ open = false, onClo
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-          Delete(user._id)
-            .then(() => {
-              Swal.fire({
-                title: "Deleted!",
-                text: "This user has been deleted.",
-                icon: "success",
-              });
-              fetchUserList();
-              onClose(false);
-            })
-            .catch((error) => {
-              Swal.fire({
-                title: "Error!",
-                text: "There was an error deleting the user.",
-                icon: "error",
-              });
-              console.log(error);
-            });
+          // Delete(user._id)
+          //   .then(() => {
+          //     Swal.fire({
+          //       title: "Deleted!",
+          //       text: "This user has been deleted.",
+          //       icon: "success",
+          //     });
+          //     fetchUserList();
+          //     onClose(false);
+          //   })
+          //   .catch((error: any) => {
+          //     Swal.fire({
+          //       title: "Error!",
+          //       text: "There was an error deleting the user.",
+          //       icon: "error",
+          //     });
+          //     console.log(error);
+          //   });
           setConfirmAlert(false);
         } else {
           setConfirmAlert(false);

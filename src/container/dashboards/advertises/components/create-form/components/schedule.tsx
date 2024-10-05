@@ -1,4 +1,4 @@
-import { Control, Controller, FieldErrors, UseFormGetValues, UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { Control, Controller, FieldErrors, UseFormGetValues, UseFormWatch } from 'react-hook-form';
 import { calculateDateDifferenceInDays } from "../../../../../../lib/calculate-date-differen-in-days";
 import { IAdvertiseForm } from '../schema';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';

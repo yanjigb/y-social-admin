@@ -2,19 +2,18 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import isEqual from "react-fast-compare";
 import { useDebounce } from "use-debounce";
 
-import { IUser } from "../../../../types/user";
 import formatDate from "../../../../utils/date";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AppPagination from "../../../../components/common/app-pagination";
-import usePersistState from "../../../../hooks/use-presist-state";
-import LocalStorageKeys from "../../../../constants/local-storage-keys";
+// import usePersistState from "../../../../hooks/use-presist-state";
+// import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ResponseTime from "../../../../constants/resonse-time";
 import { IAdvertise } from "src/types/advertise";
-import { mockAds } from "../../../../data/mock-data/mock-ads";
+// import { mockAds } from "../../../../data/mock-data/mock-ads";
 import { CheckAdsTrending } from "../../../../lib/check-ads-trending";
 import clsx from "clsx";
 import { Get, GetById } from "../../../../services/ads.service";
-import { RouteNames } from "../../../../types/routes";
+// import { RouteNames } from "../../../../types/routes";
 
 const TableHeadList = [
   "ID",
@@ -33,32 +32,35 @@ const TableHeadList = [
 
 function AdvertiseTable() {
   // const [userList, setUserList] = useState<IUser[]>([]);
-  const [adsList, setAdsList] = useState<IAdvertise[]>(mockAds);
-  const [totalUsers, setTotalUsers] = usePersistState(
-    0,
-    LocalStorageKeys.TOTAL_USER
-  );
+  // const [adsList, setAdsList] = useState<IAdvertise[]>(mockAds);
+  // const [totalUsers, setTotalUsers] = usePersistState(
+  //   0,
+  //   LocalStorageKeys.TOTAL_USER
+  // );
+  const totalUsers = 0
   const [searching, setSearching] = useState("");
   // const [isEmpty, setIsEmpty] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(false);
+  // const [isEmpty, setIsEmpty] = useState(false);
+  const isEmpty = false;
   const navigate = useNavigate();
 
   const [debouncedFilter] = useDebounce(searching, ResponseTime.DEFAULT);
   const [searchParams] = useSearchParams();
   const pageNumber = parseInt(searchParams.get("page") || "1", 10);
   const ITEM_PER_PAGE = 14;
-  const [userId, setUserId] = useState<string>("");
+  // const [userId, setUserId] = useState<string>("");
 
-  const [openUpsertModal, setOpenUpsertModal] = useState(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [user, setAdvertise] = useState<IUser | any>({});
+  // const [openUpsertModal, setOpenUpsertModal] = useState(false);
+  // const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  // const [user, setAdvertise] = useState<IUser | any>({});
   const [advertiseList, setAdvertiseList] = useState<IAdvertise[]>([]);
 
   const fetchAdvertiseList = useCallback(
     async (filter: string) => {
-      const query = filter
-        ? `?username=${filter.toLowerCase()}`
-        : `?limit=${ITEM_PER_PAGE}&skip=${pageNumber * 14}`;
+      console.log(filter)
+      // const query = filter
+      //   ? `?username=${filter.toLowerCase()}`
+      //   : `?limit=${ITEM_PER_PAGE}&skip=${pageNumber * 14}`;
 
       Get().then((res: any) =>
         setAdvertiseList(res)
@@ -79,6 +81,7 @@ function AdvertiseTable() {
     // const userId = e.currentTarget.getAttribute("data-id");
     // setOpenUpsertModal(!openUpsertModal);
     // setUserId(userId!);
+    console.log(e)
 
     // GetById(userId).then((response: any) => {
     //   setUser(response.user);
@@ -87,11 +90,11 @@ function AdvertiseTable() {
 
   const handleOpenDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     const userId = e.currentTarget.getAttribute("data-id");
-    GetById(userId).then((response: any) => {
+    GetById(userId).then(() => {
       // setUser(response.user);
     });
 
-    setOpenDeleteModal(true);
+    // setOpenDeleteModal(true);
   };
 
   const handleOpenDetailAdvertise = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -208,7 +211,7 @@ function AdvertiseTable() {
                             aria-label="button"
                             type="button"
                             className="ti-btn ti-btn-sm ti-btn-info"
-                            data-id={user._id}
+                            // data-id={user._id}
                             onClick={handleOpenUpsertModal}
                           >
                             <i className="ri-pencil-line"></i>
@@ -217,7 +220,7 @@ function AdvertiseTable() {
                             aria-label="button"
                             type="button"
                             className="ti-btn ti-btn-sm ti-btn-danger contact-delete"
-                            data-id={user._id}
+                            // data-id={user._id}
                             onClick={handleOpenDeleteModal}
                           >
                             <i className="ri-delete-bin-line"></i>

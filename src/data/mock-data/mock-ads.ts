@@ -16,7 +16,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Shop Now",
     status: true,
     goal: {
-      adID: "ad_001",
       goalID: "goal_001",
     },
     adTargetAudience: {
@@ -33,6 +32,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 150,
         conversions: 30,
         cost: 50000,
+        ctr: 10,
       },
     ],
     score: 85,
@@ -52,7 +52,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Subscribe Now",
     status: true,
     goal: {
-      adID: "ad_002",
       goalID: "goal_002",
     },
     adTargetAudience: {
@@ -69,6 +68,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 300,
         conversions: 50,
         cost: 80000,
+        ctr: 10,
       },
     ],
     score: 90,
@@ -88,7 +88,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Join Now",
     status: true,
     goal: {
-      adID: "ad_003",
       goalID: "goal_003",
     },
     adTargetAudience: {
@@ -105,6 +104,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 50,
         conversions: 10,
         cost: 20000,
+        ctr: 10,
       },
     ],
     score: 68,
@@ -124,7 +124,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Learn More",
     status: false,
     goal: {
-      adID: "ad_004",
       goalID: "goal_004",
     },
     adTargetAudience: {
@@ -141,6 +140,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 500,
         conversions: 100,
         cost: 120000,
+        ctr: 10,
       },
     ],
     score: 95,
@@ -160,7 +160,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Shop Luxury",
     status: true,
     goal: {
-      adID: "ad_005",
       goalID: "goal_005",
     },
     adTargetAudience: {
@@ -177,6 +176,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 200,
         conversions: 20,
         cost: 90000,
+        ctr: 10,
       },
     ],
     score: 88,
@@ -196,7 +196,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Shop Now",
     status: true,
     goal: {
-      adID: "ad_006",
       goalID: "goal_006",
     },
     adTargetAudience: {
@@ -213,6 +212,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 100,
         conversions: 15,
         cost: 40000,
+        ctr: 10,
       },
     ],
     score: 80,
@@ -232,7 +232,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Enroll Now",
     status: false,
     goal: {
-      adID: "ad_007",
       goalID: "goal_007",
     },
     adTargetAudience: {
@@ -249,6 +248,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 250,
         conversions: 30,
         cost: 60000,
+        ctr: 10,
       },
     ],
     score: 78,
@@ -268,7 +268,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Shop Now",
     status: true,
     goal: {
-      adID: "ad_008",
       goalID: "goal_008",
     },
     adTargetAudience: {
@@ -285,6 +284,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 200,
         conversions: 40,
         cost: 30000,
+        ctr: 10,
       },
     ],
     score: 82,
@@ -304,7 +304,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Discover More",
     status: true,
     goal: {
-      adID: "ad_009",
       goalID: "goal_009",
     },
     adTargetAudience: {
@@ -321,6 +320,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 150,
         conversions: 25,
         cost: 70000,
+        ctr: 10,
       },
     ],
     score: 87,
@@ -341,7 +341,6 @@ export const mockAds: IAdvertise[] = [
     cta: "Book Now",
     status: true,
     goal: {
-      adID: "ad_010",
       goalID: "goal_010",
     },
     adTargetAudience: {
@@ -358,6 +357,7 @@ export const mockAds: IAdvertise[] = [
         clicks: 300,
         conversions: 50,
         cost: 100000,
+        ctr: 10,
       },
     ],
     score: 92,

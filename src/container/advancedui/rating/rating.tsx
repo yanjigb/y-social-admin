@@ -7,7 +7,7 @@ import StarsIcon from '@mui/icons-material/Stars';
 
 interface RatingsProps {}
 
-const Ratings: FC<RatingsProps> = () =>{ 
+const Ratings: FC<RatingsProps> = () =>{
   const [ratingValue, setRatingValue] = useState<number | null>(null);
   const [ratingValue1, setRatingValue1] = useState<number | null>(null);
   const handleRatingChange1 = (_event: React.ChangeEvent<{}>, newValue: number | null) => {

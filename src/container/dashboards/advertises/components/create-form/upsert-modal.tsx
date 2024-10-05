@@ -46,7 +46,6 @@ const Transition = React.forwardRef(function Transition(
 const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
   open = false,
   onClose,
-  userId,
   fetchAdsList,
   dataEdit,
   isEdit,
@@ -119,6 +118,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
 
   const onSubmit: SubmitHandler<IAdvertiseForm> = async (data, event) => {
     // async request which may result error
+    console.log(event)
     try {
       // await fetch()
       console.log(getValues(), 233);

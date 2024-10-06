@@ -24,6 +24,9 @@ import Title from "./components/title";
 import Description from "./components/description";
 import UploadMedia from "./components/upload-media";
 import Goal from "./components/goal";
+import { Create } from "../../../../../services/ads.service";
+import { toast } from "sonner";
+import { uploadMedia } from "../../../../../api/media/uploadMedia";
 
 interface UpsertModalProps {
   open: boolean;
@@ -54,11 +57,10 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
   const [budget, setBudget] = React.useState<number>(450000);
   const [mediaUrl, setMediaUrl] = React.useState<string | null>(null);
   const [formData, setFormData] = React.useState({
-    // schedule_start: dataEdit.schedule_start ?? new Date(),
-    // schedule_end: dataEdit.schedule_end ?? new Date(),
     budget: dataEdit.budget ?? budget,
     media_content: dataEdit.media_content ?? mediaUrl,
   });
+  const [media, setMedia] = React.useState<File | Blob>();
 
   const {
     register,
@@ -116,17 +118,27 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
     }
   }, [confirmAlert]);
 
-  const onSubmit: SubmitHandler<IAdvertiseForm> = async (data, event) => {
-    // async request which may result error
-    console.log(event)
+  const handleChangeMedia = async (file: File | Blob) => {
     try {
-      // await fetch()
-      console.log(getValues(), 233);
-    } catch (e) {
-      // handle your error
-      console.log(typeof budget, typeof data.budget);
-      console.log(e);
+      const result = await uploadMedia(file, false);
+      return result?.secure_url;
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong")
     }
+  }
+
+  const onSubmit: SubmitHandler<IAdvertiseForm> = async () => {
+    const imageURL = await handleChangeMedia(media!);
+    const formAdvertiseData = {
+      ...getValues(),
+      userID: '66fb96dd41a077507af4be17',
+      media_content: imageURL,
+    }
+
+    Create(formAdvertiseData).then(() => {
+      toast.success("Create Ads Successfully")
+    }).catch(() => toast.error("Something went wrong"));
   };
 
   const handleUploadMedia = (file: File | null) => {
@@ -135,6 +147,8 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
         ...prev,
         media_content: file.name,
       }));
+
+      setMedia(file)
 
       const url = URL.createObjectURL(file);
       setMediaUrl(url);
@@ -168,7 +182,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
             <Goal control={control} />
             <Title errors={errors} control={control} />
             <Description errors={errors} control={control} />
-            <UploadMedia onChange={handleUploadMedia} control={control} register={register} />
+            <UploadMedia onChange={handleUploadMedia} control={control} register={register} errors={errors} />
             <SelectCTA control={control} />
             <Schedule getValues={getValues} control={control} errors={errors} watch={watch} />
             <Budget control={control} onChangeBudget={handleChangeBudget} budget={budget} />
@@ -187,7 +201,9 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
                     background: "blue",
                     padding: "0.8rem 0",
                   }}>
-                    <span className="text-base font-bold">Learn More</span>
+                    <span className="text-base font-bold">
+                      {watch("cta")}
+                    </span>
                   </Button>
                 </div>
               }

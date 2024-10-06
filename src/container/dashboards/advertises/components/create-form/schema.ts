@@ -1,6 +1,7 @@
 import { IAdvertise, IGoal } from "../../../../../types/advertise";
 import { REQUIRED_MSG } from "../../../../../lib/form-text-generator";
 import { z, ZodType } from "zod";
+import { AdsCTAList } from "../../../../../constants/ads-target";
 
 export type IAdvertiseForm = Omit<
   IAdvertise,
@@ -15,6 +16,7 @@ export type IAdvertiseForm = Omit<
   | "adTargetAudience"
   | "score"
   | "result"
+  | "status"
 > & {
   createdAt?: Date;
   updatedAt?: Date;
@@ -33,11 +35,10 @@ export const DEFAULT_ADVERTISE_FORM = (
   title: isEdit ? data.title : "",
   description: isEdit ? data.description : "",
   budget: isEdit ? data.budget : 50000,
-  status: isEdit ? data.status : false,
   schedule_start: isEdit ? data.schedule_start : new Date(),
   schedule_end: isEdit ? data.schedule_end : new Date(),
   media_content: isEdit ? data.media_content : "",
-  cta: isEdit ? data.cta : "",
+  cta: isEdit ? data.cta : AdsCTAList[0],
   goal: isEdit ? data.goal : {
     goalID: "",
   },
@@ -49,7 +50,6 @@ export const AdvertiseFormSchema: ZodType<IAdvertiseForm> = z.object({
     .string()
     .min(2, { message: "Must be at least 2 characters long" }),
   budget: z.coerce.number(),
-  status: z.coerce.boolean(),
   schedule_start: z.coerce.date(),
   schedule_end: z.coerce.date().optional(),
   media_content: z.string(),

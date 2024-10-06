@@ -3,6 +3,12 @@ import { CURRENCY } from "../constants/currency";
 
 export type TCurrency = keyof typeof CURRENCY;
 
+export enum EAdvertiseStatus {
+  SCHEDULE = "schedule",
+  ACTIVE = "active",
+  DISABLED = "disabled",
+}
+
 export interface IResult {
   date: Date;
   impressions: number;
@@ -44,7 +50,7 @@ export interface IAdvertise extends IBase {
   schedule_start: Date;
   schedule_end?: Date;
   cta: string;
-  status: boolean;
+  status: EAdvertiseStatus;
   goal: IGoal;
   adTargetAudience?: ITargetAudience;
   result: IResult[];

@@ -1,10 +1,20 @@
 import { Typography } from "@mui/material";
-import { currencytFormat } from "../../../../../../lib/currency-format";
+import { currencytFormat } from "../../../../../../../lib/currency-format";
+import { memo } from "react";
+import isEqual from "react-fast-compare";
+import { IResult } from "../../../../../../../types/advertise";
 
-// interface Props {
-// }
+interface Props {
+  result: IResult[];
+}
 
-export default function Insight() {
+const Insight = (props: Props) => {
+  const { result } = props;
+
+  const totalImpressions = result?.reduce((acc, curr) => acc + curr.impressions, 0);
+  const totalClicks = result?.reduce((acc, curr) => acc + curr.clicks, 0);
+  const totalCTR = result?.reduce((acc, curr) => acc + curr.ctr, 0);
+
   return (
     <div className="flex flex-col gap-6">
       <Typography variant="h5" fontWeight="bold">
@@ -19,7 +29,7 @@ export default function Insight() {
                 Total Impressions
               </h6>
 
-              <Typography variant="h3" fontWeight="bold">{currencytFormat(123)}</Typography>
+              <Typography variant="h3" fontWeight="bold">{currencytFormat(totalImpressions)}</Typography>
             </div>
           </div>
         </div>
@@ -31,7 +41,7 @@ export default function Insight() {
                 Total Clicks
               </h6>
 
-              <Typography variant="h3" fontWeight="bold">{currencytFormat(123)}</Typography>
+              <Typography variant="h3" fontWeight="bold">{currencytFormat(totalClicks)}</Typography>
             </div>
           </div>
         </div>
@@ -43,7 +53,7 @@ export default function Insight() {
                 Average CTR
               </h6>
 
-              <Typography variant="h3" fontWeight="bold">{currencytFormat(123)}%</Typography>
+              <Typography variant="h3" fontWeight="bold">{currencytFormat(totalCTR)}%</Typography>
             </div>
           </div>
         </div>
@@ -51,3 +61,5 @@ export default function Insight() {
     </div>
   );
 }
+
+export default memo(Insight, isEqual);

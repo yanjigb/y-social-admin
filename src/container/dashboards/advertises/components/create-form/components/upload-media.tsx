@@ -1,4 +1,4 @@
-import { Control, Controller, UseFormRegister } from "react-hook-form";
+import { Control, Controller, FieldErrors, UseFormRegister } from "react-hook-form";
 import AppUploadFile from "../../../../../../components/features/app-upload-file";
 import { IAdvertiseForm } from "../schema";
 
@@ -6,10 +6,11 @@ interface Props {
   control: Control<IAdvertiseForm, any>;
   register: UseFormRegister<IAdvertiseForm>;
   onChange: (file: File | null) => void;
+  errors: FieldErrors<IAdvertiseForm>;
 }
 
 export default function UploadMedia(props: Props) {
-  const { control, register, onChange } = props;
+  const { control, register, onChange, errors } = props;
 
   return (
     <div className="flex flex-col gap-2">
@@ -30,6 +31,10 @@ export default function UploadMedia(props: Props) {
             }} />
           )} />
       </div>
+
+      {errors.media_content && (
+        <span className="text-red">{errors.media_content.message}</span>
+      )}
     </div>
   );
 }

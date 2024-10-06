@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IAdvertise } from "../../../../../types/advertise";
+import { EAdvertiseStatus, IAdvertise } from "../../../../../types/advertise";
 import { useParams } from "react-router-dom";
 import { GetById } from "../../../../../services/ads.service";
 import { GetById as GetDetailUser } from "../../../../../services/user.service";
@@ -17,6 +17,14 @@ import UserDetail from "../../../../../container/dashboards/users/components/use
 import Insight from "./components/insight";
 import DailyPerformance from "./components/daily-performance";
 
+
+const badgeStyle = (status: EAdvertiseStatus) => {
+  return status === EAdvertiseStatus.ACTIVE ? "bg-success" :
+    status === EAdvertiseStatus.SCHEDULE ? "bg-warning" :
+      "bg-error";
+};
+
+
 export default function AdvertiseDetail() {
   const { id } = useParams();
   const [advertise, setAdvertise] = useState<IAdvertise>({} as IAdvertise);
@@ -27,7 +35,6 @@ export default function AdvertiseDetail() {
 
   const fetchDetailUser = () => {
     advertise.userID && GetDetailUser(advertise.userID).then((res: any) => {
-      console.log(res);
       setUser(res.user);
     });
   };
@@ -49,7 +56,6 @@ export default function AdvertiseDetail() {
   }
 
   const onOpenDetailUser = () => {
-    console.log(123);
     setIsOpenUserDetail(!isOpenUserDetail);
   };
 
@@ -59,10 +65,10 @@ export default function AdvertiseDetail() {
         <div className="grid grid-cols-12 gap-x-6">
           <div className="xl:col-span-7 col-span-12">
             <div
-              className={clsx("py-2 mb-6 w-max px-4 text-white text-lg text-center rounded-md font-bold",
-                advertise.status ? "bg-success" : "bg-danger")}
+              className={clsx("capitalize py-2 mb-6 w-max px-4 text-white text-lg text-center rounded-md font-bold",
+                badgeStyle(advertise.status))}
             >
-              {advertise.status ? "Active" : "Disabled"}
+              {advertise.status}
             </div>
 
             <div className="box">
@@ -185,7 +191,7 @@ export default function AdvertiseDetail() {
           </div>
         </div>
 
-        <Insight />
+        <Insight result={advertise.result} />
         <DailyPerformance result={advertise.result} currency={advertise.currency} />
       </div>
 

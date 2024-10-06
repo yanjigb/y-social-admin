@@ -24,10 +24,6 @@ const InsightDataTable = (props: Props) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
-
   const handleChangePage = (event: unknown, newPage: number) => {
     console.log(event)
     setPage(newPage);

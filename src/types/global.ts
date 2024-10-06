@@ -7,3 +7,5 @@ export enum Global {
   DEPLOY_URL = import.meta.env.VITE_DEPLOY_URL,
   ADMIN_ID = import.meta.env.VITE_ADMIN_ID,
 };
+
+export const getEnv = (key: Global) => import.meta.env[key];

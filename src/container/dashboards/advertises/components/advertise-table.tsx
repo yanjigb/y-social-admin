@@ -8,7 +8,7 @@ import AppPagination from "../../../../components/common/app-pagination";
 // import usePersistState from "../../../../hooks/use-presist-state";
 // import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ResponseTime from "../../../../constants/resonse-time";
-import { IAdvertise } from "src/types/advertise";
+import { EAdvertiseStatus, IAdvertise } from "../../../../types/advertise";
 // import { mockAds } from "../../../../data/mock-data/mock-ads";
 import { CheckAdsTrending } from "../../../../lib/check-ads-trending";
 import clsx from "clsx";
@@ -29,6 +29,13 @@ const TableHeadList = [
   "Created At",
   "Updated At",
 ];
+
+const badgeStyle = (status: EAdvertiseStatus) => {
+  return status === EAdvertiseStatus.ACTIVE ? "bg-success" :
+    status === EAdvertiseStatus.SCHEDULE ? "bg-warning" :
+      "bg-error";
+};
+
 
 function AdvertiseTable() {
   // const [userList, setUserList] = useState<IUser[]>([]);
@@ -76,17 +83,6 @@ function AdvertiseTable() {
   useEffect(() => {
     console.log(advertiseList);
   }, [advertiseList]);
-
-  const handleOpenUpsertModal = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // const userId = e.currentTarget.getAttribute("data-id");
-    // setOpenUpsertModal(!openUpsertModal);
-    // setUserId(userId!);
-    console.log(e)
-
-    // GetById(userId).then((response: any) => {
-    //   setUser(response.user);
-    // });
-  };
 
   const handleOpenDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     const userId = e.currentTarget.getAttribute("data-id");
@@ -168,10 +164,11 @@ function AdvertiseTable() {
                       </td>
                       <td>
                         <div
-                          className={`py-1 px-2 text-white text-center rounded-md font-bold ${ads.status ? "bg-success" : "bg-danger"
-                            }`}
+                          className={clsx("capitalize py-1 px-2 text-white text-center rounded-md font-bold",
+                            badgeStyle(ads.status)
+                          )}
                         >
-                          {ads.status ? "Active" : "Disabled"}
+                          {ads.status}
                         </div>
                       </td>
                       <td>
@@ -206,15 +203,6 @@ function AdvertiseTable() {
                             onClick={handleOpenDetailAdvertise}
                           >
                             <i className="ri-eye-line"></i>
-                          </button>
-                          <button
-                            aria-label="button"
-                            type="button"
-                            className="ti-btn ti-btn-sm ti-btn-info"
-                            // data-id={user._id}
-                            onClick={handleOpenUpsertModal}
-                          >
-                            <i className="ri-pencil-line"></i>
                           </button>
                           <button
                             aria-label="button"

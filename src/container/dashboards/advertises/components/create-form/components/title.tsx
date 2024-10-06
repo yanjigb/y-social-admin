@@ -1,5 +1,6 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import { IAdvertiseForm } from "../schema";
+import TextField from '@mui/material/TextField';
 
 interface Props {
   errors: FieldErrors<IAdvertiseForm>;
@@ -11,22 +12,19 @@ export default function Title(props: Props) {
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor="ads-title" aria-labelledby="ads title label" className="text-base">
-        Title (This will not showing on the website)
-      </label>
       <Controller
         name="title"
         control={control}
         defaultValue={""}
         render={({ field: { onChange } }) => (
-          <input
+          <TextField
             id="ads-title"
             type="text"
-            placeholder="Title (This will not showing on the website)"
+            placeholder="Title"
             className="block w-full rounded-md bg-gray-200 border-transparent focus:ring-0"
             aria-labelledby="ads-title"
             onChange={onChange}
-            maxLength={50}
+            helperText="This will not showing on the website"
           />
         )}
       />

@@ -1,5 +1,5 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
-import { IAdvertiseForm } from "../schema";
+import { IAdvertiseForm } from "../../schema";
 import { TextField } from "@mui/material";
 
 interface Props {

@@ -1,6 +1,6 @@
 import { Control, Controller, FieldErrors, UseFormRegister } from "react-hook-form";
-import AppUploadFile from "../../../../../../components/features/app-upload-file";
-import { IAdvertiseForm } from "../schema";
+import AppUploadFile from "../../../../../../../components/features/app-upload-file";
+import { IAdvertiseForm } from "../../schema";
 
 interface Props {
   control: Control<IAdvertiseForm, any>;

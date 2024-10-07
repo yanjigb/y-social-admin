@@ -7,7 +7,7 @@ import randomId from "../../../../../../../utils/random-id";
 import isEqual from "react-fast-compare";
 import { IResult, TCurrency } from "../../../../../../../types/advertise";
 import formatDate from "../../../../../../../utils/date";
-import { currencytFormat } from "../../../../../../../lib/currency-format";
+import { currencyFormat } from "../../../../../../../lib/currency-format";
 
 const rows = [
   MockData('123', 'IN', 1324171354, 3287263, 3287263, 3287263),
@@ -65,7 +65,7 @@ const InsightDataTable = (props: Props) => {
                       <TableCell align="left">{row.impressions}</TableCell>
                       <TableCell align="right">{row.clicks}</TableCell>
                       <TableCell align="right">{row.conversions}%</TableCell>
-                      <TableCell align="right">{currencytFormat(row.cost)} {currency}</TableCell>
+                      <TableCell align="right">{currencyFormat(row.cost)} {currency}</TableCell>
                       <TableCell align="right">{row.ctr}%</TableCell>
                     </TableRow>
                   );

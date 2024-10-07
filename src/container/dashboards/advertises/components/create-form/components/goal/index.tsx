@@ -1,7 +1,7 @@
 import { Control, Controller } from "react-hook-form";
-import { IAdvertiseForm } from "../schema";
-import { AdsTargetList } from "../../../../../../constants/ads-target";
-import GoalTarget from "./goal-target";
+import { IAdvertiseForm } from "../../schema";
+import { AdsTargetList } from "../../../../../../../constants/ads-target";
+import GoalTarget from "../goal-target";
 
 interface Props {
   control: Control<IAdvertiseForm, any>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FormControl, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { AdsCTAList } from "../../../../../../constants/ads-target";
+import { AdsCTAList } from "../../../../../../../constants/ads-target";
 import { Control, Controller } from "react-hook-form";
-import { IAdvertiseForm } from "../schema";
+import { IAdvertiseForm } from "../../schema";
 
 interface Props {
   defaultValue?: string;

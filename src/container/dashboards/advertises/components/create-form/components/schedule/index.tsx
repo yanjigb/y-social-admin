@@ -1,6 +1,6 @@
 import { Control, Controller, FieldErrors, UseFormGetValues, UseFormWatch } from 'react-hook-form';
-import { calculateDateDifferenceInDays } from "../../../../../../lib/calculate-date-differen-in-days";
-import { IAdvertiseForm } from '../schema';
+import { calculateDateDifferenceInDays } from "../../../../../../../lib/calculate-date-differen-in-days";
+import { IAdvertiseForm } from '../../schema';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -74,7 +74,13 @@ export default function Schedule({ getValues, control, watch }: Props) {
             defaultValue={new Date()}
             render={({ field: { onChange } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker format="DD-MM-YYYY" views={['day', 'month', 'year']} label="Choose your end date" shouldDisableDate={disableDateBeforeNow} defaultValue={defaultDate} onChange={(date) => {
+                <DatePicker
+                format="DD-MM-YYYY"
+                views={['day', 'month', 'year']}
+                label="Choose your end date"
+                shouldDisableDate={disableDateBeforeNow}
+                defaultValue={defaultDate}
+                onChange={(date) => {
                   const dayjsDate = dayjs(date);
                   onChange(dayjsDate.toDate());
                 }} />

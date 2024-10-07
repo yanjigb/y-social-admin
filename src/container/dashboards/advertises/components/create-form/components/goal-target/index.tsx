@@ -7,10 +7,10 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { AdsTargetList } from "../../../../../../constants/ads-target";
+import { AdsTargetList } from "../../../../../../../constants/ads-target";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect, useState } from "react";
-import { IAdsTarget } from "../../../../../../types/advertise";
+import { IAdsTarget } from "../../../../../../../types/advertise";
 
 interface Props {
   onChange: (value: IAdsTarget) => void;

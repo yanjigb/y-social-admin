@@ -24,7 +24,7 @@ import Title from "./components/title";
 import Description from "./components/description";
 import UploadMedia from "./components/upload-media";
 import Goal from "./components/goal";
-import { Create } from "../../../../../services/ads.service";
+import { Create, Get as FetchAdvertiseList } from "../../../../../services/ads.service";
 import { toast } from "sonner";
 import { uploadMedia } from "../../../../../api/media/uploadMedia";
 
@@ -86,7 +86,6 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
         budget: dataEdit.budget,
         schedule_start: dataEdit.schedule_start,
         schedule_end: dataEdit.schedule_end,
-        status: dataEdit.status,
         media_content: dataEdit.media_content,
       });
     }
@@ -136,8 +135,9 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
       media_content: imageURL,
     }
 
-    Create(formAdvertiseData).then(() => {
+    Create(formAdvertiseData).then(async () => {
       toast.success("Create Ads Successfully")
+      await FetchAdvertiseList();
     }).catch(() => toast.error("Something went wrong"));
   };
 

@@ -3,10 +3,10 @@ import isEqual from "react-fast-compare";
 
 import Pageheader from "../../../components/common/pageheader/pageheader";
 
-import AdvertiseTable from "./components/advertise-table";
 import { mockAds } from "../../../data/mock-data/mock-ads";
 import UpsertModal from "./components/create-form/upsert-modal";
 import { IAdvertise } from "../../../types/advertise";
+import List from "./list";
 
 interface UsersProps { }
 
@@ -51,7 +51,7 @@ const Advertises: FC<UsersProps> = () => {
                 </button>
               </div>
 
-              <AdvertiseTable />
+              <List />
             </div>
           </div>
         </div>

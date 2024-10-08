@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@mui/material"
+import { FormHelperText, InputAdornment, OutlinedInput, TextField, Typography } from "@mui/material"
 import { memo, useEffect, useState } from "react"
 import isEqual from "react-fast-compare"
 import { IAdvertise } from "../../../../../../../types/advertise";
@@ -6,6 +6,7 @@ import Skeleton from "./skeleton";
 import { toast } from "sonner";
 import { Update } from "../../../../../../../services/ads.service";
 import { useParams } from "react-router-dom";
+import { CheckingBudget } from "./lib/checking-budget";
 
 interface Props {
   budget: number;
@@ -17,74 +18,82 @@ const Budget = (props: Props) => {
   const [newBudget, setNewBudget] = useState<number>(Number(budget));
   const [isError, setIsError] = useState<boolean>(false);
   const { id } = useParams();
-
-  const updateBudget = (newBudget: number) => {
-    Update(id, { budget: newBudget })
-      .then(() => toast.success("Updated successfully"))
-      .catch(() => toast.error("Something went wrong"));
-  };
+  const [hasChanged, setHasChanged] = useState<boolean>(false);
 
   useEffect(() => {
-    setNewBudget(budget)
+    setNewBudget(budget);
+    setHasChanged(false);
   }, [budget])
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      if (newBudget < 50000) {
-        setIsError(true);
-        return toast.error("Budget must be at least 50,000");
-      } else if (newBudget > 3000000) {
-        setIsError(true);
-        return toast.error("Budget must be less than 3,000,000");
-      } else {
-        setIsError(false);
-      }
-    }, 1000); // Adjust the debounce delay as needed
 
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [newBudget]);
+  }, [newBudget])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(event.target.value);
-    setNewBudget(newValue);
+  const updateBudget = async (newBudget: number) => {
+    if (isError || !hasChanged) return;
+
+    try {
+      const res: any = await Update(id, { budget: newBudget });
+      toast.success("Updated successfully");
+      console.log(res.budget, res);
+    } catch {
+      toast.error("Something went wrong");
+    }
   };
 
   useEffect(() => {
-    if (newBudget !== Number(budget)) {
-      const handlerUpdateBudget = setTimeout(() => {
-        if (!isError) {
-          updateBudget(newBudget);
-        }
-      }, 2000);
+    const isValidBudget = CheckingBudget(newBudget);
 
-      return () => clearTimeout(handlerUpdateBudget);
-    }
-  }, [newBudget, isError, budget]);
+    const handlerUpdateBudget = setTimeout(() => {
+      if (!isValidBudget) {
+        setIsError(true);
+        toast.error("Budget not valid");
+      } else {
+        setIsError(false);
+        updateBudget(newBudget);
+      }
+    }, 2000);
+
+    return () => clearTimeout(handlerUpdateBudget);
+  }, [newBudget]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newBudget = Number(event.target.value);
+    setNewBudget(newBudget);
+    setHasChanged(true);
+  };
+
+  useEffect(() => {
+    console.log(newBudget, budget)
+  }, [newBudget, budget])
 
   if (!budget || !currency) return <Skeleton />
 
   return (
     <div className="box">
-      <div className="box-body flex items-center gap-4">
+      <div className="box-body flex flex-col gap-4">
         <Typography variant="h6">
           Budget per day:
         </Typography>
 
-        <TextField
-          type="number"
-          value={newBudget}
-          onChange={handleChange}
-          variant="outlined"
-          inputProps={{
-            min: 50000,
-            maxLength: 3000000,
-          }}
-        />
-        <Typography variant="h4" fontWeight="bold" color="primary">
-          {currency}
-        </Typography>
+        <div className="">
+          <OutlinedInput
+            value={newBudget}
+            onChange={handleChange}
+            endAdornment={<InputAdornment position="end">{currency}</InputAdornment>}
+            aria-describedby="outlined-weight-helper-text"
+            inputProps={{
+              'aria-label': 'budget',
+              min: 50000,
+              max: 3000000,
+              type: 'number',
+            }}
+            className="w-full"
+          />
+          <FormHelperText>
+            Budget must be &gt; 50000 and &lt; 3.000.000
+          </FormHelperText>
+        </div>
       </div>
     </div>
   )

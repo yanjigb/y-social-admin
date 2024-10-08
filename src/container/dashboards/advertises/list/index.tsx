@@ -55,26 +55,27 @@ const AdvertiseTableList = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
-  const fetchAdvertiseList = useCallback(
-    async (filter: string) => {
-      console.log(filter)
-      // const query = filter
-      //   ? `?username=${filter.toLowerCase()}`
-      //   : `?limit=${ITEM_PER_PAGE}&skip=${pageNumber * 14}`;
-
+  const fetchAdvertiseList = useCallback(async () => {
       Get().then((res: any) =>
         setAdvertiseList(res)
-      ).catch(err => console.log(err));
-    },
-    [pageNumber]
-  );
+      ).catch(() => toast.error("Something went wrong"));
+  }, []);
 
   useEffect(() => {
-    fetchAdvertiseList(debouncedFilter);
-  }, [pageNumber, debouncedFilter]);
+    fetchAdvertiseList();
+  }, [fetchAdvertiseList]);
+
+  useEffect(() => {
+    if (debouncedFilter) {
+      setAdvertiseList((prev) =>
+        prev.filter((advertise) => advertise._id.includes(debouncedFilter))
+      );
+    } else {
+      fetchAdvertiseList();
+    }
+  }, [debouncedFilter, fetchAdvertiseList]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
-    console.log(event)
     setPage(newPage);
   };
 
@@ -87,7 +88,7 @@ const AdvertiseTableList = () => {
     try {
       await Delete('65a0dcccfa6ca1e9ba94c698', advertiseId);
       toast.success("Deleted successfully!");
-      fetchAdvertiseList("1");
+      fetchAdvertiseList();
     } catch (error) {
       toast.error("Something went wrong");
       Swal.fire({

@@ -3,7 +3,7 @@ import { APIClient } from "../helpers/api_helper";
 const baseUrl = `api/v1/ads`;
 const api = new APIClient();
 
-export const Get = () => api.get(baseUrl + "/get-all");
+export const Get = (params) => api.get(baseUrl + "/get-all", params);
 export const GetById = (id) => api.get(baseUrl + `/${id}`);
 export const GetByUser = (userId) => api.get(baseUrl + `/user/${userId}`);
 export const GetTrending = () => api.get(baseUrl + `/trending`);

@@ -84,7 +84,6 @@ const AdvertiseTableList = () => {
   };
 
   const handleDeleteAdvertise = async () => {
-    console.log(advertiseId)
     try {
       await Delete('65a0dcccfa6ca1e9ba94c698', advertiseId);
       toast.success("Deleted successfully!");
@@ -188,9 +187,7 @@ const AdvertiseTableList = () => {
                       className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light"
                     >
                       <TableCell>{ads._id}</TableCell>
-                      <TableCell>{ads.userID}</TableCell>
                       <TableCell>{ads.title}</TableCell>
-                      <TableCell>{ads.description}</TableCell>
                       <TableCell>{currencyFormat(ads.budget)}</TableCell>
                       <TableCell>{ads.currency}</TableCell>
                       <TableCell>
@@ -283,5 +280,7 @@ const AdvertiseTableList = () => {
     </>
   );
 }
+
+AdvertiseTableList.dislayName = "AdvertiseTableList";
 
 export default memo(AdvertiseTableList, isEqual);

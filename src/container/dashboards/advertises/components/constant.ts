@@ -1,8 +1,6 @@
 interface Column {
   id: "id" |
-  "user id" |
   "title" |
-  "description" |
   "budget" |
   "currency" |
   "schedule_start" |
@@ -20,9 +18,7 @@ interface Column {
 
 export const columns: readonly Column[] = [
   { id: 'id', label: 'ID', minWidth: 170 },
-  { id: 'user id', label: 'User ID', minWidth: 100 },
   { id: 'title', label: 'Title', minWidth: 100 },
-  { id: 'description', label: 'Description', minWidth: 100 },
   {
     id: 'budget',
     label: 'Budget (per day)',
@@ -33,20 +29,20 @@ export const columns: readonly Column[] = [
   {
     id: 'currency',
     label: 'Currency',
-    minWidth: 170,
+    minWidth: 100,
     align: 'left',
     format: (value: number) => value.toLocaleString('en-US'),
   },
   {
     id: 'schedule_start',
     label: 'Schedule Start',
-    minWidth: 170,
+    minWidth: 200,
     align: 'left',
   },
   {
     id: 'schedule_end',
     label: 'Schedule End',
-    minWidth: 170,
+    minWidth: 200,
     align: 'left',
   },
   {

@@ -116,6 +116,7 @@ import Advertises from "./container/dashboards/advertises/advertise.tsx";
 import Profile from "./container/pages/profile/profile.tsx";
 import Mailsettings from "./container/pages/email/mailsettings/mailsettings.tsx";
 import AdvertiseDetail from "./container/dashboards/advertises/components/detail/advertise-detail.tsx";
+import PaymentsTable from "./container/dashboards/payments/payments-table.tsx";
 import Payment from "./container/pages/payment";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -142,6 +143,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}pages/profile`}
               element={<Profile />}
+            />
+            <Route
+              path={`${import.meta.env.BASE_URL}dashboards/payments`}
+              element={<PaymentsTable />}
             />
             <Route
               path={`${import.meta.env.BASE_URL}pages/payment`}

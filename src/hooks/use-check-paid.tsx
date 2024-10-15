@@ -1,5 +1,9 @@
+import { IFilteredTransaction, ITransactionRecord } from "../types/interfaces/transaction.interface";
 import { GetAllTransaction } from "../services/payment.service";
 import { useEffect, useState } from "react";
+import axios from "axios";
+
+const API_GG_SHEET_KEY = import.meta.env.VITE_APP_SCRIPT_BASE_URL;
 
 const useCheckPaid = () => {
   const [data, setData] = useState<any>([]);
@@ -16,13 +20,21 @@ const useCheckPaid = () => {
         return;
       }
 
-      setData(responseData);
+      const records: ITransactionRecord[] = responseData.records;
+      const filteredTransactionsIncome: IFilteredTransaction[] = records
+        .filter((record: any) => record.amount > 0) // Filter for amounts greater than 0
+        .map(({ id, amount, tid, description, bankSubAccId, when }) => ({
+          id,
+          amount,
+          tid,
+          description,
+          bankSubAccId,
+          when
+        }));
 
-      const records = responseData.records;
+      setData(filteredTransactionsIncome);
 
-      const checkUserHasPaid = records.some((record: any) =>
-        record.description.includes("Test")
-      );
+      const checkUserHasPaid = true
 
       if (checkUserHasPaid && !isPaid) {
         setIsPaid(true);

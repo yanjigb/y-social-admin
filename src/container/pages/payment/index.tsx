@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { MouseEvent, useEffect } from "react";
+import { MouseEvent, useCallback, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -7,11 +7,28 @@ import useQRPayment from "../../../hooks/use-qr-payment";
 import { useCopyToClipboard } from 'usehooks-ts'
 import { PAYMENT_DESCRIPTION } from "./constant";
 import useCheckPaid from "../../../hooks/use-check-paid";
+import { GetUserPaid } from "../../../services/payment.service";
+import axios from "axios";
 
 export default function Payment() {
   const [_, copy] = useCopyToClipboard();
   const { qrData, loading, error, generateQRCode } = useQRPayment();
   const { data, isPaid, errors } = useCheckPaid();
+
+  useEffect(() => {
+    data.map((transaction: any) => {
+      console.log(transaction)
+    })
+
+    console.log(data)
+  }, [data, isPaid, errors]);
+
+
+  useEffect(() => {
+    setInterval(async () => {
+      await GetUserPaid();
+    }, 1000000)
+  }, [])
 
   useEffect(() => {
     generateQRCode(
@@ -27,16 +44,10 @@ export default function Payment() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  const handleCopy = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
     const text = e.currentTarget.getAttribute("data-value")!;
-
     copy(text)
-      .then(() => {
-        toast.success("Copy successfully")
-      })
-      .catch(() => {
-        toast.error("Something went wrong")
-      })
+    toast.success("Copy successfully");
   }
 
   return (
@@ -80,7 +91,7 @@ export default function Payment() {
             </li>
             <li>
               <span>
-                Tiền sẽ vào tài khoảng trong vòng 1-20 phút kể từ khi giao dịch thành công. Tuy nhiên đôi lúc do một vài lỗi khách quan, tiền có thể sẽ vào chậm hơn một chút.
+                Tiền sẽ vào tài khoản trong vòng 1-20 phút kể từ khi giao dịch thành công. Tuy nhiên đôi lúc do một vài lỗi khách quan, tiền có thể sẽ vào chậm hơn một chút.
               </span>
             </li>
             <li>

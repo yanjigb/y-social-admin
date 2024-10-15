@@ -1,4 +1,4 @@
-export function currencytFormat(price: number | null | undefined): string {
+export function currencyFormat(price: number | null | undefined): string {
   if (typeof price !== "number" || Number.isNaN(price)) {
     return "N/A";
   }

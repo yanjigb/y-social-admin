@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "postcss": "sass ./src/assets/scss/style.scss ./src/assets/css/style.css && postcss ./src/assets/css/style.css -o ./src/assets/css/style.css",
     "sass": "sass ./src/assets/scss:./src/assets/css/",
-    "sass-min": "sass ./src/assets/scss:./src/assets/css/ --style compressed"
+    "sass-min": "sass ./src/assets/scss:./src/assets/css/ --style compressed",
+    "nano-staged": "vite",
+    "nano-install": "yarn add"
   },
   "dependencies": {
     "@emotion/styled": "^11.11.0",
@@ -50,6 +52,7 @@
     "get-youtube-id": "^1.0.1",
     "gridjs": "^6.2.0",
     "gridjs-react": "^6.1.1",
+    "i18next": "^23.15.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.427.0",
     "moment": "^2.30.1",
@@ -69,6 +72,7 @@
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.4",
     "react-hook-form": "^7.52.2",
+    "react-i18next": "^15.0.2",
     "react-lazy-load-image-component": "^1.6.2",
     "react-leaflet": "^4.2.1",
     "react-lite-youtube-embed": "^2.4.0",
@@ -118,6 +122,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "nano-staged": "^0.8.0",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",

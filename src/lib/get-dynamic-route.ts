@@ -1,4 +1,4 @@
-import { RouteNames } from "src/types/routes";
+import { RouteNames } from "../constants/routes";
 
 const BASE_ROUTE = import.meta.env.BASE_URL;
 

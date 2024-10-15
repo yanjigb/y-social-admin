@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { Control, Controller } from "react-hook-form";
 import { IAdvertiseForm } from "../schema";
 import SimpleSlider from "../../../../../../components/ui/simpleslider";
-import { currencytFormat } from "../../../../../../lib/currency-format";
+import { currencyFormat } from "../../../../../../lib/currency-format";
 
 interface Props {
   budget: number;
@@ -11,15 +11,15 @@ interface Props {
 }
 
 const marks = {
-  50000: `${currencytFormat(Number(50000))} VND`,
-  3000000: `${currencytFormat(Number(3000000))} VND`,
+  50000: `${currencyFormat(Number(50000))} VND`,
+  3000000: `${currencyFormat(Number(3000000))} VND`,
 };
 
 export default function Budget(props: Props) {
   const { budget, onChangeBudget, control } = props;
 
   return <div className="flex flex-col items-center gap-6">
-    <Typography color="blue" fontSize="4rem" className="font-semibold">{currencytFormat(Number(budget))} VND</Typography>
+    <Typography color="blue" fontSize="4rem" className="font-semibold">{currencyFormat(Number(budget))} VND</Typography>
 
     <Controller
       name="budget"

@@ -9,9 +9,9 @@ import firebase from "../../assets/images/brand-logos/1.png";
 
 import { LocalStorageBackup } from "../../components/common/switcher/switcherdata/switcherdata";
 import { getDynamicRoute } from "src/lib/get-dynamic-route";
-import { RouteNames } from "src/types/routes";
+import { RouteNames } from "src/constants/routes";
 
-interface LoginProps {}
+interface LoginProps { }
 
 const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
   const [passwordshow1, setpasswordshow1] = useState(false);
@@ -143,9 +143,8 @@ const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
                       >
                         Password
                         <Link
-                          to={`${
-                            import.meta.env.BASE_URL
-                          }authentication/resetpassword/resetbasic`}
+                          to={`${import.meta.env.BASE_URL
+                            }authentication/resetpassword/resetbasic`}
                           className="float-end text-danger"
                         >
                           Forget password ?
@@ -168,9 +167,8 @@ const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
                           id="button-addon2"
                         >
                           <i
-                            className={`${
-                              passwordshow1 ? "ri-eye-line" : "ri-eye-off-line"
-                            } align-middle`}
+                            className={`${passwordshow1 ? "ri-eye-line" : "ri-eye-off-line"
+                              } align-middle`}
                           ></i>
                         </button>
                       </div>
@@ -285,9 +283,8 @@ const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
                       >
                         Password
                         <Link
-                          to={`${
-                            import.meta.env.BASE_URL
-                          }authentication/resetpassword/resetbasic`}
+                          to={`${import.meta.env.BASE_URL
+                            }authentication/resetpassword/resetbasic`}
                           className="float-end text-danger"
                         >
                           Forget password ?
@@ -310,9 +307,8 @@ const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
                           id="button-addon2"
                         >
                           <i
-                            className={`${
-                              passwordshow1 ? "ri-eye-line" : "ri-eye-off-line"
-                            } align-middle`}
+                            className={`${passwordshow1 ? "ri-eye-line" : "ri-eye-off-line"
+                              } align-middle`}
                           ></i>
                         </button>
                       </div>
@@ -347,9 +343,8 @@ const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
                     <p className="text-[0.75rem] text-[#8c9097] dark:text-white/50 mt-4">
                       Dont have an account?{" "}
                       <Link
-                        to={`${
-                          import.meta.env.BASE_URL
-                        }authentication/signup/signupbasic`}
+                        to={`${import.meta.env.BASE_URL
+                          }authentication/signup/signupbasic`}
                         className="text-primary"
                       >
                         Sign Up

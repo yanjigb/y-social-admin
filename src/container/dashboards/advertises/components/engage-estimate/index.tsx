@@ -4,7 +4,7 @@ import useAdEstimator from '../../../../../hooks/use-adestimate';
 import { HtmlTooltip } from '../../../../../components/ui/html-tooltip';
 import { Fade } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import { currencytFormat } from '../../../../../lib/currency-format';
+import { currencyFormat } from '../../../../../lib/currency-format';
 
 interface Props {
   budget: number;
@@ -41,7 +41,7 @@ const EngageEstimate = (props: Props) => {
         </div>
 
         <span className="font-bold text-base">
-          {currencytFormat(estimates.accountsReached)}
+          {currencyFormat(estimates.accountsReached)}
         </span>
       </div>
 
@@ -65,7 +65,7 @@ const EngageEstimate = (props: Props) => {
         </div>
 
         <span className="font-bold text-base">
-          {currencytFormat(estimates.followsOrLikes)}
+          {currencyFormat(estimates.followsOrLikes)}
         </span>
       </div>
     </div>

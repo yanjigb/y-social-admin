@@ -1,5 +1,5 @@
 import { Paper, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { ChangeEvent, memo, useEffect, useState } from "react";
+import { ChangeEvent, memo, useState } from "react";
 import MockData from "./mock-data";
 import Table from '@mui/material/Table';
 import { columns } from "./constant";
@@ -7,7 +7,7 @@ import randomId from "../../../../../../../utils/random-id";
 import isEqual from "react-fast-compare";
 import { IResult, TCurrency } from "../../../../../../../types/advertise";
 import formatDate from "../../../../../../../utils/date";
-import { currencytFormat } from "../../../../../../../lib/currency-format";
+import { currencyFormat } from "../../../../../../../lib/currency-format";
 
 const rows = [
   MockData('123', 'IN', 1324171354, 3287263, 3287263, 3287263),
@@ -23,10 +23,6 @@ const InsightDataTable = (props: Props) => {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     console.log(event)
@@ -69,7 +65,7 @@ const InsightDataTable = (props: Props) => {
                       <TableCell align="left">{row.impressions}</TableCell>
                       <TableCell align="right">{row.clicks}</TableCell>
                       <TableCell align="right">{row.conversions}%</TableCell>
-                      <TableCell align="right">{currencytFormat(row.cost)} {currency}</TableCell>
+                      <TableCell align="right">{currencyFormat(row.cost)} {currency}</TableCell>
                       <TableCell align="right">{row.ctr}%</TableCell>
                     </TableRow>
                   );

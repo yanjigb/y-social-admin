@@ -19,7 +19,7 @@ const TableHeadList = [
   'ID',
   'Username',
   'Avatar',
-  'Email',
+  'Balance',
   'Followers',
   'Followings',
   'Verify',
@@ -138,8 +138,7 @@ function UserTable() {
                   </td>
                   <td>
                     <div className="flex items-center gap-2">
-                      <i className="ri-mail-line align-middle text-[.875rem] text-[#8c9097] dark:text-white/50 inline-flex"></i>
-                      {user.email}
+                      {user.balance}
                     </div>
                   </td>
                   <td>

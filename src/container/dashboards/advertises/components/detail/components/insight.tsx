@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { currencytFormat } from "../../../../../../lib/currency-format";
+import { currencyFormat } from "../../../../../../lib/currency-format";
 
 // interface Props {
 // }
@@ -19,7 +19,7 @@ export default function Insight() {
                 Total Impressions
               </h6>
 
-              <Typography variant="h3" fontWeight="bold">{currencytFormat(123)}</Typography>
+              <Typography variant="h3" fontWeight="bold">{currencyFormat(123)}</Typography>
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@ export default function Insight() {
                 Total Clicks
               </h6>
 
-              <Typography variant="h3" fontWeight="bold">{currencytFormat(123)}</Typography>
+              <Typography variant="h3" fontWeight="bold">{currencyFormat(123)}</Typography>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@ export default function Insight() {
                 Average CTR
               </h6>
 
-              <Typography variant="h3" fontWeight="bold">{currencytFormat(123)}%</Typography>
+              <Typography variant="h3" fontWeight="bold">{currencyFormat(123)}%</Typography>
             </div>
           </div>
         </div>

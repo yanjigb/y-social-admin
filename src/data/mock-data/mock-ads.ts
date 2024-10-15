@@ -1,4 +1,4 @@
-import { IAdvertise } from "src/types/advertise";
+import { EAdvertiseStatus, IAdvertise } from "src/types/advertise";
 import randomId from "../../utils/random-id";
 
 const now = new Date("2024-06-01T00:00:00Z");
@@ -14,7 +14,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-06-01T00:00:00Z"),
     schedule_end: new Date("2024-06-30T00:00:00Z"),
     cta: "Shop Now",
-    status: true,
+    status: EAdvertiseStatus['ACTIVE'],
     goal: {
       goalID: "goal_001",
     },
@@ -50,7 +50,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-05-01T00:00:00Z"),
     schedule_end: new Date("2024-08-01T00:00:00Z"),
     cta: "Subscribe Now",
-    status: true,
+    status: EAdvertiseStatus['ACTIVE'],
     goal: {
       goalID: "goal_002",
     },
@@ -86,7 +86,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-04-01T00:00:00Z"),
     schedule_end: new Date("2024-04-30T00:00:00Z"),
     cta: "Join Now",
-    status: true,
+    status: EAdvertiseStatus['ACTIVE'],
     goal: {
       goalID: "goal_003",
     },
@@ -122,7 +122,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-07-01T00:00:00Z"),
     schedule_end: new Date("2024-07-31T00:00:00Z"),
     cta: "Learn More",
-    status: false,
+    status: EAdvertiseStatus['DISABLED'],
     goal: {
       goalID: "goal_004",
     },
@@ -158,7 +158,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-03-01T00:00:00Z"),
     schedule_end: new Date("2024-03-30T00:00:00Z"),
     cta: "Shop Luxury",
-    status: true,
+    status: EAdvertiseStatus['ACTIVE'],
     goal: {
       goalID: "goal_005",
     },
@@ -194,7 +194,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-08-01T00:00:00Z"),
     schedule_end: new Date("2024-09-01T00:00:00Z"),
     cta: "Shop Now",
-    status: true,
+    status: EAdvertiseStatus['ACTIVE'],
     goal: {
       goalID: "goal_006",
     },
@@ -230,7 +230,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-02-01T00:00:00Z"),
     schedule_end: new Date("2024-05-01T00:00:00Z"),
     cta: "Enroll Now",
-    status: false,
+    status: EAdvertiseStatus['DISABLED'],
     goal: {
       goalID: "goal_007",
     },
@@ -266,7 +266,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-09-01T00:00:00Z"),
     schedule_end: new Date("2024-09-30T00:00:00Z"),
     cta: "Shop Now",
-    status: true,
+    status: EAdvertiseStatus['ACTIVE'],
     goal: {
       goalID: "goal_008",
     },
@@ -302,7 +302,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-10-01T00:00:00Z"),
     schedule_end: new Date("2024-10-31T00:00:00Z"),
     cta: "Discover More",
-    status: true,
+    status: EAdvertiseStatus['ACTIVE'],
     goal: {
       goalID: "goal_009",
     },
@@ -339,7 +339,7 @@ export const mockAds: IAdvertise[] = [
     schedule_start: new Date("2024-11-01T00:00:00Z"),
     schedule_end: new Date("2024-11-30T00:00:00Z"),
     cta: "Book Now",
-    status: true,
+    status: EAdvertiseStatus['ACTIVE'],
     goal: {
       goalID: "goal_010",
     },

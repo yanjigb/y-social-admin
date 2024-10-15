@@ -1,9 +1,6 @@
 import { IFilteredTransaction, ITransactionRecord } from "../types/interfaces/transaction.interface";
 import { GetAllTransaction } from "../services/payment.service";
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-const API_GG_SHEET_KEY = import.meta.env.VITE_APP_SCRIPT_BASE_URL;
 
 const useCheckPaid = () => {
   const [data, setData] = useState<any>([]);

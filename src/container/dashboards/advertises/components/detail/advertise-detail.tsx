@@ -65,7 +65,7 @@ export default function AdvertiseDetail() {
           </div>
         </div>
 
-        <Insight result={advertise.result} />
+        <Insight />
         <DailyPerformance result={advertise.result} currency={advertise.currency} />
       </div>
     </>

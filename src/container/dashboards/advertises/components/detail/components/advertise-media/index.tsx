@@ -3,8 +3,6 @@ import isEqual from "react-fast-compare"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import Lightbox from "yet-another-react-lightbox";
 import Skeleton from "./skeleton";
-import { Update } from "../../../../../../../services/ads.service";
-import EditIcon from '@mui/icons-material/Edit';
 
 interface Props {
   media_content: string;
@@ -21,10 +19,10 @@ const AdvertiseMedia = (props: Props) => {
 
   if (!media_content || !media_title) return <Skeleton />;
 
-  const handleUpdateMedia = (e: any) => {
-    console.log("first", e)
+  // const handleUpdateMedia = (e: any) => {
+    console.log("first")
     // Update()
-  }
+  // }
 
   return (
     <>

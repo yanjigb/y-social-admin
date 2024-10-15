@@ -11,12 +11,6 @@ interface Props {
   status: EAdvertiseStatus;
 }
 
-const badgeStyle = (status: EAdvertiseStatus) => {
-  return status === EAdvertiseStatus.ACTIVE ? "bg-success" :
-    status === EAdvertiseStatus.SCHEDULE ? "bg-warning" :
-      "bg-error";
-};
-
 const Status = (props: Props) => {
   const { status } = props;
   const { id } = useParams()
@@ -30,7 +24,7 @@ const Status = (props: Props) => {
     Update(id, { status: e.target.value }).then(res => {
       console.log(res)
       toast.success("Update Successfully")
-    }).catch(err => {
+    }).catch(() => {
       toast.error("Something went wrong")
     })
   }

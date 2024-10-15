@@ -1,5 +1,5 @@
 import { Paper, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { ChangeEvent, memo, useEffect, useState } from "react";
+import { ChangeEvent, memo, useState } from "react";
 import MockData from "./mock-data";
 import Table from '@mui/material/Table';
 import { columns } from "./constant";

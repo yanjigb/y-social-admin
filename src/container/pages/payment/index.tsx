@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { MouseEvent, useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -8,7 +8,6 @@ import { useCopyToClipboard } from 'usehooks-ts'
 import { PAYMENT_DESCRIPTION } from "./constant";
 import useCheckPaid from "../../../hooks/use-check-paid";
 import { GetUserPaid } from "../../../services/payment.service";
-import axios from "axios";
 
 export default function Payment() {
   const [_, copy] = useCopyToClipboard();

@@ -119,6 +119,9 @@ importers:
       gridjs-react:
         specifier: ^6.1.1
         version: 6.1.1(gridjs@6.2.0)(react@18.3.1)
+      i18next:
+        specifier: ^23.15.2
+        version: 23.16.0
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
@@ -176,6 +179,9 @@ importers:
       react-hook-form:
         specifier: ^7.52.2
         version: 7.53.0(react@18.3.1)
+      react-i18next:
+        specifier: ^15.0.2
+        version: 15.0.3(i18next@23.16.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-lazy-load-image-component:
         specifier: ^1.6.2
         version: 1.6.2(react@18.3.1)
@@ -318,6 +324,9 @@ importers:
       eslint-plugin-simple-import-sort:
         specifier: ^12.1.1
         version: 12.1.1(eslint@9.12.0(jiti@1.21.0))
+      nano-staged:
+        specifier: ^0.8.0
+        version: 0.8.0
       postcss:
         specifier: ^8.4.33
         version: 8.4.38
@@ -2600,12 +2609,18 @@ packages:
     resolution: {integrity: sha512-reT/KK6Ju+DZqAbAn3sIkpMH+658kEsaEjpNrej2O5XSUsH5SzVHX7NGZk5RiZcVi7l+RsV+5q3C6TqM5vxsVA==}
     engines: {node: '>= 0.10.26', npm: '>=1.4.3'}
 
+  html-parse-stringify@3.0.1:
+    resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
+
   http-errors@1.6.3:
     resolution: {integrity: sha512-lks+lVC8dgGyh97jxvxeYTWQFvh4uw4yC12gVl63Cg30sjPX4wuGcdkICVXDAESr6OJGjqGA8Iz5mkeN6zlD7A==}
     engines: {node: '>= 0.6'}
 
   http-parser-js@0.5.8:
     resolution: {integrity: sha512-SGeBX54F94Wgu5RH3X5jsDtf4eHyRogWX1XGT3b4HuW3tQPM4AaBzoUji/4AAJNXCEOWZ5O0DgZmJw1947gD5Q==}
+
+  i18next@23.16.0:
+    resolution: {integrity: sha512-Ni3CG6c14teOogY19YNRl+kYaE/Rb59khy0VyHVn4uOZ97E2E/Yziyi6r3C3s9+wacjdLZiq/LLYyx+Cgd+FCw==}
 
   iconv-lite@0.4.23:
     resolution: {integrity: sha512-neyTUVFtahjf0mB3dZT77u+8O0QB89jFdnBkd5P1JgYPbPaia3gXXOVL2fq8VyU2gMMD7SaN7QukTB/pmXYvDA==}
@@ -3063,6 +3078,11 @@ packages:
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
 
+  nano-staged@0.8.0:
+    resolution: {integrity: sha512-QSEqPGTCJbkHU2yLvfY6huqYPjdBrOaTMKatO1F8nCSrkQGXeKwtCiCnsdxnuMhbg3DTVywKaeWLGCE5oJpq0g==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    hasBin: true
+
   nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -3436,6 +3456,19 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
+
+  react-i18next@15.0.3:
+    resolution: {integrity: sha512-BlO1P+oLKjjIxDBQ0GkAIMacgjfMbnvops+3Y5nZXF7UJ99v4KCWr0Na1azJXC8AMiNWp4kgUcFCJM7U9ZsUDg==}
+    peerDependencies:
+      i18next: '>= 23.2.3'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -4164,6 +4197,10 @@ packages:
       terser:
         optional: true
 
+  void-elements@3.1.0:
+    resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
+    engines: {node: '>=0.10.0'}
+
   warning@4.0.3:
     resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
 
@@ -4453,7 +4490,7 @@ snapshots:
   '@emotion/babel-plugin@11.11.0':
     dependencies:
       '@babel/helper-module-imports': 7.24.3
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.25.7
       '@emotion/hash': 0.9.1
       '@emotion/memoize': 0.8.1
       '@emotion/serialize': 1.1.4
@@ -5062,7 +5099,7 @@ snapshots:
 
   '@mui/base@5.0.0-beta.40(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.25.7
       '@floating-ui/react-dom': 2.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/types': 7.2.14(@types/react@18.3.2)
       '@mui/utils': 5.15.14(@types/react@18.3.2)(react@18.3.1)
@@ -5127,7 +5164,7 @@ snapshots:
 
   '@mui/system@5.15.15(@emotion/react@11.11.4(@types/react@18.3.2)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.2)(react@18.3.1))(@types/react@18.3.2)(react@18.3.1))(@types/react@18.3.2)(react@18.3.1)':
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.25.7
       '@mui/private-theming': 5.15.14(@types/react@18.3.2)(react@18.3.1)
       '@mui/styled-engine': 5.15.14(@emotion/react@11.11.4(@types/react@18.3.2)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.2)(react@18.3.1))(@types/react@18.3.2)(react@18.3.1))(react@18.3.1)
       '@mui/types': 7.2.14(@types/react@18.3.2)
@@ -5151,7 +5188,7 @@ snapshots:
 
   '@mui/utils@5.15.14(@types/react@18.3.2)(react@18.3.1)':
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.25.7
       '@types/prop-types': 15.7.12
       prop-types: 15.8.1
       react: 18.3.1
@@ -6931,6 +6968,10 @@ snapshots:
 
   html-attributes@1.1.0: {}
 
+  html-parse-stringify@3.0.1:
+    dependencies:
+      void-elements: 3.1.0
+
   http-errors@1.6.3:
     dependencies:
       depd: 1.1.2
@@ -6939,6 +6980,10 @@ snapshots:
       statuses: 1.5.0
 
   http-parser-js@0.5.8: {}
+
+  i18next@23.16.0:
+    dependencies:
+      '@babel/runtime': 7.25.7
 
   iconv-lite@0.4.23:
     dependencies:
@@ -7361,6 +7406,10 @@ snapshots:
       object-assign: 4.1.1
       thenify-all: 1.6.0
 
+  nano-staged@0.8.0:
+    dependencies:
+      picocolors: 1.0.1
+
   nanoid@3.3.7: {}
 
   nanopop@2.4.2: {}
@@ -7747,6 +7796,15 @@ snapshots:
     dependencies:
       react: 18.3.1
 
+  react-i18next@15.0.3(i18next@23.16.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.25.7
+      html-parse-stringify: 3.0.1
+      i18next: 23.16.0
+      react: 18.3.1
+    optionalDependencies:
+      react-dom: 18.3.1(react@18.3.1)
+
   react-is@16.13.1: {}
 
   react-is@18.3.1: {}
@@ -7918,7 +7976,7 @@ snapshots:
 
   react-transition-group@4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.25.7
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -8579,6 +8637,8 @@ snapshots:
       '@types/node': 22.7.4
       fsevents: 2.3.3
       sass: 1.77.1
+
+  void-elements@3.1.0: {}
 
   warning@4.0.3:
     dependencies:

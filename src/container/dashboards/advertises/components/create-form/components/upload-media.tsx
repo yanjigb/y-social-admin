@@ -17,7 +17,7 @@ export default function UploadMedia(props: Props) {
         Upload Media
       </label>
 
-      <div className="w-full min-h-40 p-6 flex justify-center items-center bg-gray-200 rounded-lg">
+      <div className="w-full min-h-40 p-6 flex justify-center items-center bg-gray-100 rounded-lg">
         <Controller
           name="media_content"
           control={control}

@@ -23,7 +23,7 @@ export default function Title(props: Props) {
             id="ads-title"
             type="text"
             placeholder="Title (This will not showing on the website)"
-            className="block w-full rounded-md bg-gray-200 border-transparent focus:ring-0"
+            className="block w-full rounded-md bg-gray-100 border-transparent focus:ring-0"
             aria-labelledby="ads-title"
             onChange={onChange}
             maxLength={50}

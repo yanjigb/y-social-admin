@@ -24,7 +24,7 @@ export default function Description(props: Props) {
             rows={4}
             id="ads-description"
             placeholder="Description (This will showing on the website)"
-            className="block w-full rounded-md bg-gray-200 border-transparent focus:ring-0 dark:!bg-gray-200"
+            className="block w-full rounded-md bg-gray-100 border-transparent focus:ring-0 dark:!bg-gray-200"
             aria-labelledby="ads-description"
             onChange={onChange}
             maxLength={1500}

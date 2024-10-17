@@ -5,7 +5,6 @@ import { GetById } from "../../../../../services/ads.service";
 import { GetById as GetDetailUser } from "../../../../../services/user.service";
 import { Box, CircularProgress } from "@mui/material";
 import { IUser } from "../../../../../types/user";
-import Insight from "./components/insight";
 import DailyPerformance from "./components/daily-performance";
 import Schedule from "./components/schedule";
 import Budget from "./components/budget";
@@ -13,8 +12,8 @@ import Score from "./components/score";
 import DetailGoal from "./components/detail-goal";
 import Status from "./components/status";
 import Author from "./components/author";
-import AdvertiseMedia from "./components/advertise-media";
-import Description from "./components/description";
+import Insights from "./components/insights";
+import AdvertiseCard from "./components/advertise-card";
 
 
 export default function AdvertiseDetail() {
@@ -52,8 +51,7 @@ export default function AdvertiseDetail() {
             {
               advertise.status !== EAdvertiseStatus.SCHEDULE && <Status status={advertise.status} />
             }
-            <AdvertiseMedia media_content={advertise.media_content} media_title={advertise._id} />
-            <Description title={advertise.title} description={advertise.description} />
+            <AdvertiseCard cta={advertise.cta} media_content={advertise.media_content} media_title={advertise._id} title={advertise.title} description={advertise.description} />
           </div>
 
           <div className="xl:col-span-5 col-span-12">
@@ -65,7 +63,7 @@ export default function AdvertiseDetail() {
           </div>
         </div>
 
-        <Insight />
+        <Insights />
         <DailyPerformance result={advertise.result} currency={advertise.currency} />
       </div>
     </>

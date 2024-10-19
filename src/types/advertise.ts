@@ -55,4 +55,5 @@ export interface IAdvertise extends IBase {
   adTargetAudience?: ITargetAudience;
   result: IResult[];
   score: number;
+  link_action: string;
 }

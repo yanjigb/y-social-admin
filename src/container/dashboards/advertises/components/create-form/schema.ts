@@ -39,6 +39,7 @@ export const DEFAULT_ADVERTISE_FORM = (
   schedule_end: isEdit ? data.schedule_end : new Date(),
   media_content: isEdit ? data.media_content : "",
   cta: isEdit ? data.cta : AdsCTAList[0],
+  link_action: isEdit ? data.link_action : "",
   goal: isEdit ? data.goal : {
     goalID: "",
   },
@@ -54,6 +55,7 @@ export const AdvertiseFormSchema: ZodType<IAdvertiseForm> = z.object({
   schedule_end: z.coerce.date().optional(),
   media_content: z.string(),
   cta: z.string(),
+  link_action: z.string(),
   goal: z.object(
     { goalID: z.string().min(1, { message: REQUIRED_MSG("goalID") }) }
   ),

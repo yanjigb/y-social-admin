@@ -19,7 +19,7 @@ export default function Budget(props: Props) {
   const { budget, onChangeBudget, control } = props;
 
   return <div className="flex flex-col items-center gap-6">
-    <Typography color="blue" fontSize="4rem" className="font-semibold">{currencyFormat(Number(budget))} VND / day</Typography>
+    <Typography color="blue" fontSize="4rem" className="font-semibold">{currencyFormat(Number(budget))} VND</Typography>
 
     <Controller
       name="budget"

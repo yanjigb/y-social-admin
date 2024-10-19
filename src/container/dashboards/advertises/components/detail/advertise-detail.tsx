@@ -51,7 +51,14 @@ export default function AdvertiseDetail() {
             {
               advertise.status !== EAdvertiseStatus.SCHEDULE && <Status status={advertise.status} />
             }
-            <AdvertiseCard cta={advertise.cta} media_content={advertise.media_content} media_title={advertise._id} title={advertise.title} description={advertise.description} />
+            <AdvertiseCard
+              link_action={advertise.link_action}
+              cta={advertise.cta}
+              media_content={advertise.media_content}
+              media_title={advertise._id}
+              title={advertise.title}
+              description={advertise.description}
+            />
           </div>
 
           <div className="xl:col-span-5 col-span-12">

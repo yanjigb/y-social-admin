@@ -2,6 +2,7 @@ import { memo } from "react"
 import isEqual from "react-fast-compare"
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Skeleton from "./skeleton";
+import { Link } from "react-router-dom";
 
 interface Props {
   media_content: string;
@@ -9,10 +10,11 @@ interface Props {
   title: string;
   description: string;
   cta: string;
+  link_action: string;
 }
 
 const AdvertiseCard = (props: Props) => {
-  const { media_content, media_title, title, description, cta } = props
+  const { media_content, media_title, title, description, cta, link_action } = props
 
   if (!media_content || !media_title || !title || !description || !cta) {
     return <Skeleton />;
@@ -27,9 +29,9 @@ const AdvertiseCard = (props: Props) => {
         <p className="text-gray-600 text-sm mb-4">
           {description}
         </p>
-        <button className="w-full bg-sky-500 hover:bg-blue-700 text-lg text-white font-bold py-4 px-4 rounded">
+        <Link to={link_action} className="w-full text-center block bg-sky-500 hover:bg-sky-400 text-lg text-white font-bold py-4 px-4 rounded-xl">
           {cta}
-        </button>
+        </Link>
       </div>
     </div>
   )

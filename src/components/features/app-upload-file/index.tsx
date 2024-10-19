@@ -2,6 +2,8 @@ import { Button, styled } from "@mui/material";
 import clsx from "clsx";
 import { CloudUploadIcon } from "lucide-react";
 import React from "react";
+import { toast } from "sonner";
+import convertByteToMB from "../../../utils/convert-byte-to-mb";
 
 const VisuallyHiddenInput = styled("input")`
   clip: rect(0 0 0 0);
@@ -27,8 +29,13 @@ export default function AppUploadFile(props: Props) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      setFile(files[0]);
-      onUploadFile?.(files[0]);
+      if (convertByteToMB(files[0]?.size!) > convertByteToMB(10485760)) {
+        toast.error("File size must be less than 10MB");
+        return;
+      } else {
+        setFile(files[0]);
+        onUploadFile?.(files[0]);
+      }
     }
   };
 

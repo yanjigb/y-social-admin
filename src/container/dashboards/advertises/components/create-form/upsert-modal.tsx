@@ -27,6 +27,8 @@ import Goal from "./components/goal";
 import { Create, Get as FetchAdvertiseList } from "../../../../../services/ads.service";
 import { toast } from "sonner";
 import { uploadMedia } from "../../../../../api/media/uploadMedia";
+import LinkAction from "./components/link-action";
+import SubmitBtn from "./components/submit-btn";
 
 interface UpsertModalProps {
   open: boolean;
@@ -131,7 +133,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
     const imageURL = await handleChangeMedia(media!);
     const formAdvertiseData = {
       ...getValues(),
-      userID: '66fb96dd41a077507af4be17',
+      userID: '65a0dcccfa6ca1e9ba94c698',
       media_content: imageURL,
     }
 
@@ -184,6 +186,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
             <Description errors={errors} control={control} />
             <UploadMedia onChange={handleUploadMedia} control={control} register={register} />
             <SelectCTA control={control} />
+            <LinkAction errors={errors} control={control} />
             <Schedule getValues={getValues} control={control} errors={errors} watch={watch} />
             <Budget control={control} onChangeBudget={handleChangeBudget} budget={budget} />
           </div>
@@ -220,12 +223,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={onClose} color="error">
-            Cancel
-          </Button>
-          <Button type="submit" variant="contained">
-            Save
-          </Button>
+          <SubmitBtn onClose={onClose} watch={watch} />
         </DialogActions>
       </form>
     </Dialog >

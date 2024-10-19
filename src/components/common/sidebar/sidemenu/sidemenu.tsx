@@ -1,5 +1,5 @@
 import { getDynamicRoute } from "../../../../lib/get-dynamic-route";
-import { RouteNames } from "../../../../types/routes";
+import { RouteNames } from "../../../../constants/routes";
 
 export const MENUITEMS = [
   {

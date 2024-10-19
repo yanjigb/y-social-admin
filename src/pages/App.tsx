@@ -1,5 +1,5 @@
 
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Footer from '../components/common/footer/footer';
 import Sidebar from '../components/common/sidebar/sidebar';
 import Switcher from '../components/common/switcher/switcher';

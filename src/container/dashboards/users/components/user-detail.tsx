@@ -2,6 +2,7 @@ import { FC, memo } from "react";
 import isEqual from "react-fast-compare";
 import { IUser } from "../../../../types/user";
 import SocialMedia from "../../../../constants/social-media";
+import Skeleton from "../skeleton";
 
 interface UserDetailProps {
   user: IUser;
@@ -100,6 +101,8 @@ const UserSocialMediaButtons: FC<{ user: IUser }> = ({ user }) => {
 };
 
 const UserDetail: FC<Readonly<UserDetailProps>> = ({ user }) => {
+  if (!user) return <Skeleton />
+
   return (
     <div
       className="hs-overlay hidden ti-offcanvas ti-offcanvas-right !max-w-[25rem] !border-0"

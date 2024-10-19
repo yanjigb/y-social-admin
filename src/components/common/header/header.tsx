@@ -9,12 +9,6 @@ import { Link } from "react-router-dom";
 import store from "../../../redux/store";
 import { connect } from "react-redux";
 import { ThemeChanger } from "../../../redux/action";
-import us from "../../../assets/images/flags/us_flag.jpg";
-import spain from "../../../assets/images/flags/spain_flag.jpg";
-import french from "../../../assets/images/flags/french_flag.jpg";
-import germany from "../../../assets/images/flags/germany_flag.jpg";
-import italy from "../../../assets/images/flags/italy_flag.jpg";
-import russia from "../../../assets/images/flags/russia_flag.jpg";
 import face9 from "../../../assets/images/faces/9.jpg";
 import desktoplogo from "../../../assets/images/brand-logos/desktop-logo.png";
 import togglelogo from "../../../assets/images/brand-logos/toggle-logo.png";
@@ -24,8 +18,9 @@ import desktopwhite from "../../../assets/images/brand-logos/desktop-white.png";
 import togglewhite from "../../../assets/images/brand-logos/toggle-white.png";
 import SimpleBar from "simplebar-react";
 import LocalStorageKeys from "../../../constants/local-storage-keys";
+import { RouteNames } from "../../../constants/routes";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
   //Fullscvreen
@@ -427,125 +422,6 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                 </button>
               </div>
 
-              <div className="header-element py-[1rem] md:px-[0.65rem] px-2  header-country hs-dropdown ti-dropdown  hidden sm:block [--placement:bottom-left]">
-                <button
-                  id="dropdown-flag"
-                  type="button"
-                  className="hs-dropdown-toggle ti-dropdown-toggle !p-0 flex-shrink-0  !border-0 !rounded-full !shadow-none"
-                >
-                  <img
-                    src={us}
-                    alt="flag-img"
-                    className="h-[1.25rem] w-[1.25rem] rounded-full"
-                  />
-                </button>
-
-                <div
-                  className="hs-dropdown-menu ti-dropdown-menu min-w-[10rem] hidden !-mt-3"
-                  aria-labelledby="dropdown-flag"
-                >
-                  <div className="ti-dropdown-divider divide-y divide-gray-200 dark:divide-white/10">
-                    <div className="py-2 first:pt-0 last:pb-0">
-                      <div className="ti-dropdown-item !p-[0.65rem] ">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] flex items-center w-[1.375rem] rounded-full">
-                            <img
-                              src={us}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              English
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img
-                              src={spain}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              Spanish
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img
-                              src={french}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              French
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img
-                              src={germany}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              German
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img
-                              src={italy}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              Italian
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center  rounded-sm">
-                            <img
-                              src={russia}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              Russian
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div
                 className="header-element header-theme-mode hidden !items-center sm:block !py-[1rem] md:!px-[0.65rem] px-2"
                 onClick={() => ToggleDark()}
@@ -561,7 +437,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                 <Link
                   aria-label="anchor"
                   className="hs-dark-mode-active:flex hidden hs-dark-mode group flex-shrink-0 justify-center items-center gap-2
-             rounded-full font-medium text-defaulttextcolor  transition-all text-xs dark:bg-bodybg dark:bg-bgdark dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
+                  rounded-full font-medium text-defaulttextcolor  transition-all text-xs dark:bg-bodybg dark:bg-bgdark dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
                   to="#"
                   data-hs-theme-click-value="light"
                 >
@@ -621,9 +497,8 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                             <div className="flex items-start justify-between mb-0">
                               <div className="mb-0 !text-[0.8125rem] text-[#232323] font-semibold dark:text-[#8c9097] dark:text-white/50">
                                 <Link
-                                  to={`${
-                                    import.meta.env.BASE_URL
-                                  }pages/ecommerce/cart/`}
+                                  to={`${import.meta.env.BASE_URL
+                                    }pages/ecommerce/cart/`}
                                 >
                                   {idx.name}
                                 </Link>
@@ -657,15 +532,13 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     ))}
                   </ul>
                   <div
-                    className={`p-3 empty-header-item border-t ${
-                      cartItemCount === 0 ? "hidden" : ""
-                    }`}
+                    className={`p-3 empty-header-item border-t ${cartItemCount === 0 ? "hidden" : ""
+                      }`}
                   >
                     <div className="grid">
                       <Link
-                        to={`${
-                          import.meta.env.BASE_URL
-                        }pages/ecommerce/checkout/`}
+                        to={`${import.meta.env.BASE_URL
+                          }pages/ecommerce/checkout/`}
                         className="w-full ti-btn ti-btn-primary-full p-2"
                       >
                         Proceed to checkout
@@ -673,9 +546,8 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     </div>
                   </div>
                   <div
-                    className={`p-[3rem] empty-item ${
-                      cartItemCount === 0 ? "" : "hidden"
-                    }`}
+                    className={`p-[3rem] empty-item ${cartItemCount === 0 ? "" : "hidden"
+                      }`}
                   >
                     <div className="text-center">
                       <span className="!w-[4rem] !h-[4rem] !leading-[4rem] rounded-[50%] avatar bg-warning/10 !text-warning">
@@ -688,9 +560,8 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                         Add some items to make me happy :)
                       </span>
                       <a
-                        href={`${
-                          import.meta.env.BASE_URL
-                        }pages/ecommerce/products/`}
+                        href={`${import.meta.env.BASE_URL
+                          }pages/ecommerce/products/`}
                         className="ti-btn ti-btn-primary btn-wave ti-btn-wave btn-sm m-1 !text-[0.75rem] !py-[0.25rem] !px-[0.5rem]"
                         data-abc="true"
                       >
@@ -753,9 +624,8 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                               <div>
                                 <p className="mb-0 text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50 text-[0.8125rem] font-semibold">
                                   <Link
-                                    to={`${
-                                      import.meta.env.BASE_URL
-                                    }pages/notifications/`}
+                                    to={`${import.meta.env.BASE_URL
+                                      }pages/notifications/`}
                                   >
                                     {notification.text1}
                                   </Link>
@@ -788,9 +658,8 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                   </ul>
 
                   <div
-                    className={`p-4 empty-header-item1 border-t mt-2 ${
-                      notifications.length === 0 ? "hidden" : ""
-                    }`}
+                    className={`p-4 empty-header-item1 border-t mt-2 ${notifications.length === 0 ? "hidden" : ""
+                      }`}
                   >
                     <div className="grid">
                       <a
@@ -802,9 +671,8 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     </div>
                   </div>
                   <div
-                    className={`p-[3rem] empty-item1 ${
-                      notifications.length === 0 ? "" : "hidden"
-                    }`}
+                    className={`p-[3rem] empty-item1 ${notifications.length === 0 ? "" : "hidden"
+                      }`}
                   >
                     <div className="text-center">
                       <span className="!h-[4rem]  !w-[4rem] avatar !leading-[4rem] !rounded-full !bg-secondary/10 !text-secondary">
@@ -867,31 +735,9 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     </li>
                     <li>
                       <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex"
-                        to={`${import.meta.env.BASE_URL}pages/email/mailapp/`}
-                      >
-                        <i className="ti ti-inbox text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Inbox{" "}
-                        <span className="!py-1 !px-[0.45rem] !font-semibold !rounded-sm text-success text-[0.75em] bg-success/10 ms-auto">
-                          25
-                        </span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
                         className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-                        to={`${import.meta.env.BASE_URL}pages/todolist/`}
-                      >
-                        <i className="ti ti-clipboard-check text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Task Manager
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-                        to={`${
-                          import.meta.env.BASE_URL
-                        }pages/email/mailsettings/`}
+                        to={`${import.meta.env.BASE_URL
+                          }pages/email/mailsettings/`}
                       >
                         <i className="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>
                         Settings
@@ -900,7 +746,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     <li>
                       <Link
                         className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-                        to="#"
+                        to={RouteNames.PAYMENT}
                       >
                         <i className="ti ti-wallet text-[1.125rem] me-2 opacity-[0.7]"></i>
                         Bal: $7,12,950
@@ -918,9 +764,8 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     <li>
                       <Link
                         className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex"
-                        to={`${
-                          import.meta.env.BASE_URL
-                        }authentication/signin/signincover/`}
+                        to={`${import.meta.env.BASE_URL
+                          }authentication/signin/signincover/`}
                       >
                         <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
                         Log Out

@@ -4,13 +4,10 @@ import { useDebounce } from "use-debounce";
 import Swal from "sweetalert2";
 
 import formatDate from "../../../../utils/date";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppPagination from "../../../../components/common/app-pagination";
-// import usePersistState from "../../../../hooks/use-presist-state";
-// import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ResponseTime from "../../../../constants/resonse-time";
 import { EAdvertiseStatus, IAdvertise } from "../../../../types/advertise";
-// import { mockAds } from "../../../../data/mock-data/mock-ads";
 import { CheckAdsTrending } from "../../../../lib/check-ads-trending";
 import clsx from "clsx";
 import { Delete, Get } from "../../../../services/ads.service";
@@ -18,7 +15,6 @@ import { toast } from "sonner";
 import { currencyFormat } from "../../../../lib/currency-format";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { columns } from "../components/constant";
-// import { RouteNames } from "../../../../types/routes";
 
 const badgeStyle = (status: EAdvertiseStatus) => {
   return status === EAdvertiseStatus.ACTIVE ? "bg-success" :
@@ -38,12 +34,12 @@ const AdvertiseTableList = () => {
   const [searching, setSearching] = useState("");
   // const [isEmpty, setIsEmpty] = useState(false);
   // const [isEmpty, setIsEmpty] = useState(false);
-  const isEmpty = false;
+  // const isEmpty = false;
   const navigate = useNavigate();
 
   const [debouncedFilter] = useDebounce(searching, ResponseTime.DEFAULT);
-  const [searchParams] = useSearchParams();
-  const pageNumber = parseInt(searchParams.get("page") || "1", 10);
+  // const [searchParams] = useSearchParams();
+  // const pageNumber = parseInt(searchParams.get("page") || "1", 10);
   const ITEM_PER_PAGE = 14;
 
   // const [openUpsertModal, setOpenUpsertModal] = useState(false);
@@ -77,6 +73,7 @@ const AdvertiseTableList = () => {
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
+    console.log(event)
   };
 
   const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {

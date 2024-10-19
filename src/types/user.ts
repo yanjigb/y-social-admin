@@ -20,4 +20,5 @@ export interface IUser extends IBase {
   twitter: string
   twitch: string
   facebook: string
+  balance: number
 }

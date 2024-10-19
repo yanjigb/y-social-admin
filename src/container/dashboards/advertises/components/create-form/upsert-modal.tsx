@@ -184,7 +184,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
             <Goal control={control} />
             <Title errors={errors} control={control} />
             <Description errors={errors} control={control} />
-            <UploadMedia onChange={handleUploadMedia} control={control} register={register} />
+            <UploadMedia onChange={handleUploadMedia} control={control} register={register} errors={errors} />
             <SelectCTA control={control} />
             <LinkAction errors={errors} control={control} />
             <Schedule getValues={getValues} control={control} errors={errors} watch={watch} />

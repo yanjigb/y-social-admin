@@ -70,7 +70,7 @@ export default function AdvertiseDetail() {
           </div>
         </div>
 
-        <Insights />
+        <Insights result={advertise.result} />
         <DailyPerformance result={advertise.result} currency={advertise.currency} />
       </div>
     </>

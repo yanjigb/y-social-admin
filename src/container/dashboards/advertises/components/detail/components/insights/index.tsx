@@ -1,13 +1,24 @@
+import { memo } from "react";
+import { IResult } from "../../../../../../../types/advertise";
 import InsightBlocks from "./components/insight-blocks";
 import Tabs from "./components/tabs";
-// interface Props {
-// }
+import isEqual from "react-fast-compare";
 
-export default function Insights() {
+interface Props {
+  result: IResult[]
+}
+
+const Insights = (props: Props) => {
+  const { result } = props;
+
   return (
     <div className="flex flex-col gap-6">
-      <InsightBlocks />
+      <InsightBlocks result={result} />
       <Tabs />
     </div>
   );
 }
+
+Insights.displayName = "Insights";
+
+export default memo(Insights, isEqual)

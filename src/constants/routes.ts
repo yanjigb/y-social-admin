@@ -7,7 +7,7 @@ export enum RouteNames {
   NOTIFICATION = "/notification",
   BOOKMARKS = "/bookmarks",
   POST_PREVIEW = "/post/=postID",
-  LOGIN = "/login",
+  LOGIN = "/pages/authentication/login",
   REGISTER = "/register",
   LOGOUT = "/logout",
   TERM_AND_SERVICE = "/term-and-service",

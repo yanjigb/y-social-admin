@@ -1,5 +1,5 @@
 
-import { Fragment, useEffect  } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 import { Provider } from "react-redux";
@@ -8,21 +8,21 @@ import Authenticationswitcher from '../components/common/switcher/authentication
 
 function Authenticationlayout() {
   useEffect(() => {
-		import("preline");
+    import("preline");
 
-	}, []);
-  
+  }, []);
+
   return (
     <Fragment>
       <Provider store={store}>
-      <HelmetProvider>
-            <Helmet>
-                <body className=''></body>
-            </Helmet>
-             <Outlet />
-             <Authenticationswitcher/>
+        <HelmetProvider>
+          <Helmet>
+            <body className=''></body>
+          </Helmet>
+          <Outlet />
+          <Authenticationswitcher />
         </HelmetProvider>
-        </Provider>
+      </Provider>
     </Fragment>
   );
 }

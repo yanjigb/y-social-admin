@@ -41,7 +41,9 @@ export default function Payment() {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (error) {
+    toast.error("Something went wrong");
+  }
 
   const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
     const text = e.currentTarget.getAttribute("data-value")!;

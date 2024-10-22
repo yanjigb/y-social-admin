@@ -3,9 +3,11 @@ import isEqual from "react-fast-compare"
 import Overview from "./overview"
 import Ctr from "./ctr"
 import Cpc from "./cpc"
+import { useParams } from "react-router-dom"
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const { id } = useParams();
 
   const handleActiveTab = (tab: string) => {
     console.log(tab)
@@ -31,9 +33,9 @@ const Tabs = () => {
         </nav>
       </div>
 
-      {activeTab === 'overview' && <Overview />}
-      {activeTab === 'ctr' && <Ctr />}
-      {activeTab === 'cpc' && <Cpc />}
+      {activeTab === 'overview' && <Overview advertiseID={id!} />}
+      {activeTab === 'ctr' && <Ctr advertiseID={id!} />}
+      {activeTab === 'cpc' && <Cpc advertiseID={id!} />}
     </div>
   )
 }

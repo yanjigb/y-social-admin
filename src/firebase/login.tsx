@@ -128,7 +128,7 @@ const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
                 >
                   <p className="h5 font-semibold mb-2 text-center">Sign In</p>
                   <p className="mb-4 text-[#8c9097] dark:text-white/50 opacity-[0.7] font-normal text-center">
-                    Welcome back Jhon !
+                    Welcome back Jhon firebase
                   </p>
                   {err && (
                     <div

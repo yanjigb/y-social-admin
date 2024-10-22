@@ -25,11 +25,11 @@ const AdvertiseCard = (props: Props) => {
       <LazyLoadImage src={media_content} title={media_title} className="object-cover aspect-video h-full w-full max-w-full max-h-[19.8125rem]" />
 
       <div className="p-4">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">{title}</h2>
-        <p className="text-gray-600 text-sm mb-4">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">{title}</h2>
+        <p className="text-gray-600 text-sm mb-2">
           {description}
         </p>
-        <Link to={link_action} className="w-full text-center block bg-sky-500 hover:bg-sky-400 text-lg text-white font-bold py-4 px-4 rounded-xl">
+        <Link to={link_action} className="w-full text-center block bg-sky-500 hover:bg-sky-400 text-lg text-white font-bold py-4 px-4 rounded-lg">
           {cta}
         </Link>
       </div>

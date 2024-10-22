@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 
 import formatDate from "../../../../utils/date";
 import { useNavigate } from "react-router-dom";
-import AppPagination from "../../../../components/common/app-pagination";
 import ResponseTime from "../../../../constants/resonse-time";
 import { EAdvertiseStatus, IAdvertise } from "../../../../types/advertise";
 import { CheckAdsTrending } from "../../../../lib/check-ads-trending";
@@ -14,7 +13,10 @@ import { Delete, Get } from "../../../../services/ads.service";
 import { toast } from "sonner";
 import { currencyFormat } from "../../../../lib/currency-format";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { columns } from "../components/constant";
+import { columns } from "./constant";
+import LocalStorageKeys from "../../../../constants/local-storage-keys";
+import useCurrentUser from "../../../../hooks/user-current-user";
+import ROLE from "../../../../constants/role";
 
 const badgeStyle = (status: EAdvertiseStatus) => {
   return status === EAdvertiseStatus.ACTIVE ? "bg-success" :
@@ -24,36 +26,30 @@ const badgeStyle = (status: EAdvertiseStatus) => {
 
 
 const AdvertiseTableList = () => {
-  // const [userList, setUserList] = useState<IUser[]>([]);
-  // const [adsList, setAdsList] = useState<IAdvertise[]>(mockAds);
-  // const [totalUsers, setTotalUsers] = usePersistState(
-  //   0,
-  //   LocalStorageKeys.TOTAL_USER
-  // );
-  const totalUsers = 0
   const [searching, setSearching] = useState("");
-  // const [isEmpty, setIsEmpty] = useState(false);
-  // const [isEmpty, setIsEmpty] = useState(false);
-  // const isEmpty = false;
   const navigate = useNavigate();
 
   const [debouncedFilter] = useDebounce(searching, ResponseTime.DEFAULT);
-  // const [searchParams] = useSearchParams();
-  // const pageNumber = parseInt(searchParams.get("page") || "1", 10);
-  const ITEM_PER_PAGE = 14;
 
-  // const [openUpsertModal, setOpenUpsertModal] = useState(false);
-  // const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  // const [user, setAdvertise] = useState<IUser | any>({});
   const [advertiseList, setAdvertiseList] = useState<IAdvertise[]>([]);
   const [advertiseId, setAdvertiseId] = useState<string | null>(null)
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
+  const displayedAds = advertiseList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  const userID = localStorage.getItem(LocalStorageKeys.USER_ID);
+  const { user } = useCurrentUser();
+
   const fetchAdvertiseList = useCallback(async () => {
       Get().then((res: any) =>
-        setAdvertiseList(res)
+        {
+          if(user?.role! === ROLE.USER_PROFILE.id) {
+            setAdvertiseList(res.filter((item: IAdvertise) => item.userID === userID))
+          } else {
+            setAdvertiseList(res)
+          }
+        }
       ).catch(() => toast.error("Something went wrong"));
   }, []);
 
@@ -153,7 +149,7 @@ const AdvertiseTableList = () => {
             value={searching || ""}
             onChange={onSearch}
             className="form-control mb-4 border-2"
-            placeholder="Search..."
+            placeholder="Search by title..."
             aria-labelledby="search"
           />
         </div>
@@ -176,7 +172,7 @@ const AdvertiseTableList = () => {
               </TableHead>
 
               <TableBody>
-                {advertiseList.map((ads) => {
+                {displayedAds.map((ads) => {
                   const { label, className } = CheckAdsTrending(ads.score);
 
                   return (
@@ -270,10 +266,6 @@ const AdvertiseTableList = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Paper>
-      </div>
-
-      <div className="box-footer">
-        <AppPagination pageCount={Math.ceil(totalUsers / ITEM_PER_PAGE)} />
       </div>
     </>
   );

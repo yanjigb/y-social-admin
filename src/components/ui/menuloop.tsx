@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
@@ -12,14 +13,13 @@ function Menuloop({ MENUITEMS, toggleSidemenu, level }: any) {
         }}
       >
         {MENUITEMS.icon}
-        <span className={`${level == 1 ? "side-menu__label" : ""}`}>
+        <span className={clsx(level == 1 ? "side-menu__label" : "", MENUITEMS.class)}>
           {MENUITEMS.title}
         </span>
       </Link>
       <ul
-        className={`slide-menu child${level}  ${
-          MENUITEMS.active ? "double-menu-active" : ""
-        }  `}
+        className={`slide-menu child${level}  ${MENUITEMS.active ? "double-menu-active" : ""
+          }  `}
         style={MENUITEMS.active ? { display: "block" } : { display: "none" }}
       >
         {level <= 1 ? (

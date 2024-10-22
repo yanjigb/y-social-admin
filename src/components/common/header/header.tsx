@@ -1,15 +1,9 @@
 import { FC, Fragment, useEffect, useState } from "react";
 import Modalsearch from "../modalsearch/modalsearch";
-import product1 from "../../../assets/images/ecommerce/jpg/1.jpg";
-import product3 from "../../../assets/images/ecommerce/jpg/3.jpg";
-import product5 from "../../../assets/images/ecommerce/jpg/5.jpg";
-import product4 from "../../../assets/images/ecommerce/jpg/4.jpg";
-import product6 from "../../../assets/images/ecommerce/jpg/6.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import store from "../../../redux/store";
 import { connect } from "react-redux";
 import { ThemeChanger } from "../../../redux/action";
-import face9 from "../../../assets/images/faces/9.jpg";
 import desktoplogo from "../../../assets/images/brand-logos/desktop-logo.png";
 import togglelogo from "../../../assets/images/brand-logos/toggle-logo.png";
 import desktopdark from "../../../assets/images/brand-logos/desktop-dark.png";
@@ -17,15 +11,19 @@ import toggledark from "../../../assets/images/brand-logos/toggle-dark.png";
 import desktopwhite from "../../../assets/images/brand-logos/desktop-white.png";
 import togglewhite from "../../../assets/images/brand-logos/toggle-white.png";
 import SimpleBar from "simplebar-react";
-import LocalStorageKeys from "../../../constants/local-storage-keys";
 import { RouteNames } from "../../../constants/routes";
+import useCurrentUser from "../../../hooks/user-current-user";
+import { currencyFormat } from "../../../lib/currency-format";
+import LocalStorageKeys from "../../../constants/local-storage-keys";
 
 interface HeaderProps { }
+const email = localStorage.getItem(LocalStorageKeys.USERNAME);
 
 const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
   //Fullscvreen
   const [fullScreen, setFullScreen] = useState(false);
-  const email = localStorage.getItem(LocalStorageKeys.EMAIL);
+  const { user } = useCurrentUser();
+  const navigate = useNavigate();
 
   const toggleFullScreen = () => {
     const elem = document.documentElement;
@@ -48,69 +46,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, []);
-  //
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleToggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
-  const cartProduct = [
-    {
-      id: 1,
-      src: product1,
-      name: "SomeThing Phone",
-      price: "$1,299.00",
-      color: "Metallic Blue",
-      text: "6gb Ram",
-      class: "",
-    },
-    {
-      id: 2,
-      src: product3,
-      name: "Stop Watch",
-      price: "$179.29",
-      color: "Analog",
-      text: "Free shipping",
-      class:
-        "font-[600] py-[0.25rem] px-[0.45rem] rounded-[0.25rem] bg-pink/10 text-pink text-[0.625rem]",
-    },
-    {
-      id: 3,
-      src: product5,
-      name: "Photo Frame",
-      price: "$29.00",
-      color: "Decorative",
-      text: "",
-      class: "",
-    },
-    {
-      id: 4,
-      src: product4,
-      name: "Kikon Camera",
-      price: "$4,999.00",
-      color: "Black",
-      text: "50MM",
-      class: "",
-    },
-    {
-      id: 5,
-      src: product6,
-      name: "Canvas Shoes",
-      price: "$129.00",
-      color: "Gray",
-      text: "Sports",
-      class: "",
-    },
-  ];
-  const [cartItems, setCartItems] = useState([...cartProduct]);
-  const [cartItemCount, setCartItemCount] = useState(cartProduct.length);
-
-  const handleRemove = (e: any, itemId: any) => {
-    e.stopPropagation(); // Prevents the event from reaching the button click event
-    const updatedCart = cartItems.filter((item) => item.id !== itemId);
-    setCartItems(updatedCart);
-    setCartItemCount(updatedCart.length);
-  };
   const initialNotifications = [
     {
       id: 1,
@@ -359,6 +295,14 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
       localStorage.removeItem("ynexHeader");
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem(LocalStorageKeys.USERNAME);
+    localStorage.removeItem(LocalStorageKeys.PASSWORD);
+    localStorage.removeItem(LocalStorageKeys.USER_ID);
+    navigate(RouteNames.LOGIN)
+  }
+
   return (
     <Fragment>
       <header className="app-header">
@@ -444,134 +388,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                   <i className="bx bx-sun header-link-icon"></i>
                 </Link>
               </div>
-              <div className="header-element cart-dropdown hs-dropdown ti-dropdown md:!block !hidden py-[1rem] md:px-[0.65rem] px-2 [--placement:bottom-right] rtl:[--placement:bottom-left]">
-                <button
-                  id="dropdown-cart"
-                  type="button"
-                  onClick={handleToggleDropdown}
-                  className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs"
-                >
-                  <i className="bx bx-cart header-link-icon"></i>
-                  <span className="flex absolute h-5 w-5 -top-[0.25rem] end-0 -me-[0.6rem]">
-                    <span
-                      className="relative inline-flex rounded-full h-[14.7px] w-[14px] text-[0.625rem] bg-primary text-white justify-center items-center"
-                      id="cart-icon-badge"
-                    >
-                      {cartItemCount}
-                    </span>
-                  </span>
-                </button>
-                <div
-                  className="main-header-dropdown bg-white !-mt-3 !p-0 hs-dropdown-menu ti-dropdown-menu w-[22rem] border-0 border-defaultborder hidden"
-                  aria-labelledby="dropdown-cart"
-                >
-                  <div className="ti-dropdown-header !bg-transparent flex justify-between items-center !m-0 !p-4">
-                    <p className="text-defaulttextcolor  !text-[1.0625rem] dark:text-[#8c9097] dark:text-white/50 font-semibold">
-                      Cart Items
-                    </p>
-                    <a
-                      href="#"
-                      className="font-[600] py-[0.25/2rem] px-[0.45rem] rounded-[0.25rem] bg-success/10 text-success text-[0.75em] "
-                      id="cart-data"
-                    >
-                      {cartItemCount} Item{cartItemCount !== 1 ? "s" : ""}
-                    </a>
-                  </div>
-                  <div>
-                    <hr className="dropdown-divider dark:border-white/10" />
-                  </div>
-                  <ul className="list-none mb-0" id="header-cart-items-scroll">
-                    {cartItems.map((idx) => (
-                      <li
-                        className="ti-dropdown-item border-b dark:border-defaultborder/10 border-defaultborder"
-                        key={Math.random()}
-                      >
-                        <div className="flex items-start cart-dropdown-item">
-                          <img
-                            src={idx.src}
-                            alt="img"
-                            className="!h-[1.75rem] !w-[1.75rem] leading-[1.75rem] text-[0.65rem] rounded-[50%] br-5 me-3"
-                          />
 
-                          <div className="grow">
-                            <div className="flex items-start justify-between mb-0">
-                              <div className="mb-0 !text-[0.8125rem] text-[#232323] font-semibold dark:text-[#8c9097] dark:text-white/50">
-                                <Link
-                                  to={`${import.meta.env.BASE_URL
-                                    }pages/ecommerce/cart/`}
-                                >
-                                  {idx.name}
-                                </Link>
-                              </div>
-
-                              <div className="inline-flex">
-                                <span className="text-black mb-1 dark:text-white !font-medium">
-                                  {idx.price}
-                                </span>
-                                <Link
-                                  aria-label="anchor"
-                                  to="#"
-                                  onClick={(e) => handleRemove(e, idx.id)}
-                                  className="header-cart-remove ltr:float-right rtl:float-left dropdown-item-close"
-                                >
-                                  <i className="ti ti-trash"></i>
-                                </Link>
-                              </div>
-                            </div>
-                            <div className="min-w-fit flex  items-start justify-between">
-                              <ul className="header-product-item dark:text-white/50 flex">
-                                <li>{idx.color}</li>
-                                <li>
-                                  <span className={idx.class}>{idx.text}</span>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                  <div
-                    className={`p-3 empty-header-item border-t ${cartItemCount === 0 ? "hidden" : ""
-                      }`}
-                  >
-                    <div className="grid">
-                      <Link
-                        to={`${import.meta.env.BASE_URL
-                          }pages/ecommerce/checkout/`}
-                        className="w-full ti-btn ti-btn-primary-full p-2"
-                      >
-                        Proceed to checkout
-                      </Link>
-                    </div>
-                  </div>
-                  <div
-                    className={`p-[3rem] empty-item ${cartItemCount === 0 ? "" : "hidden"
-                      }`}
-                  >
-                    <div className="text-center">
-                      <span className="!w-[4rem] !h-[4rem] !leading-[4rem] rounded-[50%] avatar bg-warning/10 !text-warning">
-                        <i className="ri-shopping-cart-2-line text-[2rem]"></i>
-                      </span>
-                      <h6 className="font-bold mb-1 mt-3 text-[1rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                        Your Cart is Empty
-                      </h6>
-                      <span className="mb-3 !font-normal text-[0.8125rem] block text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                        Add some items to make me happy :)
-                      </span>
-                      <a
-                        href={`${import.meta.env.BASE_URL
-                          }pages/ecommerce/products/`}
-                        className="ti-btn ti-btn-primary btn-wave ti-btn-wave btn-sm m-1 !text-[0.75rem] !py-[0.25rem] !px-[0.5rem]"
-                        data-abc="true"
-                      >
-                        continue shopping{" "}
-                        <i className="bi bi-arrow-right ms-1"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="header-element py-[1rem] md:px-[0.65rem] px-2 notifications-dropdown header-notification hs-dropdown ti-dropdown !hidden md:!block [--placement:bottom-right] rtl:[--placement:bottom-left]">
                 <button
                   id="dropdown-notification"
@@ -708,7 +525,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                 >
                   <img
                     className="inline-block rounded-full "
-                    src={face9}
+                    src={user?.profilePicture}
                     width="32"
                     height="32"
                     alt="Image Description"
@@ -736,20 +553,10 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     <li>
                       <Link
                         className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-                        to={`${import.meta.env.BASE_URL
-                          }pages/email/mailsettings/`}
-                      >
-                        <i className="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Settings
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
                         to={RouteNames.PAYMENT}
                       >
                         <i className="ti ti-wallet text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Bal: $7,12,950
+                        Bal: {currencyFormat(user?.balance)} VND
                       </Link>
                     </li>
                     <li>
@@ -765,7 +572,8 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                       <Link
                         className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex"
                         to={`${import.meta.env.BASE_URL
-                          }authentication/signin/signincover/`}
+                          }pages/authentication/login`}
+                        onClick={handleLogout}
                       >
                         <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
                         Log Out

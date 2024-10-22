@@ -21,4 +21,5 @@ export interface IUser extends IBase {
   twitch: string
   facebook: string
   balance: number
+  role: number;
 }

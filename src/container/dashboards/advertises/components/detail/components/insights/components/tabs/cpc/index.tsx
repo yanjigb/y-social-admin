@@ -1,33 +1,48 @@
-import { memo } from "react"
+import { memo, useEffect, useState } from "react"
 import isEqual from "react-fast-compare"
-import {  XAxis, YAxis, LineChart, CartesianGrid, Tooltip, ResponsiveContainer, Line } from 'recharts'
+import CpcChart from "./components/cpc-chart";
+import { GetById } from "../../../../../../../../../../services/ads.service";
+import { GroupByDayOfWeek } from "./lib/group-by-day-of-week";
 
-const mockDailyData = [
-  { name: "Mon", impressions: 4000, clicks: 400, conversions: 40, spend: 1000 },
-  { name: "Tue", impressions: 3000, clicks: 300, conversions: 30, spend: 800 },
-  { name: "Wed", impressions: 2000, clicks: 200, conversions: 20, spend: 600 },
-  { name: "Thu", impressions: 2780, clicks: 278, conversions: 27, spend: 750 },
-  { name: "Fri", impressions: 1890, clicks: 189, conversions: 18, spend: 500 },
-  { name: "Sat", impressions: 2390, clicks: 239, conversions: 23, spend: 650 },
-  { name: "Sun", impressions: 3490, clicks: 349, conversions: 34, spend: 900 },
-]
+interface IChartData {
+  name: string;
+  impressions: number;
+  clicks: number;
+  conversions: number;
+  cost: number;
+  date: any;
+  cpc: number;
+}
 
-const CPC = () => {
+interface Props {
+  advertiseID: string;
+}
+
+const CPC = (props: Props) => {
+  const { advertiseID } = props;
+  const [chartData, setChartData] = useState<IChartData[]>([]);
+  const fetchAdvertiseInsights = async () => {
+    const response: any = await GetById(advertiseID);
+    const filteredData = response.result;
+    const dailyData = GroupByDayOfWeek(filteredData);
+    setChartData(dailyData);
+  };
+
+  useEffect(() => {
+    fetchAdvertiseInsights();
+  }, [advertiseID]);
+
   return (
     <div>
       <h3 className="text-lg font-semibold text-gray-900 mb-2">Cost Per Click (CPC)</h3>
       <p className="text-sm text-gray-600 mb-4">Daily CPC for the past week</p>
-      <div className="h-[300px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={mockDailyData.map(day => ({ ...day, cpc: day.spend / day.clicks }))}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Line type="monotone" dataKey="cpc" stroke="#10B981" strokeWidth={2} />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+      {
+        chartData.length > 0 ? (
+          <CpcChart chartData={chartData} />
+        ) : (
+          <p className="text-sm text-gray-600">No data available</p>
+        )
+      }
     </div>
   )
 }

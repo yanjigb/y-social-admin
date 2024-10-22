@@ -1,9 +1,9 @@
-import { APIClient } from 'core/helpers/api_helper';
+import { APIClient } from "../helpers/api_helper";
 
-const baseUrl = 'api/auth';
+const baseUrl = 'api/v1/user';
 const api = new APIClient();
 
-export const Login = (data) => { 
+export const Login = (data) => {
   return api.create(baseUrl + '/login', data).then((res) => {
     return res;
   });

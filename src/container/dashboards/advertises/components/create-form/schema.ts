@@ -17,6 +17,7 @@ export type IAdvertiseForm = Omit<
   | "score"
   | "result"
   | "status"
+  | "isEnoughBudget"
 > & {
   createdAt?: Date;
   updatedAt?: Date;

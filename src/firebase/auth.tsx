@@ -11,9 +11,9 @@ const Auth = () => {
 	}, []);
   return (
     <Fragment>
-            <Provider store={store}>
-              <Outlet/>      
-            </Provider>
+      <Provider store={store}>
+        <Outlet/>
+      </Provider>
     </Fragment>
   );
 };

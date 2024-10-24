@@ -7,6 +7,7 @@ const LocalStorageKeys = {
   EMAIL: "email",
   TOKEN: "token",
   USER_ID: "user-id",
+  ROLE: "role",
 };
 
 export default LocalStorageKeys;

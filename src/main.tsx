@@ -92,10 +92,6 @@ import Lockbasic from "./container/authentication/lockscreen/lockbasic/lockbasic
 import Lockcover from "./container/authentication/lockscreen/lockcover/lockcover.tsx";
 import Resetbasic from "./container/authentication/resetpassword/resetbasic/resetbasic.tsx";
 import Resetcover from "./container/authentication/resetpassword/resetcover/resetcover.tsx";
-import Signupbasic from "./container/authentication/signup/signupbasic/signupbasic.tsx";
-import Signupcover from "./container/authentication/signup/signupcover/signupcover.tsx";
-import Signinbasic from "./container/authentication/signin/signinbasic/signinbasic.tsx";
-import Signincover from "./container/authentication/signin/signincover/signincover.tsx";
 import Twostepbasic from "./container/authentication/twostepverification/twostepbasic/twostepbasic.tsx";
 import Twostepcover from "./container/authentication/twostepverification/twostepcover/twostepcover.tsx";
 import Createbasic from "./container/authentication/createpassword/basic/basic.tsx";
@@ -106,7 +102,7 @@ import Error404 from "./container/error/404error/404error.tsx";
 import Error500 from "./container/error/500error/500error.tsx";
 import Ratings from "./container/advancedui/rating/rating.tsx";
 import Auth from "./firebase/auth.tsx";
-import Login from "./firebase/login.tsx";
+// import Login from "./firebase/login.tsx";
 import Signup from "./firebase/signup.tsx";
 import Scrollspy from "./container/advancedui/scrollspy/scrollspy.tsx";
 import Indicators from "./container/uielements/indicators/indicators.tsx";
@@ -114,10 +110,10 @@ import PostDetail from "./container/dashboards/posts/components/post-detail.tsx"
 import PostList from "./container/dashboards/posts/post-list.tsx";
 import Advertises from "./container/dashboards/advertises/advertise.tsx";
 import Profile from "./container/pages/profile/profile.tsx";
-import Mailsettings from "./container/pages/email/mailsettings/mailsettings.tsx";
 import AdvertiseDetail from "./container/dashboards/advertises/components/detail/advertise-detail.tsx";
 import PaymentsTable from "./container/dashboards/payments/payments-table.tsx";
 import Payment from "./container/pages/payment";
+import Login from "./pages/authentication/login";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -126,10 +122,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path={`${import.meta.env.BASE_URL}`} element={<Auth />}>
             <Route index element={<Login />} />
-            <Route
+            {/* <Route
               path={`${import.meta.env.BASE_URL}firebase/login`}
               element={<Login />}
-            />
+            /> */}
             <Route
               path={`${import.meta.env.BASE_URL}firebase/signup`}
               element={<Signup />}
@@ -151,11 +147,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}pages/payment`}
               element={<Payment />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL
-                }pages/email/mailsettings/`}
-              element={<Mailsettings />}
             />
             <Route
               path={`${import.meta.env.BASE_URL}dashboards/ecommerce`}
@@ -562,24 +553,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
             <Route
               path={`${import.meta.env.BASE_URL
-                }authentication/signup/signupbasic`}
-              element={<Signupbasic />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL
-                }authentication/signup/signupcover`}
-              element={<Signupcover />}
-            />
-
-            <Route
-              path={`${import.meta.env.BASE_URL
-                }authentication/signin/signinbasic`}
-              element={<Signinbasic />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL
-                }authentication/signin/signincover`}
-              element={<Signincover />}
+                }pages/authentication/login`}
+              element={<Login />}
             />
 
             <Route

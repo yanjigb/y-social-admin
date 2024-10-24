@@ -63,10 +63,6 @@ const Budget = (props: Props) => {
     setHasChanged(true);
   };
 
-  useEffect(() => {
-    console.log(newBudget, budget)
-  }, [newBudget, budget])
-
   if (!budget || !currency) return <Skeleton />
 
   return (

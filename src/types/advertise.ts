@@ -7,6 +7,8 @@ export enum EAdvertiseStatus {
   SCHEDULE = "schedule",
   ACTIVE = "active",
   DISABLED = "disabled",
+  SUSPENDED = "suspended",
+  IN_REVIEW = "in-review",
 }
 
 export interface IResult {
@@ -16,6 +18,7 @@ export interface IResult {
   conversions: number;
   cost: number;
   ctr: number;
+  cpc: number;
 }
 
 export interface IGoal {
@@ -56,4 +59,5 @@ export interface IAdvertise extends IBase {
   result: IResult[];
   score: number;
   link_action: string;
+  isEnoughBudget: boolean;
 }

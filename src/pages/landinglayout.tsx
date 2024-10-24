@@ -7,16 +7,16 @@ import Landingswitcher from '../components/common/switcher/landingswitcher';
 
 function Landinglayout() {
   useEffect(() => {
-		import("preline");
+    import("preline");
 
-	}, []);
+  }, []);
 
-  
+
   return (
     <Fragment>
       <Provider store={store}>
-          <Landingswitcher/>
-          <Outlet />
+        <Landingswitcher />
+        <Outlet />
       </Provider>
     </Fragment>
   );

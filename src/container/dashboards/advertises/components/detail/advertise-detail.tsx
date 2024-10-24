@@ -14,6 +14,7 @@ import Status from "./components/status";
 import Author from "./components/author";
 import Insights from "./components/insights";
 import AdvertiseCard from "./components/advertise-card";
+import InfoBanner from "./components/info-banner";
 
 
 export default function AdvertiseDetail() {
@@ -46,10 +47,13 @@ export default function AdvertiseDetail() {
   return (
     <>
       <div className="container my-6 flex flex-col gap-6">
+        <InfoBanner status={advertise.status} isEnoughBudget={advertise.isEnoughBudget} />
+
         <div className="grid grid-cols-12 gap-6">
           <div className="xl:col-span-7 col-span-12 flex flex-col gap-6">
             {
-              advertise.status !== EAdvertiseStatus.SCHEDULE && <Status status={advertise.status} />
+              (advertise.status !== EAdvertiseStatus.SCHEDULE && advertise.status !== EAdvertiseStatus.SUSPENDED)
+              && <Status status={advertise.status} />
             }
             <AdvertiseCard
               link_action={advertise.link_action}
@@ -70,7 +74,7 @@ export default function AdvertiseDetail() {
           </div>
         </div>
 
-        <Insights />
+        <Insights result={advertise.result} />
         <DailyPerformance result={advertise.result} currency={advertise.currency} />
       </div>
     </>

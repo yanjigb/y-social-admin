@@ -1,5 +1,17 @@
 import { getDynamicRoute } from "../../../../lib/get-dynamic-route";
 import { RouteNames } from "../../../../constants/routes";
+import clsx from "clsx";
+import LocalStorageKeys from "../../../../constants/local-storage-keys";
+import ROLE from "../../../../constants/role";
+
+const role = Number(localStorage.getItem(LocalStorageKeys.ROLE))
+
+const checkNotAllowRole = (role: Number, notAllowRole: Number[]) => {
+  if (notAllowRole.includes(role)) {
+    return true;
+  }
+  return false;
+}
 
 export const MENUITEMS = [
   {
@@ -15,8 +27,9 @@ export const MENUITEMS = [
     badge: "",
     badgetxt: "12",
     path: getDynamicRoute(RouteNames.ADVERTISES),
-    class:
-      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2",
+    class: clsx("!py-[0.25rem] !px-[0.45rem] !text-sm ms-2",
+      checkNotAllowRole(role, []) && "hidden"
+    ),
   },
   {
     type: "sub",
@@ -28,8 +41,9 @@ export const MENUITEMS = [
     badge: "",
     badgetxt: "12",
     path: getDynamicRoute(RouteNames.USERS),
-    class:
-      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2",
+    class: clsx("!py-[0.25rem] !px-[0.45rem] !text-sm ms-2",
+      checkNotAllowRole(role, [ROLE.USER_PROFILE.id]) && "hidden"
+    ),
   },
   {
     type: "sub",
@@ -41,8 +55,9 @@ export const MENUITEMS = [
     badge: "",
     badgetxt: "12",
     path: getDynamicRoute(RouteNames.POSTS),
-    class:
-      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2",
+    class: clsx("!py-[0.25rem] !px-[0.45rem] !text-sm ms-2",
+      checkNotAllowRole(role, [ROLE.USER_PROFILE.id]) && "hidden"
+    ),
   },
   {
     type: "sub",
@@ -54,8 +69,9 @@ export const MENUITEMS = [
     badge: "",
     badgetxt: "12",
     path: getDynamicRoute(RouteNames.ANALYTICS),
-    class:
-      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2",
+    class: clsx("!py-[0.25rem] !px-[0.45rem] !text-sm ms-2",
+      checkNotAllowRole(role, [ROLE.USER_PROFILE.id]) && "hidden"
+    ),
   },
   {
     type: "sub",
@@ -67,8 +83,9 @@ export const MENUITEMS = [
     badge: "",
     badgetxt: "12",
     path: getDynamicRoute(RouteNames.ECOMMERCE),
-    class:
-      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2",
+    class: clsx("!py-[0.25rem] !px-[0.45rem] !text-sm ms-2",
+      checkNotAllowRole(role, []) && "hidden"
+    ),
   },
   {
     type: "sub",
@@ -80,8 +97,9 @@ export const MENUITEMS = [
     badge: "",
     badgetxt: "12",
     path: getDynamicRoute(RouteNames.SALES),
-    class:
-      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2",
+    class: clsx("!py-[0.25rem] !px-[0.45rem] !text-sm ms-2",
+      checkNotAllowRole(role, []) && "hidden"
+    ),
   },
   {
     type: "sub",
@@ -93,8 +111,9 @@ export const MENUITEMS = [
     badge: "",
     badgetxt: "12",
     path: getDynamicRoute(RouteNames.PERSONAL),
-    class:
-      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2",
+    class: clsx("!py-[0.25rem] !px-[0.45rem] !text-sm ms-2",
+      checkNotAllowRole(role, [ROLE.USER_PROFILE.id]) && "hidden"
+    ),
   },
   {
     type: "sub",
@@ -106,7 +125,8 @@ export const MENUITEMS = [
     badge: "",
     badgetxt: "12",
     path: getDynamicRoute(RouteNames.PAYMENTS),
-    class:
-      "badge !bg-warning/10 !text-warning !py-[0.25rem] !px-[0.45rem] !text-[0.75em] ms-2",
+    class: clsx("!py-[0.25rem] !px-[0.45rem] !text-sm ms-2",
+      checkNotAllowRole(role, [ROLE.STAFF_PROFILE.id, ROLE.USER_PROFILE.id]) && "hidden"
+    ),
   },
 ];

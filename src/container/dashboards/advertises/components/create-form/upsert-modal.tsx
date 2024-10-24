@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { uploadMedia } from "../../../../../api/media/uploadMedia";
 import LinkAction from "./components/link-action";
 import SubmitBtn from "./components/submit-btn";
+import LocalStorageKeys from "../../../../../constants/local-storage-keys";
 
 interface UpsertModalProps {
   open: boolean;
@@ -63,6 +64,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
     media_content: dataEdit.media_content ?? mediaUrl,
   });
   const [media, setMedia] = React.useState<File | Blob>();
+  const userID = localStorage.getItem(LocalStorageKeys.USER_ID);
 
   const {
     register,
@@ -133,7 +135,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
     const imageURL = await handleChangeMedia(media!);
     const formAdvertiseData = {
       ...getValues(),
-      userID: '65a0dcccfa6ca1e9ba94c698',
+      userID,
       media_content: imageURL,
     }
 

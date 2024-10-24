@@ -37,7 +37,11 @@ const Status = (props: Props) => {
         onChange={handleChangeStatus}
       >
         {Object.values(EAdvertiseStatus)
-          .filter((item) => item !== EAdvertiseStatus.SCHEDULE)
+          .filter((item) =>
+            item !== EAdvertiseStatus.SCHEDULE &&
+            item !== EAdvertiseStatus.IN_REVIEW &&
+            item !== EAdvertiseStatus.SUSPENDED
+          )
           .map((item) => (
             <MenuItem key={item} value={item}>{item}</MenuItem>
           ))}

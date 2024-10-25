@@ -114,7 +114,8 @@ import AdvertiseDetail from "./container/dashboards/advertises/components/detail
 import PaymentsTable from "./container/dashboards/payments/payments-table.tsx";
 import Payment from "./container/pages/payment";
 import Login from "./pages/authentication/login";
-import SupportTicket from "./container/dashboards/support-ticket";
+import SupportTicket from "./container/dashboards/support-ticket/index.jsx";
+import _404 from "./pages/_404";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -123,10 +124,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path={`${import.meta.env.BASE_URL}`} element={<Auth />}>
             <Route index element={<Login />} />
-            {/* <Route
-              path={`${import.meta.env.BASE_URL}firebase/login`}
-              element={<Login />}
-            /> */}
             <Route
               path={`${import.meta.env.BASE_URL}firebase/signup`}
               element={<Signup />}
@@ -148,10 +145,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}pages/payment`}
               element={<Payment />}
-            />
-            <Route
-              path={`${import.meta.env.BASE_URL}dashboards/support-ticket`}
-              element={<SupportTicket />}
             />
             <Route
               path={`${import.meta.env.BASE_URL}dashboards/ecommerce`}
@@ -188,6 +181,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}dashboards/post/:id`}
               element={<PostDetail />}
+            />
+            <Route
+              path={`${import.meta.env.BASE_URL}dashboards/support-ticket`}
+              element={<SupportTicket />}
+            />
+            <Route
+              path="*"
+              element={<_404 />}
             />
             <Route
               path={`${import.meta.env.BASE_URL}task/kanbanboard`}

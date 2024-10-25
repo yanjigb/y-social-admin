@@ -336,7 +336,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                 >
                   <img
                     className="inline-block rounded-full "
-                    src={user?.profilePicture}
+                    src={user?.profilePicture || "https://i.pinimg.com/564x/36/98/19/3698191cf374b72f512576b0395a7167.jpg"}
                     width="32"
                     height="32"
                     alt="Image Description"
@@ -373,7 +373,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     <li>
                       <Link
                         className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex"
-                        to={`${import.meta.env.BASE_URL}pages/chat/`}
+                        to={RouteNames.SUPPORT_TICKET}
                       >
                         <i className="ti ti-headset text-[1.125rem] me-2 opacity-[0.7]"></i>
                         Support

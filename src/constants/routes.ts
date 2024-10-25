@@ -24,5 +24,6 @@ export enum RouteNames {
   PAYMENTS = "dashboards/payments",
   LIST_VIEW = "listview",
   CRM = "dashboards/crm",
-  PAYMENT = "pages/payment"
+  PAYMENT = "pages/payment",
+  SUPPORT_TICKET = "dashboards/support-ticket",
 }

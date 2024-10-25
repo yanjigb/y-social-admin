@@ -114,6 +114,7 @@ import AdvertiseDetail from "./container/dashboards/advertises/components/detail
 import PaymentsTable from "./container/dashboards/payments/payments-table.tsx";
 import Payment from "./container/pages/payment";
 import Login from "./pages/authentication/login";
+import SupportTicket from "./container/dashboards/support-ticket";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -147,6 +148,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route
               path={`${import.meta.env.BASE_URL}pages/payment`}
               element={<Payment />}
+            />
+            <Route
+              path={`${import.meta.env.BASE_URL}dashboards/support-ticket`}
+              element={<SupportTicket />}
             />
             <Route
               path={`${import.meta.env.BASE_URL}dashboards/ecommerce`}

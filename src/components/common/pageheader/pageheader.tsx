@@ -1,14 +1,12 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import AppMarquee from '../../../components/features/app-marquee';
 
 export default function Pageheader(props: any) {
   return (
     <Fragment>
       <div className='flex flex-col'>
-        <marquee className="bg-primary/10 text-base rounded flex items-center p-2 mt-4">
-          If our feature have any problems or mistakes. Please contact us as soon as posible, we glad to hear from you 🤠
-        </marquee>
-
+        <AppMarquee content='If our feature has any problems or mistakes, please contact us as soon as possible. We’re glad to hear from you 🤠' />
         <div className="block justify-between page-header md:flex">
           <div>
             <h3 className="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">{props.currentpage}</h3>

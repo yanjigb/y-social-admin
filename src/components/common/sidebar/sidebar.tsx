@@ -666,19 +666,21 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
               {MENUITEMS.map((levelone) => (
                 <Fragment key={Math.random()}>
                   <li
-                    className={`${levelone.menutitle ? "slide__category" : ""
-                      } ${levelone.type === "link" ? "slide" : ""}
-                      ${levelone.type === "sub" ? "slide has-sub" : ""} ${levelone?.active ? "open" : ""
-                      } ${levelone?.selected ? "active" : ""}`}
+                    className={`${'menutitle' in levelone ?
+                      "slide__category" : ""} ${'type' in levelone &&
+                        levelone.type === "link" ? "slide" : ""}
+                            ${'type' in levelone && levelone.type === "sub" ?
+                        "slide has-sub" : ""} ${'active' in levelone ? "open" : ""}
+                              ${'selected' in levelone ? "active" : ""}`}
                   >
-                    {levelone.menutitle ? (
+                    {'menutitle' in levelone ? (
                       <span className="category-name">
                         {levelone.menutitle}
                       </span>
                     ) : (
                       ""
                     )}
-                    {levelone.type === "link" ? (
+                    {'type' in levelone && levelone.type === "link" ? (
                       <Link
                         to={levelone.path + "/"}
                         className={`side-menu__item ${levelone.selected ? "active" : ""
@@ -699,7 +701,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     ) : (
                       ""
                     )}
-                    {levelone.type === "empty" ? (
+                    {'type' in levelone && levelone.type === "empty" ? (
                       <Link to="#" className="side-menu__item">
                         {levelone.icon}
                         <span className="">
@@ -716,7 +718,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     ) : (
                       ""
                     )}
-                    {levelone.type === "sub" ? (
+                    {'type' in levelone && levelone.type === "sub" ? (
                       <Menuloop
                         MENUITEMS={levelone}
                         level={level + 1}

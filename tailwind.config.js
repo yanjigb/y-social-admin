@@ -149,6 +149,7 @@ theme: {
     'spin-slow': 'spin 3s linear infinite',
     'slow-ping':'ping 2s linear infinite',
     'animate-wase': 'wase 4s linear infinite',
+    marquee: 'marquee 40s linear infinite',
   },
   keyframes: {
     particles: {
@@ -223,6 +224,10 @@ theme: {
         transform: "rotate(360deg)",
       },
     },
+    marquee: {
+      '0%': { transform: 'translateX(100%)' },
+      '100%': { transform: 'translateX(0%)' },
+    },
   },
 },
 variants: {},
@@ -259,6 +264,6 @@ plugins: [
     })
   }),
 ],
-  
+
 }
 

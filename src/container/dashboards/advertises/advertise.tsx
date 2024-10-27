@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useCallback, useEffect, useState } from "react";
 import isEqual from "react-fast-compare";
 
 import Pageheader from "../../../components/common/pageheader/pageheader";
@@ -6,21 +6,36 @@ import Pageheader from "../../../components/common/pageheader/pageheader";
 import UpsertModal from "./components/create-form/upsert-modal";
 import { IAdvertise } from "../../../types/advertise";
 import List from "./list";
-import { Get } from "../../../services/ads.service";
+import { Get, GetByUser } from "../../../services/ads.service";
 import { toast } from "sonner";
+import LocalStorageKeys from "../../../constants/local-storage-keys";
+import ROLE from "../../../constants/role";
+import useCurrentUser from "../../../hooks/use-current-user";
 
 interface UsersProps { }
 
+const role = localStorage.getItem(LocalStorageKeys.ROLE);
+const userID = localStorage.getItem(LocalStorageKeys.USER_ID)
+const isAllowRole = Number(role) === ROLE.ADMIN_PROFILE.id || Number(role) === ROLE.STAFF_PROFILE.id || Number(role) === ROLE.SUPER_ADMIN_PROFILE.id;
+
 const Advertises: FC<UsersProps> = () => {
-  // const [totalAds, setTotalAds] = useState(mockAds.length);
   const [openUpsertModal, setOpenUpsertModal] = useState(false);
   const [advertiseList, setAdvertiseList] = useState<IAdvertise[]>([]);
+  const { user } = useCurrentUser();
 
-  const fetchAdvertiseList = () => {
-    Get().then((res: any) =>
-      setAdvertiseList(res)
-    ).catch(() => toast.error("Something went wrong"));
-  };
+  const fetchAdvertiseList = useCallback(async () => {
+    try {
+      const res: any = isAllowRole ? await Get() : await GetByUser(userID);
+
+      const filteredRes = user?.role === ROLE.USER_PROFILE.id
+        ? isAllowRole ? res : res.filter((item: IAdvertise) => item.userID === userID)
+        : res;
+
+      setAdvertiseList(filteredRes);
+    } catch {
+      toast.error("Something went wrong");
+    }
+  }, []);
 
   useEffect(() => {
     fetchAdvertiseList();
@@ -64,7 +79,7 @@ const Advertises: FC<UsersProps> = () => {
                 </button>
               </div>
 
-              <List />
+              <List advertiseList={advertiseList} />
             </div>
           </div>
         </div>
@@ -75,9 +90,8 @@ const Advertises: FC<UsersProps> = () => {
           open={openUpsertModal}
           onClose={handleOpenUpsertPost}
           userId="1234567890"
-          fetchAdsList={() => { }}
+          fetchAdsList={fetchAdvertiseList}
           dataEdit={{} as IAdvertise}
-        // fetchPostList={fetchPostList}
         />
       )}
     </>

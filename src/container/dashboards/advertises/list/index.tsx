@@ -1,22 +1,18 @@
-import React, { ChangeEvent, memo, useCallback, useEffect, useState } from "react";
+import React, { ChangeEvent, memo, useEffect, useState } from "react";
 import isEqual from "react-fast-compare";
-import { useDebounce } from "use-debounce";
 import Swal from "sweetalert2";
 
 import formatDate from "../../../../utils/date";
 import { useNavigate } from "react-router-dom";
-import ResponseTime from "../../../../constants/resonse-time";
 import { EAdvertiseStatus, IAdvertise } from "../../../../types/advertise";
 import { CheckAdsTrending } from "../../../../lib/check-ads-trending";
 import clsx from "clsx";
-import { Delete, Get } from "../../../../services/ads.service";
+import { Delete, } from "../../../../services/ads.service";
 import { toast } from "sonner";
 import { currencyFormat } from "../../../../lib/currency-format";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { columns } from "./constant";
 import LocalStorageKeys from "../../../../constants/local-storage-keys";
-import useCurrentUser from "../../../../hooks/user-current-user";
-import ROLE from "../../../../constants/role";
 
 const badgeStyle = (status: EAdvertiseStatus) => {
   return status === EAdvertiseStatus.ACTIVE ? "bg-success" :
@@ -24,48 +20,24 @@ const badgeStyle = (status: EAdvertiseStatus) => {
       "bg-danger";
 };
 
+const userID = localStorage.getItem(LocalStorageKeys.USER_ID)
 
-const AdvertiseTableList = () => {
+interface Props {
+  advertiseList: IAdvertise[];
+}
+
+const AdvertiseTableList = (props: Props) => {
+  const { advertiseList } = props;
+
   const [searching, setSearching] = useState("");
   const navigate = useNavigate();
 
-  const [debouncedFilter] = useDebounce(searching, ResponseTime.DEFAULT);
-
-  const [advertiseList, setAdvertiseList] = useState<IAdvertise[]>([]);
   const [advertiseId, setAdvertiseId] = useState<string | null>(null)
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
   const displayedAds = advertiseList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-  const userID = localStorage.getItem(LocalStorageKeys.USER_ID);
-  const { user } = useCurrentUser();
-
-  const fetchAdvertiseList = useCallback(async () => {
-      Get().then((res: any) =>
-        {
-          if(user?.role! === ROLE.USER_PROFILE.id) {
-            setAdvertiseList(res.filter((item: IAdvertise) => item.userID === userID))
-          } else {
-            setAdvertiseList(res)
-          }
-        }
-      ).catch(() => toast.error("Something went wrong"));
-  }, []);
-
-  useEffect(() => {
-    fetchAdvertiseList();
-  }, [fetchAdvertiseList]);
-
-  useEffect(() => {
-    if (debouncedFilter) {
-      setAdvertiseList((prev) =>
-        prev.filter((advertise) => advertise._id.includes(debouncedFilter))
-      );
-    } else {
-      fetchAdvertiseList();
-    }
-  }, [debouncedFilter, fetchAdvertiseList]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -79,9 +51,8 @@ const AdvertiseTableList = () => {
 
   const handleDeleteAdvertise = async () => {
     try {
-      await Delete('65a0dcccfa6ca1e9ba94c698', advertiseId);
+      await Delete(userID, advertiseId);
       toast.success("Deleted successfully!");
-      fetchAdvertiseList();
     } catch (error) {
       toast.error("Something went wrong");
       Swal.fire({

@@ -10,7 +10,7 @@ import toggledark from "../../../assets/images/brand-logos/toggle-dark.png";
 import desktopwhite from "../../../assets/images/brand-logos/desktop-white.png";
 import togglewhite from "../../../assets/images/brand-logos/toggle-white.png";
 import { RouteNames } from "../../../constants/routes";
-import useCurrentUser from "../../../hooks/user-current-user";
+import useCurrentUser from "../../../hooks/use-current-user";
 import { currencyFormat } from "../../../lib/currency-format";
 import LocalStorageKeys from "../../../constants/local-storage-keys";
 
@@ -236,6 +236,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
     localStorage.removeItem(LocalStorageKeys.USERNAME);
     localStorage.removeItem(LocalStorageKeys.PASSWORD);
     localStorage.removeItem(LocalStorageKeys.USER_ID);
+    localStorage.removeItem(LocalStorageKeys.ROLE);
     navigate(RouteNames.LOGIN)
   }
 

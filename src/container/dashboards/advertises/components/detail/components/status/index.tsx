@@ -7,7 +7,7 @@ import { Update } from "../../../../../../../services/ads.service";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import ROLE from "../../../../../../../constants/role";
-import useCurrentUser from "../../../../../../../hooks/user-current-user";
+import useCurrentUser from "../../../../../../../hooks/use-current-user";
 
 interface Props {
   status: EAdvertiseStatus;

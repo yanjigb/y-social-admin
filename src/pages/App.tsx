@@ -7,10 +7,8 @@ import Header from '../components/common/header/header';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import store from '../redux/store';
 import { Provider } from 'react-redux';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import MainProvider from '../provider';
-import LocalStorageKeys from '../constants/local-storage-keys';
-import { RouteNames } from '../constants/routes';
 
 function App() {
   const [MyclassName, setMyClass] = useState("");
@@ -30,16 +28,6 @@ function App() {
   useEffect(() => {
     import("preline");
   }, []);
-
-  const userID = localStorage.getItem(LocalStorageKeys.USER_ID);
-  const username = localStorage.getItem(LocalStorageKeys.USERNAME);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!userID || !username) {
-      navigate(RouteNames.LOGIN)
-    }
-  }, [])
 
   return (
     <MainProvider>

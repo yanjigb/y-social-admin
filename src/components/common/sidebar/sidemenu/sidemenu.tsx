@@ -4,11 +4,31 @@ import clsx from "clsx";
 import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ROLE from "../../../../constants/role";
 
+interface MenuItem {
+  type: "sub" | "link" | "empty";
+  icon: string;
+  Name: string;
+  active: boolean;
+  selected: boolean;
+  title: string;
+  badge: string;
+  badgetxt: string;
+  notAllowRoles: any[];
+  path: string;
+  class: string;
+}
+
+interface MenuTitle {
+  menutitle: string;
+}
+
+type MenuItems = (MenuItem | MenuTitle)[];
+
 const role = Number(localStorage.getItem(LocalStorageKeys.ROLE));
 
 const checkNotAllowRole = (role: any, notAllowRole: string) => notAllowRole.includes(role);
 
-const createMenuItem = (title: string, routeName: RouteNames, notAllowRoles: any = []) => ({
+const createMenuItem = (title: string, routeName: RouteNames, notAllowRoles: any = []): MenuItem => ({
   type: "sub",
   icon: "",
   Name: "",
@@ -25,17 +45,13 @@ const createMenuItem = (title: string, routeName: RouteNames, notAllowRoles: any
   ),
 });
 
-export const MENUITEMS = [
+export const MENUITEMS: MenuItems = [
   {
     menutitle: "",
   },
   createMenuItem("Advertises", RouteNames.ADVERTISES),
   createMenuItem("Users", RouteNames.USERS, [ROLE.USER_PROFILE.id]),
-  createMenuItem("Posts", RouteNames.POSTS, [ROLE.USER_PROFILE.id]),
-  createMenuItem("Analytics", RouteNames.ANALYTICS, [ROLE.USER_PROFILE.id]),
-  createMenuItem("Ecommerce", RouteNames.ECOMMERCE),
-  createMenuItem("Sales", RouteNames.SALES),
-  createMenuItem("Personal", RouteNames.PERSONAL, [ROLE.USER_PROFILE.id]),
-  createMenuItem("Support Ticket", RouteNames.SUPPORT_TICKET, [ROLE.USER_PROFILE.id]),
+  createMenuItem("Posts", RouteNames.POSTS),
+  createMenuItem("Support Ticket", RouteNames.SUPPORT_TICKET),
   createMenuItem("Payments", RouteNames.PAYMENTS, [ROLE.STAFF_PROFILE.id, ROLE.USER_PROFILE.id]),
 ];

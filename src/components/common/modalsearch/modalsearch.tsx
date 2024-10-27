@@ -1,5 +1,4 @@
 import { FC, Fragment, useEffect, useState } from "react";
-// import { MENUITEMS } from "../sidebar/sidemenu/sidemenu";
 import { Link } from "react-router-dom";
 
 interface ModalsearchProps { }

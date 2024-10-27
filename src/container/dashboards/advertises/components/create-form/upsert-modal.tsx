@@ -30,6 +30,7 @@ import { uploadMedia } from "../../../../../api/media/uploadMedia";
 import LinkAction from "./components/link-action";
 import SubmitBtn from "./components/submit-btn";
 import LocalStorageKeys from "../../../../../constants/local-storage-keys";
+import { DEFAULT_BUDGET } from "./constants/budget";
 
 interface UpsertModalProps {
   open: boolean;
@@ -57,7 +58,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
   isEdit,
 }) => {
   const [confirmAlert, setConfirmAlert] = React.useState(false);
-  const [budget, setBudget] = React.useState<number>(450000);
+  const [budget, setBudget] = React.useState<number>(DEFAULT_BUDGET);
   const [mediaUrl, setMediaUrl] = React.useState<string | null>(null);
   const [formData, setFormData] = React.useState({
     budget: dataEdit.budget ?? budget,
@@ -65,6 +66,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
   });
   const [media, setMedia] = React.useState<File | Blob>();
   const userID = localStorage.getItem(LocalStorageKeys.USER_ID);
+  const [isLoading, setLoading] = React.useState(false);
 
   const {
     register,
@@ -111,8 +113,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
             title: "Updated Successfully! 😎",
             text: "This user has been updated",
           });
-          UpdateInfo(formData).then((data) => {
-            console.log(data);
+          UpdateInfo(formData).then(() => {
             fetchAdsList();
           });
           setConfirmAlert(false);
@@ -132,6 +133,8 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
   }
 
   const onSubmit: SubmitHandler<IAdvertiseForm> = async () => {
+    setLoading(true);
+
     const imageURL = await handleChangeMedia(media!);
     const formAdvertiseData = {
       ...getValues(),
@@ -143,6 +146,8 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
       toast.success("Create Ads Successfully")
       await FetchAdvertiseList();
     }).catch(() => toast.error("Something went wrong"));
+
+    setLoading(false);
   };
 
   const handleUploadMedia = (file: File | null) => {
@@ -225,7 +230,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
         </DialogContent>
 
         <DialogActions>
-          <SubmitBtn onClose={onClose} watch={watch} />
+          <SubmitBtn onClose={onClose} watch={watch} isLoading={isLoading} />
         </DialogActions>
       </form>
     </Dialog >

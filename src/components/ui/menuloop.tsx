@@ -1,20 +1,17 @@
 import clsx from "clsx";
-import { Fragment, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Fragment, useEffect, useMemo, } from "react";
+import { Link } from "react-router-dom";
 import LocalStorageKeys from "../../constants/local-storage-keys";
-import { RouteNames } from "../../constants/routes";
+
+const role = Number(localStorage.getItem(LocalStorageKeys.ROLE));
 
 function Menuloop({ MENUITEMS, toggleSidemenu, level }: any) {
-  const navigate = useNavigate();
-  const role = Number(localStorage.getItem(LocalStorageKeys.ROLE));
   const isHidden = MENUITEMS.class.includes("hidden");
-  const hasPermission = !MENUITEMS.notAllowRoles.includes(role);
+  const isNotAllow = MENUITEMS.notAllowRoles.includes(role);
 
-  useEffect(() => {
-    if (!hasPermission) {
-      navigate(RouteNames.ADVERTISES);
-    }
-  }, [hasPermission, navigate]);
+  if (isNotAllow) {
+    return;
+  }
 
   if (isHidden) return null;
 
@@ -22,7 +19,7 @@ function Menuloop({ MENUITEMS, toggleSidemenu, level }: any) {
     <Fragment>
       <Link
         to={MENUITEMS.path}
-        className={`side-menu__item d-flex align-items-center ${MENUITEMS?.selected ? "active" : ""}`}
+        className={`${isNotAllow && 'hidden'} side-menu__item d-flex align-items-center ${MENUITEMS?.selected ? "active" : ""}`}
         onClick={(event) => {
           toggleSidemenu(event, MENUITEMS);
         }}

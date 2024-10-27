@@ -1,25 +1,29 @@
-import { FC, Fragment, useEffect, useState } from "react";
+import { FC, Fragment, memo, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import { Login as LoginUser } from "../../../services/auth.service";
-import { getDynamicRoute } from "../../../lib/get-dynamic-route";
 import { RouteNames } from "../../../constants/routes";
 import { LocalStorageBackup } from "../../../components/common/switcher/switcherdata/switcherdata";
 import { ThemeChanger } from "../../../redux/action";
 import LocalStorageKeys from "../../../constants/local-storage-keys";
+import isEqual from "react-fast-compare";
+import { getDynamicRoute } from "../../../lib/get-dynamic-route";
 
 interface LoginProps { }
 
-const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
-  const navigate = useNavigate();
+const isExistUserId = localStorage.getItem(LocalStorageKeys.USER_ID);
+const isExistRole = localStorage.getItem(LocalStorageKeys.ROLE);
+const isExistPassword = localStorage.getItem(LocalStorageKeys.PASSWORD);
+const isExistUsername = localStorage.getItem(LocalStorageKeys.USERNAME);
 
-  const path = getDynamicRoute(RouteNames.ADVERTISES);
-  const isExistedusername = localStorage.getItem(LocalStorageKeys.USERNAME);
-  const isExistedPassword = localStorage.getItem(LocalStorageKeys.PASSWORD);
-  if (isExistedusername && isExistedPassword) {
-    navigate(path);
-  }
+const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
+
+  useEffect(() => {
+    if (isExistUserId && isExistRole && isExistPassword && isExistUsername) {
+      window.location.href = getDynamicRoute(RouteNames.ADVERTISES)
+    }
+  }, [])
 
   const [passwordshow1, setpasswordshow1] = useState(false);
   const [err, setError] = useState("");
@@ -32,13 +36,6 @@ const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
     setError("");
   };
-  const routeChange = () => {
-    const path = getDynamicRoute(RouteNames.ADVERTISES);
-    localStorage.setItem(LocalStorageKeys.USERNAME, username);
-    localStorage.setItem(LocalStorageKeys.PASSWORD, password);
-    navigate(path);
-  };
-
 
   const Login1 = () => {
     if (!username || !password) {
@@ -47,9 +44,11 @@ const Login: FC<LoginProps> = ({ ThemeChanger }: any) => {
     }
 
     LoginUser(data).then((res) => {
-      routeChange()
       localStorage.setItem(LocalStorageKeys.USER_ID, res.data._id);
       localStorage.setItem(LocalStorageKeys.ROLE, res.data.role);
+      localStorage.setItem(LocalStorageKeys.PASSWORD, res.data.password);
+      localStorage.setItem(LocalStorageKeys.USERNAME, res.data.username);
+      window.location.href = getDynamicRoute(RouteNames.ADVERTISES)
     }).catch(() => {
       setError("Invalid username or password");
     })
@@ -161,4 +160,4 @@ const mapStateToProps = (state: any) => ({
   local_varaiable: state,
 });
 
-export default connect(mapStateToProps, { ThemeChanger })(Login);
+export default memo(connect(mapStateToProps, { ThemeChanger })(Login), isEqual);

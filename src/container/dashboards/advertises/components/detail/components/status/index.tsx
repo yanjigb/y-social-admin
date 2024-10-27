@@ -6,6 +6,8 @@ import { FormControl, MenuItem, Select } from "@mui/material";
 import { Update } from "../../../../../../../services/ads.service";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import ROLE from "../../../../../../../constants/role";
+import useCurrentUser from "../../../../../../../hooks/use-current-user";
 
 interface Props {
   status: EAdvertiseStatus;
@@ -17,6 +19,7 @@ const Status = (props: Props) => {
 
   if (!status) return <Skeleton />
 
+  const { user } = useCurrentUser();
   const [selectedStatus, setSelectedStatus] = useState(status);
   const handleChangeStatus = (e: any) => {
     setSelectedStatus(e.target.value);
@@ -29,6 +32,19 @@ const Status = (props: Props) => {
     })
   }
 
+  const isAllowRole = user?.role === ROLE.SUPER_ADMIN_PROFILE.id || user?.role === ROLE.STAFF_PROFILE.id;
+  const filterStatus = isAllowRole ? Object.values(EAdvertiseStatus)
+    .map((item) => (
+      <MenuItem key={item} value={item}>{item}</MenuItem>
+    )) : Object.values(EAdvertiseStatus)
+      .filter((item) => item !== EAdvertiseStatus.SCHEDULE &&
+        item !== EAdvertiseStatus.IN_REVIEW &&
+        item !== EAdvertiseStatus.SUSPENDED
+      )
+      .map((item) => (
+        <MenuItem key={item} value={item}>{item}</MenuItem>
+      ))
+
   return (
     <FormControl className="w-max capitalize">
       <Select
@@ -36,15 +52,7 @@ const Status = (props: Props) => {
         value={selectedStatus}
         onChange={handleChangeStatus}
       >
-        {Object.values(EAdvertiseStatus)
-          .filter((item) =>
-            item !== EAdvertiseStatus.SCHEDULE &&
-            item !== EAdvertiseStatus.IN_REVIEW &&
-            item !== EAdvertiseStatus.SUSPENDED
-          )
-          .map((item) => (
-            <MenuItem key={item} value={item}>{item}</MenuItem>
-          ))}
+        {filterStatus}
       </Select>
     </FormControl>
   )

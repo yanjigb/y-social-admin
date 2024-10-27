@@ -6,6 +6,7 @@ import { ThemeChanger } from "../../../redux/action";
 import store from "../../../redux/store";
 import SimpleBar from "simplebar-react";
 import Menuloop from "../../ui/menuloop";
+import { RouteNames } from "../../../constants/routes";
 interface SidebarProps { }
 
 const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
@@ -636,7 +637,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       >
         <div className="main-sidebar-header">
           <a
-            href={`${import.meta.env.BASE_URL}dashboards/advertises/`}
+            href={RouteNames.ADVERTISES}
             className="text-white font-bold fs-1"
           >
             YANJI SOCIAL
@@ -663,43 +664,35 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
             </div>
 
             <ul className="main-menu" onClick={() => Sideclick()}>
-              {MENUITEMS.map((levelone) => (
+              {menuitems.map((levelone: any) => (
                 <Fragment key={Math.random()}>
                   <li
-                    className={`${levelone.menutitle ? "slide__category" : ""
-                      } ${levelone.type === "link" ? "slide" : ""}
-                      ${levelone.type === "sub" ? "slide has-sub" : ""} ${levelone?.active ? "open" : ""
-                      } ${levelone?.selected ? "active" : ""}`}
+                    className={`${'menutitle' in levelone ?
+                      "slide__category" : ""} ${'type' in levelone &&
+                        levelone.type === "link" ? "slide" : ""}
+                            ${'type' in levelone && levelone.type === "sub" ?
+                        "slide has-sub" : ""} ${'active' in levelone ? "open" : ""}
+                              ${'selected' in levelone ? "active" : ""}`}
                   >
-                    {levelone.menutitle ? (
+                    {'menutitle' in levelone ? (
                       <span className="category-name">
                         {levelone.menutitle}
                       </span>
-                    ) : (
-                      ""
-                    )}
-                    {levelone.type === "link" ? (
-                      <Link
-                        to={levelone.path + "/"}
-                        className={`side-menu__item ${levelone.selected ? "active" : ""
-                          }`}
-                      >
+                    ) : null}
+                    {'type' in levelone && levelone.type === "link" ? (
+                      <Link to={levelone.path + "/"} className={`side-menu__item ${levelone.selected ? "active" : ""}`}>
                         {levelone.icon}
                         <span className="side-menu__label">
                           {levelone.title}
-                          {levelone.badgetxt ? (
+                          {levelone.badgetxt && (
                             <span className={levelone.class}>
                               {levelone.badgetxt}
                             </span>
-                          ) : (
-                            ""
                           )}
                         </span>
                       </Link>
-                    ) : (
-                      ""
-                    )}
-                    {levelone.type === "empty" ? (
+                    ) : null}
+                    {'type' in levelone && levelone.type === "empty" ? (
                       <Link to="#" className="side-menu__item">
                         {levelone.icon}
                         <span className="">
@@ -716,7 +709,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
                     ) : (
                       ""
                     )}
-                    {levelone.type === "sub" ? (
+                    {'type' in levelone && levelone.type === "sub" ? (
                       <Menuloop
                         MENUITEMS={levelone}
                         level={level + 1}

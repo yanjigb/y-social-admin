@@ -27,8 +27,8 @@ function App() {
 
   useEffect(() => {
     import("preline");
-
   }, []);
+
   return (
     <MainProvider>
       <Provider store={store}>

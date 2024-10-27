@@ -10,7 +10,6 @@ const Tabs = () => {
   const { id } = useParams();
 
   const handleActiveTab = (tab: string) => {
-    console.log(tab)
     setActiveTab(tab);
   }
 

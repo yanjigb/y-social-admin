@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useCallback, useEffect, useState } from "react";
 import isEqual from "react-fast-compare";
 
 import Pageheader from "../../../components/common/pageheader/pageheader";
@@ -11,12 +11,21 @@ interface UsersProps {}
 const Users: FC<UsersProps> = () => {
   const [totalUsers, setTotalUsers] = useState(0);
 
-  useEffect(() => {
-    AllUsers("/").then((response: any) => {
+  const fetchUsers = useCallback(async () => {
+    try {
+      const response: any = await AllUsers("/");
       const { totalUsers } = response;
       setTotalUsers(totalUsers);
-    });
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
   }, []);
+
+  useEffect(() => {
+    if (totalUsers === 0) {
+      fetchUsers();
+    }
+  }, [fetchUsers, totalUsers]);
 
   return (
     <>

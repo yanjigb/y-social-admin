@@ -14,8 +14,8 @@ interface Props {
 
 const EngageEstimate = (props: Props) => {
   const { budget, audienceSize, engagementRate } = props;
-  const { followEfficiency, estimates } = useAdEstimator(budget, audienceSize, engagementRate);
-  console.log(followEfficiency)
+  const { estimates } = useAdEstimator(budget, audienceSize, engagementRate);
+
   return (
     <div className="bg-gray-200 p-4 rounded-lg flex flex-col gap-4">
       <h5 className="font-bold">Estimated daily results</h5>

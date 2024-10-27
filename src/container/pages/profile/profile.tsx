@@ -1,5 +1,5 @@
 import Pageheader from '../../../components/common/pageheader/pageheader';
-import useCurrentUser from '../../../hooks/user-current-user';
+import useCurrentUser from '../../../hooks/use-current-user';
 import { currencyFormat } from '../../../lib/currency-format';
 import checkRole from '../../../lib/check-role';
 

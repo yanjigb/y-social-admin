@@ -26,4 +26,7 @@ export enum RouteNames {
   CRM = "dashboards/crm",
   PAYMENT = "pages/payment",
   SUPPORT_TICKET = "dashboards/support-ticket",
+  ADVERTISE_DETAIL = "dashboards/advertises/:id",
+  POST_DETAIL = "dashboards/post/:id",
+  PROFILE = "pages/profile",
 }

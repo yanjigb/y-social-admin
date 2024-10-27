@@ -1,6 +1,5 @@
 import { FC, Fragment, memo, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
 
 import { Login as LoginUser } from "../../../services/auth.service";
 import { RouteNames } from "../../../constants/routes";

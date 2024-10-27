@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Fragment, useEffect, useMemo, } from "react";
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import LocalStorageKeys from "../../constants/local-storage-keys";
 

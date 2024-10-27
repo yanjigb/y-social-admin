@@ -55,8 +55,8 @@ export default function Schedule({ getValues, control, watch }: Props) {
                   shouldDisableDate={disableDateBeforeNow}
                   defaultValue={defaultDate}
                   onChange={(date) => {
-                    const dayjsDate = dayjs(date);
-                    onChange(dayjsDate.toDate());
+                    const startDay = dayjs(date).startOf('day').toDate();
+                    onChange(startDay);
                   }} />
               </LocalizationProvider>
             )}
@@ -75,8 +75,8 @@ export default function Schedule({ getValues, control, watch }: Props) {
             render={({ field: { onChange } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker format="DD-MM-YYYY" views={['day', 'month', 'year']} label="Choose your end date" shouldDisableDate={disableDateBeforeNow} defaultValue={defaultDate} onChange={(date) => {
-                  const dayjsDate = dayjs(date);
-                  onChange(dayjsDate.toDate());
+                  const endDate = dayjs(date).endOf('day').toDate();
+                  onChange(endDate);
                 }} />
               </LocalizationProvider>
             )}

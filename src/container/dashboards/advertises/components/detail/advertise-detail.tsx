@@ -15,7 +15,13 @@ import Author from "./components/author";
 import Insights from "./components/insights";
 import AdvertiseCard from "./components/advertise-card";
 import InfoBanner from "./components/info-banner";
+import LocalStorageKeys from "../../../../../constants/local-storage-keys";
+import checkAllowRole from "../../../../../lib/check-allow-role";
+import ROLE from "../../../../../constants/role";
+import LinkAction from "./components/link-action";
 
+const role = localStorage.getItem(LocalStorageKeys.ROLE);
+const isAllowRole = checkAllowRole(Number(role), [ROLE.ADMIN_PROFILE.id, ROLE.STAFF_PROFILE.id, ROLE.SUPER_ADMIN_PROFILE.id]);
 
 export default function AdvertiseDetail() {
   const { id } = useParams();
@@ -56,7 +62,7 @@ export default function AdvertiseDetail() {
               && <Status status={advertise.status} />
             }
             <AdvertiseCard
-              link_action={advertise.link_action}
+              link_action={"#"}
               cta={advertise.cta}
               media_content={advertise.media_content}
               media_title={advertise._id}
@@ -66,12 +72,16 @@ export default function AdvertiseDetail() {
           </div>
 
           <div className="xl:col-span-5 col-span-12">
-            <Author user={user} />
+            {isAllowRole && <Author user={user} />}
             <Schedule schedule_start={advertise?.schedule_start} schedule_end={advertise?.schedule_end!} />
             <Budget budget={advertise.budget} currency={advertise.currency} />
             <Score score={advertise?.score} />
-            <DetailGoal goal={advertise?.goal?.goalID!} />
           </div>
+        </div>
+
+        <div className="grid xl:grid-cols-2 gap-6">
+          <DetailGoal goal={advertise?.goal?.goalID!} />
+          <LinkAction url={advertise.link_action} />
         </div>
 
         <Insights result={advertise.result} />

@@ -1,6 +1,5 @@
 import { FC, memo, useCallback, useEffect, useState } from "react";
 import isEqual from "react-fast-compare";
-
 import Pageheader from "../../../components/common/pageheader/pageheader";
 
 import UpsertModal from "./components/create-form/upsert-modal";
@@ -11,6 +10,7 @@ import { toast } from "sonner";
 import LocalStorageKeys from "../../../constants/local-storage-keys";
 import ROLE from "../../../constants/role";
 import useCurrentUser from "../../../hooks/use-current-user";
+import AppCopilotPopup from "../../../components/features/app-copilot-popup";
 
 interface UsersProps { }
 
@@ -94,6 +94,8 @@ const Advertises: FC<UsersProps> = () => {
           dataEdit={{} as IAdvertise}
         />
       )}
+
+      <AppCopilotPopup />
     </>
   );
 };

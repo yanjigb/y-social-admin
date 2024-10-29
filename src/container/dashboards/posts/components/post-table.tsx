@@ -8,7 +8,7 @@ import AppPagination from "../../../../components/common/app-pagination";
 import {
   GetById,
   AllPosts,
-  GetByContent,
+  GetByAuthor,
 } from "../../../../services/post.service";
 import { GetById as GetUserInfo } from "../../../../services/user.service";
 import UpsertModal from "./upsert-modal";
@@ -19,6 +19,7 @@ import { IUser } from "../../../../types/user";
 import usePersistState from "../../../../hooks/use-presist-state";
 import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ResponseTime from "../../../../constants/resonse-time";
+import ROLE from "../../../..//constants/role";
 
 const TableHeadList = [
   "ID",
@@ -31,7 +32,10 @@ const TableHeadList = [
   "Updated At",
   "Action",
 ];
-const ITEM_PER_PAGE = 14;
+const ITEM_PER_PAGE = 10;
+const role = localStorage.getItem(LocalStorageKeys.ROLE);
+const isAllowRole = Number(role) === ROLE.ADMIN_PROFILE.id || Number(role) === ROLE.STAFF_PROFILE.id || Number(role) === ROLE.SUPER_ADMIN_PROFILE.id;
+const userID = localStorage.getItem(LocalStorageKeys.USER_ID)
 
 function PostTable() {
   const [postList, setPostList] = useState<IPost[]>([]);
@@ -55,17 +59,23 @@ function PostTable() {
 
   const fetchBySearch = useCallback(
     async (filter: string) => {
-      GetByContent(filter).then((response: any) => {
-        const { data } = response;
+      if (filter) {
+        const lowerCaseFilter = filter.toLowerCase();
+        const filterResult = postList.filter((item: IPost) => {
+          const { _id, userID, desc } = item;
+          return [_id, userID, desc].some(attr => attr.toLowerCase().includes(lowerCaseFilter));
+        });
 
-        if (data.length > 0) {
-          setPostList(data);
+        if (filterResult.length > 0) {
+          setPostList(filterResult);
           setIsEmpty(false);
         } else {
           setPostList([]);
           setIsEmpty(true);
         }
-      });
+      } else {
+        fetchPostList();
+      }
     },
     [debouncedFilter]
   );
@@ -75,21 +85,23 @@ function PostTable() {
   }, [debouncedFilter]);
 
   const fetchPostList = useCallback(async () => {
-    const query = `?limit=${ITEM_PER_PAGE}&skip=${(pageNumber - 1) * 14}`;
+    const res: any = isAllowRole ? await AllPosts("/") : await GetByAuthor(userID);
+    const postList = res.posts;
 
-    AllPosts(query).then((response: any) => {
-      const { posts, length } = response;
-      setTotalPosts(length);
+    const startIndex = (pageNumber - 1) * ITEM_PER_PAGE;
+    const endIndex = startIndex + ITEM_PER_PAGE;
+    const limitedPosts = postList.slice(startIndex, endIndex);
 
-      if (posts.length > 0) {
-        setPostList(posts);
-        setIsEmpty(false);
-      } else {
-        setPostList([]);
-        setIsEmpty(true);
-      }
-    });
-  }, [pageNumber]);
+    setTotalPosts(postList.length);
+
+    if (limitedPosts.length > 0) {
+      setPostList(limitedPosts);
+      setIsEmpty(false);
+    } else {
+      setPostList([]);
+      setIsEmpty(true);
+    }
+  }, [pageNumber, postList]);
 
   useEffect(() => {
     fetchPostList();
@@ -154,86 +166,85 @@ function PostTable() {
               </tr>
             </thead>
 
-            {isEmpty ? (
-              <tr>
-                <td colSpan={TableHeadList.length}>post not found</td>
-              </tr>
-            ) : (
-              <tbody>
-                {postList.map((post) => (
-                  <tr
-                    key={post._id}
-                    className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light"
-                  >
-                    <td>{post._id}</td>
-                    <td>
-                      <button
-                        aria-label="button"
-                        type="button"
-                        data-hs-overlay="#hs-overlay-contacts"
-                        data-id={post.userID}
-                        onClick={handleOpenDetailUser}
-                        className="text-info"
-                      >
-                        {post.userID}
-                      </button>
-                    </td>
-                    <td>{post.likes.length}</td>
-                    <td>{post.comments.length}</td>
-                    <td>{post.shares.length}</td>
-                    <td>
-                      <div className="py-1 px-2 bg-success/10 text-success !rounded-full">
-                        😄 Healthy
-                      </div>
-                    </td>
-                    <td>
-                      {formatDate(
-                        post.createdAt,
-                        "DATE_WITH_MONTH_FIRST_WITH_TIME"
-                      )}
-                    </td>
-                    <td>
-                      {formatDate(
-                        post.updatedAt,
-                        "DATE_WITH_MONTH_FIRST_WITH_TIME"
-                      )}
-                    </td>
-                    <td className="flex gap-2">
-                      <div className="space-x-2 rtl:space-x-reverse">
+            <tbody>
+              {
+                isEmpty ? <tr>
+                  <td colSpan={TableHeadList.length}>post not found</td>
+                </tr> :
+                  postList.map((post) => (
+                    <tr
+                      key={post._id}
+                      className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light"
+                    >
+                      <td>{post._id}</td>
+                      <td>
                         <button
                           aria-label="button"
                           type="button"
-                          className="ti-btn ti-btn-sm ti-btn-warning"
                           data-hs-overlay="#hs-overlay-contacts"
-                          data-id={post._id}
-                          onClick={handleOpenDetailPost}
+                          data-id={post.userID}
+                          onClick={handleOpenDetailUser}
+                          className="text-info"
                         >
-                          <i className="ri-eye-line"></i>
+                          {post.userID}
                         </button>
-                        <button
-                          aria-label="button"
-                          type="button"
-                          className="ti-btn ti-btn-sm ti-btn-info"
-                          onClick={handleOpenUpsertPost}
-                          data-id={post._id}
-                        >
-                          <i className="ri-pencil-line"></i>
-                        </button>
-                        <button
-                          aria-label="button"
-                          type="button"
-                          className="ti-btn ti-btn-sm ti-btn-danger contact-delete"
-                          data-id={post._id}
-                          onClick={handleOpenDeleteModal}
-                        >
-                          <i className="ri-delete-bin-line"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            )}
+                      </td>
+                      <td>{post.likes.length}</td>
+                      <td>{post.comments.length}</td>
+                      <td>{post.shares.length}</td>
+                      <td>
+                        <div className="py-1 px-2 bg-success/10 text-success !rounded-full">
+                          😄 Healthy
+                        </div>
+                      </td>
+                      <td>
+                        {formatDate(
+                          post.createdAt,
+                          "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                        )}
+                      </td>
+                      <td>
+                        {formatDate(
+                          post.updatedAt,
+                          "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                        )}
+                      </td>
+                      <td className="flex gap-2">
+                        <div className="space-x-2 rtl:space-x-reverse">
+                          <button
+                            aria-label="button"
+                            type="button"
+                            className="ti-btn ti-btn-sm ti-btn-warning"
+                            data-hs-overlay="#hs-overlay-contacts"
+                            data-id={post._id}
+                            onClick={handleOpenDetailPost}
+                          >
+                            <i className="ri-eye-line"></i>
+                          </button>
+                          <button
+                            aria-label="button"
+                            type="button"
+                            className="ti-btn ti-btn-sm ti-btn-info"
+                            onClick={handleOpenUpsertPost}
+                            data-id={post._id}
+                          >
+                            <i className="ri-pencil-line"></i>
+                          </button>
+                          <button
+                            aria-label="button"
+                            type="button"
+                            className="ti-btn ti-btn-sm ti-btn-danger contact-delete"
+                            data-id={post._id}
+                            onClick={handleOpenDeleteModal}
+                          >
+                            <i className="ri-delete-bin-line"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+              }
+            </tbody>
           </table>
         </div>
       </div>

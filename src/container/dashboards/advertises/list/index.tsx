@@ -36,8 +36,10 @@ const AdvertiseTableList = (props: Props) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
-
-  const displayedAds = advertiseList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  const filteredAds = advertiseList.filter(ad =>
+    ad.title.toLowerCase().includes(searching.toLowerCase())
+  );
+  const displayedAds = filteredAds.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -105,6 +107,7 @@ const AdvertiseTableList = (props: Props) => {
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearching(e.target.value);
+    setPage(0); // Reset to first page on search
   };
 
   return (
@@ -230,7 +233,8 @@ const AdvertiseTableList = (props: Props) => {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={advertiseList.length}
+            // count={advertiseList.length}
+            count={filteredAds.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

@@ -33,12 +33,13 @@ const useQRPayment = () => {
         template,
       }, {
         headers: {
-          'x-client-id': import.meta.env.VITE_CLIENT_ID,
-          'x-api-key': import.meta.env.VITE_API_KEY,
+          'x-client-id': import.meta.env.VITE_VIETQR_CLIENT_ID,
+          'x-api-key': import.meta.env.VITE_VIETQR_API_KEY,
           'Content-Type': 'application/json',
         },
       });
 
+      console.log(response.data.data)
       setQrData(response.data.data.qrDataURL);
     } catch (err: any) {
       setError(err.response ? err.response.data : 'An error occurred');

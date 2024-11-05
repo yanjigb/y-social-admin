@@ -31,6 +31,7 @@ import LinkAction from "./components/link-action";
 import SubmitBtn from "./components/submit-btn";
 import LocalStorageKeys from "../../../../../constants/local-storage-keys";
 import { DEFAULT_BUDGET } from "./constants/budget";
+import AppGeminiGenerate from "../../../../../components/features/app-gemini-generate";
 
 interface UpsertModalProps {
   open: boolean;
@@ -191,6 +192,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
             <Goal control={control} />
             <Title errors={errors} control={control} />
             <Description errors={errors} control={control} />
+            <AppGeminiGenerate content={getValues("description")} />
             <UploadMedia onChange={handleUploadMedia} control={control} register={register} />
             <SelectCTA control={control} />
             <LinkAction errors={errors} control={control} />

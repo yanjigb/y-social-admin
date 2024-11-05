@@ -64,19 +64,21 @@ export default function Payment() {
         <div className="flex flex-col gap-4">
           <LazyLoadImage src="/images/brands/timo-bank-logo.png" width="160" height="160" className="aspect-square object-cover" />
 
-          <ul className="flex flex-col gap-1 list-disc">
+          <ul className="flex flex-col gap-1 list-none">
             <li className="flex items-center gap-2 text-base">
               <span>STK: </span>
-              <b>123456789</b>
+              <b>9021111132068</b>
             </li>
             <li className="flex items-center gap-2 text-base">
               <span>Người nhận: </span>
-              <b>example user</b>
+              <b>Nguyễn Trần Gia Bảo</b>
             </li>
-            <li className="flex items-center gap-2 text-base flex-wrap">
+            <li className="text-base">
               <span>Nội dung chuyển khoản: </span>
-              <b className="text-primary text-xl">TK USER {user?._id}</b>
-              <Button data-value={`TK USER ${user?._id}`} variant="contained" name="button" type="button" onClick={(e) => { handleCopy(e) }}>Copy</Button>
+              <div className="flex items-center gap-2 flex-wrap">
+                <b className="text-primary text-xl">TK USER {user?._id}</b>
+                <Button data-value={`TK USER ${user?._id}`} variant="contained" name="button" type="button" onClick={(e) => { handleCopy(e) }}>Copy</Button>
+              </div>
             </li>
           </ul>
         </div>
@@ -89,13 +91,13 @@ export default function Payment() {
                 <LazyLoadImage src={qrData} width="460" height="460" className="aspect-square object-cover" />
               </>
             ) : (
-                <>
-                  <LazyLoadImage src="/images/404-square-sm.jpg" width="460" height="460" className="aspect-square object-cover" />
-                  <p className="text-center text-danger">Something went wrong with QR Code. Please contact our support to fix it.</p>
-                  <Link to={getDynamicRoute(RouteNames.SUPPORT_TICKET)} className="font-bold text-primary hover:underline">
-                    Contact Support Here
-                  </Link>
-                </>
+              <>
+                <LazyLoadImage src="/images/404-square-sm.jpg" width="460" height="460" className="aspect-square object-cover" />
+                <p className="text-center text-danger">Something went wrong with QR Code. Please contact our support to fix it.</p>
+                <Link to={getDynamicRoute(RouteNames.SUPPORT_TICKET)} className="font-bold text-primary hover:underline">
+                  Contact Support Here
+                </Link>
+              </>
             )
           }
         </div>

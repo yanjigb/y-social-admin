@@ -9,6 +9,7 @@ import PostDetailPage from "../container/dashboards/posts/components/post-detail
 import PaymentsTablePage from "../container/dashboards/payments/payments-table";
 import ProfilePage from "../container/pages/profile/profile";
 import CrmPage from "../container/dashboards/crm/crm";
+import PaymentHistories from "../container/dashboards/payment-histories";
 
 
 export const authProtectedRoutes = [
@@ -56,5 +57,10 @@ export const authProtectedRoutes = [
     path: RouteNames.CRM,
     component: CrmPage,
     allowRole: [ROLE.SUPER_ADMIN_PROFILE.id, ROLE.STAFF_PROFILE.id, ROLE.ADMIN_PROFILE.id]
+  },
+  {
+    path: RouteNames.PAYMENT_HISTORIES,
+    component: PaymentHistories,
+    allowRole: []
   },
 ];

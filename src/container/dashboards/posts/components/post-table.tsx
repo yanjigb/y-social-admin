@@ -20,6 +20,7 @@ import usePersistState from "../../../../hooks/use-presist-state";
 import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ResponseTime from "../../../../constants/resonse-time";
 import ROLE from "../../../..//constants/role";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
 const TableHeadList = [
   "ID",
@@ -154,99 +155,101 @@ function PostTable() {
           />
         </div>
 
-        <div className="table-responsive">
-          <table className="table table-hover whitespace-nowrap min-w-full table-bordered">
-            <thead>
-              <tr>
-                {TableHeadList.map((title) => (
-                  <th key={title} scope="col" className="text-start">
-                    {title}
-                  </th>
-                ))}
-              </tr>
-            </thead>
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table" className="table table-hover whitespace-nowrap min-w-full table-bordered">
+              <TableHead>
+                <TableRow>
+                  {TableHeadList.map((title) => (
+                    <TableCell key={title} scope="col" className="text-start">
+                      {title}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
 
-            <tbody>
-              {
-                isEmpty ? <tr>
-                  <td colSpan={TableHeadList.length}>post not found</td>
-                </tr> :
-                  postList.map((post) => (
-                    <tr
-                      key={post._id}
-                      className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light"
-                    >
-                      <td>{post._id}</td>
-                      <td>
-                        <button
-                          aria-label="button"
-                          type="button"
-                          data-hs-overlay="#hs-overlay-contacts"
-                          data-id={post.userID}
-                          onClick={handleOpenDetailUser}
-                          className="text-info"
-                        >
-                          {post.userID}
-                        </button>
-                      </td>
-                      <td>{post.likes.length}</td>
-                      <td>{post.comments.length}</td>
-                      <td>{post.shares.length}</td>
-                      <td>
-                        <div className="py-1 px-2 bg-success/10 text-success !rounded-full">
-                          😄 Healthy
-                        </div>
-                      </td>
-                      <td>
-                        {formatDate(
-                          post.createdAt,
-                          "DATE_WITH_MONTH_FIRST_WITH_TIME"
-                        )}
-                      </td>
-                      <td>
-                        {formatDate(
-                          post.updatedAt,
-                          "DATE_WITH_MONTH_FIRST_WITH_TIME"
-                        )}
-                      </td>
-                      <td className="flex gap-2">
-                        <div className="space-x-2 rtl:space-x-reverse">
+              <TableBody>
+                {
+                  isEmpty ? <tr>
+                    <td colSpan={TableHeadList.length}>post not found</td>
+                  </tr> :
+                    postList.map((post) => (
+                      <TableRow
+                        key={post._id}
+                        className="border border-inherit border-solid hover:bg-gray-100 dark:border-default border/10 dark:hover:bg-light"
+                      >
+                        <TableCell>{post._id}</TableCell>
+                        <TableCell>
                           <button
                             aria-label="button"
                             type="button"
-                            className="ti-btn ti-btn-sm ti-btn-warning"
                             data-hs-overlay="#hs-overlay-contacts"
-                            data-id={post._id}
-                            onClick={handleOpenDetailPost}
+                            data-id={post.userID}
+                            onClick={handleOpenDetailUser}
+                            className="text-info"
                           >
-                            <i className="ri-eye-line"></i>
+                            {post.userID}
                           </button>
-                          <button
-                            aria-label="button"
-                            type="button"
-                            className="ti-btn ti-btn-sm ti-btn-info"
-                            onClick={handleOpenUpsertPost}
-                            data-id={post._id}
-                          >
-                            <i className="ri-pencil-line"></i>
-                          </button>
-                          <button
-                            aria-label="button"
-                            type="button"
-                            className="ti-btn ti-btn-sm ti-btn-danger contact-delete"
-                            data-id={post._id}
-                            onClick={handleOpenDeleteModal}
-                          >
-                            <i className="ri-delete-bin-line"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-              }
-            </tbody>
-          </table>
-        </div>
+                        </TableCell>
+                        <TableCell>{post.likes.length}</TableCell>
+                        <TableCell>{post.comments.length}</TableCell>
+                        <TableCell>{post.shares.length}</TableCell>
+                        <TableCell>
+                          <div className="py-1 px-2 bg-success/10 text-center text-success !rounded-full">
+                            😄 Healthy
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          {formatDate(
+                            post.createdAt,
+                            "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {formatDate(
+                            post.updatedAt,
+                            "DATE_WITH_MONTH_FIRST_WITH_TIME"
+                          )}
+                        </TableCell>
+                        <TableCell className="flex gap-2">
+                          <div className="space-x-2 rtl:space-x-reverse">
+                            <button
+                              aria-label="button"
+                              type="button"
+                              className="ti-btn ti-btn-sm ti-btn-warning"
+                              data-hs-overlay="#hs-overlay-contacts"
+                              data-id={post._id}
+                              onClick={handleOpenDetailPost}
+                            >
+                              <i className="ri-eye-line"></i>
+                            </button>
+                            <button
+                              aria-label="button"
+                              type="button"
+                              className="ti-btn ti-btn-sm ti-btn-info"
+                              onClick={handleOpenUpsertPost}
+                              data-id={post._id}
+                            >
+                              <i className="ri-pencil-line"></i>
+                            </button>
+                            <button
+                              aria-label="button"
+                              type="button"
+                              className="ti-btn ti-btn-sm ti-btn-danger contact-delete"
+                              data-id={post._id}
+                              onClick={handleOpenDeleteModal}
+                            >
+                              <i className="ri-delete-bin-line"></i>
+                            </button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
       </div>
 
       {openUpsertModal && (

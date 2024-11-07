@@ -152,7 +152,7 @@ const AdvertiseTableList = (props: Props) => {
                   return (
                     <TableRow
                       key={ads._id}
-                      className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light"
+                      className="border border-inherit border-solid hover:bg-gray-100 dark:border-default border/10 dark:hover:bg-light"
                     >
                       <TableCell>{ads._id}</TableCell>
                       <TableCell>{ads.title}</TableCell>

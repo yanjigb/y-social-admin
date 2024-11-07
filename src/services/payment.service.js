@@ -4,10 +4,13 @@ const api = new APIClient();
 
 const baseCassoUrl = `https://oauth.casso.vn/v2`;
 const baseUrl = "api/v1/payment-casso"
+const basePaymentUrl = "api/v1/payment"
 
 const API_KEY = import.meta.env.VITE_APP_CASSO_API_KEY;
 const GG_APP_SCRIPT_API_KEY = import.meta.env.VITE_APP_GG_APP_SCRIPT_API_KEY;
 
+export const GetAllPaymentHistories = () => api.get(basePaymentUrl + "/");
+export const GetPaymentHistoriesByUser = (id) => api.get(basePaymentUrl + `/user/${id}`);
 export const GetUserPaid = () => api.get(baseUrl + "/users-paid");
 export const GetAllTransaction = async () => {
   const response = await axios(baseCassoUrl + '/transactions', {

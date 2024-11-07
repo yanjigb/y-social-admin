@@ -52,6 +52,7 @@ export const MENUITEMS: MenuItems = [
   createMenuItem("Advertises", RouteNames.ADVERTISES),
   createMenuItem("Users", RouteNames.USERS, [ROLE.USER_PROFILE.id]),
   createMenuItem("Posts", RouteNames.POSTS),
-  createMenuItem("Support Ticket", RouteNames.SUPPORT_TICKET),
   createMenuItem("Payments", RouteNames.PAYMENTS, [ROLE.STAFF_PROFILE.id, ROLE.USER_PROFILE.id]),
+  createMenuItem("Payments Histories", RouteNames.PAYMENT_HISTORIES, []),
+  createMenuItem("Support Ticket", RouteNames.SUPPORT_TICKET),
 ];

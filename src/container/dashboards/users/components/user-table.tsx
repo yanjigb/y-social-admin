@@ -3,7 +3,6 @@ import isEqual from "react-fast-compare";
 import { useDebounce } from "use-debounce";
 
 import { IUser } from "../../../../types/user";
-import formatDate from "../../../../utils/date";
 import { useSearchParams } from "react-router-dom";
 import AppPagination from "../../../../components/common/app-pagination";
 import { AllUsers, GetById } from "../../../../services/user.service";
@@ -14,6 +13,8 @@ import AppAvatar from "../../../../components/features/app-avatar";
 import usePersistState from "../../../../hooks/use-presist-state";
 import LocalStorageKeys from "../../../../constants/local-storage-keys";
 import ResponseTime from "../../../../constants/resonse-time";
+import ROLE from "../../../../constants/role";
+import clsx from "clsx";
 
 const TableHeadList = [
   'ID',
@@ -25,10 +26,28 @@ const TableHeadList = [
   'Verify',
   'Verify Email',
   'Restrictive',
-  'Created At',
-  'Updated At',
+  'Role',
   'Action',
 ];
+
+const roleColors = {
+  [ROLE.SUPER_ADMIN_PROFILE.id]: {
+    label: ROLE.SUPER_ADMIN_PROFILE.name,
+    style: "bg-primary text-white"
+  },
+  [ROLE.ADMIN_PROFILE.id]: {
+    label: ROLE.ADMIN_PROFILE.name,
+    style: "bg-danger text-white"
+  },
+  [ROLE.STAFF_PROFILE.id]: {
+    label: ROLE.STAFF_PROFILE.name,
+    style: "bg-warning text-white"
+  },
+  [ROLE.USER_PROFILE.id]: {
+    label: ROLE.USER_PROFILE.name,
+    style: "border border-blue"
+  },
+} as const
 
 function UserTable() {
   const [userList, setUserList] = useState<IUser[]>([]);
@@ -159,16 +178,17 @@ function UserTable() {
                   </td>
                   <td>
                     <div
-                      className='py-1 px-2 bg-success/10 text-success !rounded-full'
+                      className='py-1 px-2 bg-success/10 text-success text-center rounded-md'
                     >
                       😄 Healthy
                     </div>
                   </td>
                   <td>
-                    {formatDate(user.createdAt, "DATE_WITH_MONTH_FIRST_WITH_TIME")}
-                  </td>
-                  <td>
-                    {formatDate(user.updatedAt, "DATE_WITH_MONTH_FIRST_WITH_TIME")}
+                    <div
+                      className={clsx('py-1 px-2 text-center rounded-md', roleColors[user.role].style)}
+                    >
+                      {roleColors[user.role].label}
+                    </div>
                   </td>
                   <td className="flex gap-2">
                     <div className='space-x-2 rtl:space-x-reverse'>

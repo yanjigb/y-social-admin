@@ -29,4 +29,5 @@ export enum RouteNames {
   ADVERTISE_DETAIL = "dashboards/advertises/:id",
   POST_DETAIL = "dashboards/post/:id",
   PROFILE = "pages/profile",
+  PAYMENT_HISTORIES = "dashboards/payment-histories",
 }

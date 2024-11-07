@@ -3,6 +3,7 @@ import isEqual from "react-fast-compare";
 import { IUser } from "../../../../types/user";
 import SocialMedia from "../../../../constants/social-media";
 import Skeleton from "../skeleton";
+import formatDate from "../../../../utils/date";
 
 interface UserDetailProps {
   user: IUser;
@@ -210,9 +211,22 @@ const UserDetail: FC<Readonly<UserDetailProps>> = ({ user }) => {
             <UserSocialMediaButtons user={user} />
           </div>
         </div>
+
+        <div className="p-6 border-b flex items-center gap-6 border-dashed border-defaultborder dark:border-defaultborder/10">
+          <div>
+            <div>Created</div>
+            <span className="font-bold">{user?.createdAt && formatDate(user.createdAt, "DATE_WITH_MONTH_FIRST_WITH_TIME")}</span>
+          </div>
+          <div>
+            <div>Latest Updated</div>
+            <span className="font-bold">{user.updatedAt && formatDate(user.updatedAt, "DATE_WITH_MONTH_FIRST_WITH_TIME")}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
+UserDetail.displayName = "UserDetail";
 
 export default memo(UserDetail, isEqual);

@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { UpdateInfo } from '../../../../services/user.service';
 import { IUser } from '../../../../types/user';
+import ROLE from '../../../../constants/role';
 
 interface UpsertModalProps {
   open: boolean;
@@ -26,6 +27,7 @@ interface IFormData {
   email: string;
   verifyStatus: boolean;
   verifyEmailStatus: boolean;
+  role: number;
 }
 
 const UserSchema: ZodType<IFormData> = z.object({
@@ -33,6 +35,7 @@ const UserSchema: ZodType<IFormData> = z.object({
   email: z.string().email(),
   verifyStatus: z.coerce.boolean(),
   verifyEmailStatus: z.coerce.boolean(),
+  role: z.number(),
 });
 
 const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClose, userId, fetchUserList, user }) => {
@@ -45,11 +48,15 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
 
   React.useEffect(() => {
     if (user) {
+
+      //test
+      console.log(user);
       reset({
         username: user.username,
         email: user.email,
         verifyStatus: user.isVerify ? true : false,
-        verifyEmailStatus: user.isVerifyEmail ? true : false
+        verifyEmailStatus: user.isVerifyEmail ? true : false,
+        role: user.role
       });
     }
   }, [user, reset]);
@@ -157,6 +164,18 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
             className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
             <option value={"true"}>Verified</option>
             <option value={"false"}>Not verified</option>
+          </select>
+        </label>
+
+        <label className="block">
+          <span className="text-gray-700">Role</span>
+          <select
+            {...register("role", { valueAsNumber: true })}
+            className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <option value={ROLE.ADMIN_PROFILE.id}>Admin</option>
+            <option value={ROLE.SUPER_ADMIN_PROFILE.id}>Super Admin</option>
+            <option value={ROLE.STAFF_PROFILE.id}>Staff</option>
+            <option value={ROLE.USER_PROFILE.id}>User</option>
           </select>
         </label>
       </DialogContent>

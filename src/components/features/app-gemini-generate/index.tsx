@@ -4,6 +4,7 @@ import { useCountDown, useLocalStorageState } from 'ahooks';
 import clsx from 'clsx';
 import { toast } from 'sonner';
 import CircularProgress from '@mui/joy/CircularProgress';
+import { ENV_KEYS } from '../../../constants/env-keys';
 
 interface Props {
   content: string;
@@ -27,11 +28,13 @@ export default function AppGeminiGenerate({ content }: Props) {
   const generateText = async () => {
     try {
       setLoading(true);
-      const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+      const genAI = new GoogleGenerativeAI(ENV_KEYS.GOOGLE_GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
       const result = await model.generateContent(content);
       const response = await result.response;
-      setResponse(response.text());
+      const sanitizedText = response.text().replace(/[^\w\s.,!?-]/g, '');
+
+      setResponse(sanitizedText);
       setTargetDate(Date.now() + 45 * 1000);
     } catch (error) {
       toast.error('Something went wrong');
@@ -60,9 +63,9 @@ export default function AppGeminiGenerate({ content }: Props) {
             variant="soft"
           />
         </div> : remainingSeconds > 0 ? `✨ Please wait ${remainingSeconds}s` : <div className="flex items-center gap-2">
-            <span>✨ Generate By AI</span>
-            <b className='text-primary'>BETA</b>
-          </div>}
+          <span>✨ Generate By AI</span>
+          <b className='text-primary'>BETA</b>
+        </div>}
       </button>
 
       {response && (

@@ -108,7 +108,7 @@ export default function Payment() {
           Lưu ý:
         </span>
 
-        <ul className="list-disc">
+        <ul className="list-disc px-4">
           <li>
             <span className="text-danger">Vui lòng điền chính xác nội dung chuyển khoản để thực hiện nạp tiền tự động.</span>
           </li>

@@ -6,7 +6,6 @@ import { ThemeChanger } from "../../../redux/action";
 import store from "../../../redux/store";
 import SimpleBar from "simplebar-react";
 import Menuloop from "../../ui/menuloop";
-import { RouteNames } from "../../../constants/routes";
 interface SidebarProps { }
 
 const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
@@ -637,7 +636,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       >
         <div className="main-sidebar-header">
           <a
-            href={RouteNames.ADVERTISES}
+            href="/"
             className="text-white font-bold fs-1"
           >
             YANJI SOCIAL

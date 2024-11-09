@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./pages/App.tsx";
 import "react-quill/dist/quill.snow.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./index.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import Error401 from "./container/error/401error/401error.tsx";
@@ -23,70 +23,72 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <React.Suspense>
         <Provider store={store}>
-        <AppAuthProvider>
-          <Routes>
-            <Route path={`${import.meta.env.BASE_URL}`} element={<AppAuthProtected />}>
-              {
-                authProtectedRoutes.map((route) => (
-                  <Route
-                    path={`${import.meta.env.BASE_URL}`}
-                    element={<App />}
-                    key={route.path}
-                  >
+          <AppAuthProvider>
+            <Routes>
+              <Route path="/" element={<Navigate to={RouteNames.ADVERTISES} />} />
+
+              <Route path={`${import.meta.env.BASE_URL}`} element={<AppAuthProtected />}>
+                {
+                  authProtectedRoutes.map((route) => (
                     <Route
-                      path={`${import.meta.env.BASE_URL + route.path}`}
-                      element={
-                        <route.component />
-                      }
-                    />
-                  </Route>
-                ))
-              }
-            </Route>
+                      path={`${import.meta.env.BASE_URL}`}
+                      element={<App />}
+                      key={route.path}
+                    >
+                      <Route
+                        path={`${import.meta.env.BASE_URL + route.path}`}
+                        element={
+                          <route.component />
+                        }
+                      />
+                    </Route>
+                  ))
+                }
+              </Route>
 
-            <Route path={`${import.meta.env.BASE_URL}`}
-            >
-              <Route
-                path={`${import.meta.env.BASE_URL + RouteNames.LOGIN}`}
-                element={<Login />}
-              />
-              <Route
-                path={`${import.meta.env.BASE_URL + RouteNames.LOGOUT}`}
-                element={<Login />}
-              />
+              <Route path={`${import.meta.env.BASE_URL}`}
+              >
+                <Route
+                  path={`${import.meta.env.BASE_URL + RouteNames.LOGIN}`}
+                  element={<Login />}
+                />
+                <Route
+                  path={`${import.meta.env.BASE_URL + RouteNames.LOGOUT}`}
+                  element={<Login />}
+                />
 
-              {
-                publicRoutes.map((route, index) => (
-                  <Route
-                    path={`${import.meta.env.BASE_URL}`}
-                    element={<App />}
-                    key={index}
-                  >
+                {
+                  publicRoutes.map((route, index) => (
                     <Route
-                      path={`${import.meta.env.BASE_URL + route.path}`}
-                      element={
-                        <route.component />
-                      }
-                    />
-                  </Route>
-                ))
-              }
+                      path={`${import.meta.env.BASE_URL}`}
+                      element={<App />}
+                      key={index}
+                    >
+                      <Route
+                        path={`${import.meta.env.BASE_URL + route.path}`}
+                        element={
+                          <route.component />
+                        }
+                      />
+                    </Route>
+                  ))
+                }
 
-              <Route
-                path="*"
-                element={<Error404 />}
-              />
-              <Route
-                path={`${import.meta.env.BASE_URL}error/401error`}
-                element={<Error401 />}
-              />
-              <Route
-                path={`${import.meta.env.BASE_URL}error/500error`}
-                element={<Error500 />}
-              />
-            </Route>
-          </Routes>
-        </AppAuthProvider>
+                <Route
+                  path="*"
+                  element={<Error404 />}
+                />
+                <Route
+                  path={`${import.meta.env.BASE_URL}error/401error`}
+                  element={<Error401 />}
+                />
+                <Route
+                  path={`${import.meta.env.BASE_URL}error/500error`}
+                  element={<Error500 />}
+                />
+              </Route>
+            </Routes>
+          </AppAuthProvider>
         </Provider>
       </React.Suspense>
     </BrowserRouter>

@@ -29,26 +29,8 @@ const DeleteModal: React.FC<Readonly<DeleteModalProps>> = ({ open = false, onClo
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
+      }).then(async (result) => {
         if (result.isConfirmed) {
-          // Delete(user._id)
-          //   .then(() => {
-          //     Swal.fire({
-          //       title: "Deleted!",
-          //       text: "This user has been deleted.",
-          //       icon: "success",
-          //     });
-          //     fetchUserList();
-          //     onClose(false);
-          //   })
-          //   .catch((error: any) => {
-          //     Swal.fire({
-          //       title: "Error!",
-          //       text: "There was an error deleting the user.",
-          //       icon: "error",
-          //     });
-          //     console.log(error);
-          //   });
           setConfirmAlert(false);
         } else {
           setConfirmAlert(false);

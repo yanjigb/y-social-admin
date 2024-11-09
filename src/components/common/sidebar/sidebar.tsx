@@ -637,7 +637,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       >
         <div className="main-sidebar-header">
           <a
-            href={RouteNames.ADVERTISES}
+            href="/"
             className="text-white font-bold fs-1"
           >
             YANJI SOCIAL

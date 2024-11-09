@@ -15,10 +15,10 @@ interface Props {
 }
 
 function disableDateBeforeNow(date: any) {
-  return date.isBefore(dayjs(), 'day');
+  return date.isBefore(dayjs().add(1, 'day'), 'day');
 }
 
-const defaultDate = dayjs(new Date());
+const defaultDate = dayjs().add(1, 'day');
 
 export default function Schedule({ getValues, control, watch }: Props) {
   const startDate1 = new Date(watch("schedule_start"));
@@ -39,7 +39,7 @@ export default function Schedule({ getValues, control, watch }: Props) {
           <Controller
             name="schedule_start"
             control={control}
-            defaultValue={new Date()}
+            defaultValue={new Date(new Date().setDate(new Date().getDate() + 1))}
             rules={{
               required: {
                 value: true,
@@ -71,7 +71,7 @@ export default function Schedule({ getValues, control, watch }: Props) {
           <Controller
             name="schedule_end"
             control={control}
-            defaultValue={new Date()}
+            defaultValue={new Date(new Date().setDate(new Date().getDate() + 1))}
             render={({ field: { onChange } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker format="DD-MM-YYYY" views={['day', 'month', 'year']} label="Choose your end date" shouldDisableDate={disableDateBeforeNow} defaultValue={defaultDate} onChange={(date) => {

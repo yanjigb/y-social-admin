@@ -31,7 +31,11 @@ const Advertises: FC<UsersProps> = () => {
         ? isAllowRole ? res : res.filter((item: IAdvertise) => item.userID === userID)
         : res;
 
-      setAdvertiseList(filteredRes);
+      const sortedAds = filteredRes.sort((a: { createdAt: string | number | Date; }, b: { createdAt: string | number | Date; }) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+
+      setAdvertiseList(sortedAds);
     } catch {
       toast.error("Something went wrong");
     }

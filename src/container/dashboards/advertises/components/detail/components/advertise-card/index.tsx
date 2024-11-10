@@ -3,6 +3,8 @@ import isEqual from "react-fast-compare"
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Skeleton from "./skeleton";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from 'rehype-raw';
 
 interface Props {
   media_content: string;
@@ -25,10 +27,10 @@ const AdvertiseCard = (props: Props) => {
       <LazyLoadImage src={media_content} title={media_title} className="object-cover aspect-video h-full w-full max-w-full max-h-[19.8125rem]" />
 
       <div className="p-4">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">{title}</h2>
-        <p className="text-gray-600 text-sm mb-2">
-          {description}
-        </p>
+        <h2 className="text-xl font-bold">{title}</h2>
+        <ReactMarkdown rehypePlugins={[rehypeRaw]} className="prose prose-lg w-full text-wrap text-gray-600 text-sm mb-2">
+          {description || "No description"}
+        </ReactMarkdown>
         <Link to={link_action} className="w-full text-center block bg-sky-500 hover:bg-sky-400 text-lg text-white font-bold py-4 px-4 rounded-lg">
           {cta}
         </Link>

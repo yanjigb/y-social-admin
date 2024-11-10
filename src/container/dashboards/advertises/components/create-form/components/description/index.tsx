@@ -1,5 +1,6 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import { IAdvertiseForm } from "../../schema";
+import ReactQuill from 'react-quill';
 
 interface Props {
   errors: FieldErrors<IAdvertiseForm>;
@@ -20,15 +21,11 @@ export default function Description(props: Props) {
         control={control}
         defaultValue={""}
         render={({ field: { onChange } }) => (
-          <textarea
-            rows={4}
-            id="ads-description"
-            placeholder="Description (This will showing on the website)"
-            className="block w-full rounded-md bg-gray-100 border-transparent focus:ring-0 dark:!bg-gray-200"
-            aria-labelledby="ads-description"
+          <ReactQuill
+            theme="snow"
+            className="bg-gray-100"
             onChange={onChange}
-            maxLength={1500}
-            required
+            placeholder="Description (This will showing on the website)"
           />
         )}
       />

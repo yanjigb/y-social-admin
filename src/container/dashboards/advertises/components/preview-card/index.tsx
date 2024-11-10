@@ -5,6 +5,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { ImageIcon } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from 'rehype-raw';
 
 interface Props {
   description: string;
@@ -38,15 +40,16 @@ export default function PreviewCard(props: Props) {
         </div>
       }
       <CardContent>
-        <Chip label="Sponsored" color="primary" variant="outlined" className="mb-2" />
-
         <Typography
-          variant="body2"
-          sx={{ color: "text.secondary" }}
-          className="w-full text-wrap"
+          variant="h6"
+          className="w-full text-wrap font-bold"
         >
-          {description || "No description"}
+          {title || "No title"}
         </Typography>
+        <Chip label="Sponsored" color="primary" variant="outlined" className="mb-2" />
+        <ReactMarkdown rehypePlugins={[rehypeRaw]} className="prose prose-lg w-full text-wrap">
+          {description || "No description"}
+        </ReactMarkdown>
       </CardContent>
       <CardActions>
         <div className="px-2 pb-2 flex gap-2 w-full bg-red-500">

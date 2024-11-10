@@ -33,7 +33,7 @@ const TableHeadList = [
 const roleColors = {
   [ROLE.SUPER_ADMIN_PROFILE.id]: {
     label: ROLE.SUPER_ADMIN_PROFILE.name,
-    style: "bg-primary text-white"
+    style: "bg-primary text-white w-32"
   },
   [ROLE.ADMIN_PROFILE.id]: {
     label: ROLE.ADMIN_PROFILE.name,
@@ -185,7 +185,7 @@ function UserTable() {
                   </td>
                   <td>
                     <div
-                      className={clsx('py-1 px-2 text-center rounded-md', roleColors[user.role].style)}
+                      className={clsx('py-1 px-2 text-center rounded-md w-32', roleColors[user.role].style)}
                     >
                       {roleColors[user.role].label}
                     </div>

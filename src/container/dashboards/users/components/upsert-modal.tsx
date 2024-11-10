@@ -48,9 +48,6 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({ open = false, onClo
 
   React.useEffect(() => {
     if (user) {
-
-      //test
-      console.log(user);
       reset({
         username: user.username,
         email: user.email,

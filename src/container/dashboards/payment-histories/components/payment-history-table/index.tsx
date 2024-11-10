@@ -33,7 +33,7 @@ export default function PaymentHistoryTable() {
   };
 
   const fetchPaymentList = async () => {
-    if(user) {
+    if (user) {
       const res = isAllowRole ? await GetAllPaymentHistories() : await GetPaymentHistoriesByUser(user?._id)
       setPaymentList(res.data)
     }
@@ -89,9 +89,11 @@ export default function PaymentHistoryTable() {
                 <TableRow key={payment._id} className="border border-inherit border-solid hover:bg-gray-100 dark:border-default border/10 dark:hover:bg-light">
                   <TableCell>{payment._id}</TableCell>
                   <TableCell>{payment.userID}</TableCell>
-                  <TableCell>{payment.amount} VND</TableCell>
+                  <TableCell>
+                    <span className="text-green">+ {payment.amount} VND</span>
+                  </TableCell>
                   <TableCell>{payment.description}</TableCell>
-                  <TableCell>{formatDate(payment.createdAt)}</TableCell>
+                  <TableCell>{formatDate(payment.createdAt, 'DATE_WITH_TIME')}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

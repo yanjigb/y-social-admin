@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import useQRPayment from "../../../hooks/use-qr-payment";
 import { useCopyToClipboard } from 'usehooks-ts'
 import { PAYMENT_DESCRIPTION } from "./constant";
-import useCheckPaid from "../../../hooks/use-check-paid";
 import { GetUserPaid } from "../../../services/payment.service";
 import AppMarquee from "../../../components/features/app-marquee";
 import { getDynamicRoute } from "../../../lib/get-dynamic-route";
@@ -16,17 +15,7 @@ import useCurrentUser from "../../../hooks/use-current-user";
 export default function Payment() {
   const [_, copy] = useCopyToClipboard();
   const { qrData, loading, error, generateQRCode } = useQRPayment();
-  const { data, isPaid, errors } = useCheckPaid();
   const { user } = useCurrentUser();
-
-  useEffect(() => {
-    data.map((transaction: any) => {
-      console.log(transaction)
-    })
-
-    console.log(data)
-  }, [data, isPaid, errors]);
-
 
   useEffect(() => {
     setInterval(async () => {
@@ -39,13 +28,12 @@ export default function Payment() {
       PAYMENT_DESCRIPTION.accountNo,
       PAYMENT_DESCRIPTION.accountName,
       PAYMENT_DESCRIPTION.bankId,
-      PAYMENT_DESCRIPTION.description,
+      PAYMENT_DESCRIPTION.description + " " + user?._id,
       PAYMENT_DESCRIPTION.additionalInfo,
       PAYMENT_DESCRIPTION.template
     );
-  }, []);
+  }, [user]);
 
-  if (loading) return <div>Loading...</div>;
   if (error) {
     toast.error("Something went wrong");
   }
@@ -83,24 +71,7 @@ export default function Payment() {
           </ul>
         </div>
 
-        <div className="flex flex-col items-center gap-3">
-          {
-            qrData ? (
-              <>
-                <p className="text-center text-danger">Quét mã QR Code để nội dung chuyển khoản chính xác</p>
-                <LazyLoadImage src={qrData} width="460" height="460" className="aspect-square object-cover" />
-              </>
-            ) : (
-              <>
-                <LazyLoadImage src="/images/404-square-sm.jpg" width="460" height="460" className="aspect-square object-cover" />
-                <p className="text-center text-danger">Something went wrong with QR Code. Please contact our support to fix it.</p>
-                <Link to={getDynamicRoute(RouteNames.SUPPORT_TICKET)} className="font-bold text-primary hover:underline">
-                  Contact Support Here
-                </Link>
-              </>
-            )
-          }
-        </div>
+        <QRImage isLoading={loading} qrData={qrData} />
       </div>
 
       <div className="flex flex-col gap-2">
@@ -140,6 +111,40 @@ export default function Payment() {
           </li>
         </ul>
       </div>
+    </div>
+  )
+}
+
+const QRImage = (props: { qrData: string, isLoading: boolean }) => {
+  const { qrData, isLoading } = props;
+
+  if (isLoading) return (
+    <div className="flex flex-col items-center gap-3 animate-pulse">
+      <div className="h-4 bg-gray-400 rounded w-full"></div>
+      <div className="h-96 w-full bg-gray-400 rounded"></div>
+      <div className="h-4 bg-gray-400 rounded w-full"></div>
+      <div className="h-6 bg-gray-400 rounded w-1/3"></div>
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      {
+        qrData ? (
+          <>
+            <p className="text-center text-danger">Quét mã QR Code để nội dung chuyển khoản chính xác</p>
+            <LazyLoadImage src={qrData} width="460" height="460" className="aspect-square object-cover" />
+          </>
+        ) : (
+          <>
+            <LazyLoadImage src="/images/404-square-sm.jpg" width="460" height="460" className="aspect-square object-cover" />
+            <p className="text-center text-danger">Something went wrong with QR Code. Please contact our support to fix it.</p>
+            <Link to={getDynamicRoute(RouteNames.SUPPORT_TICKET)} className="font-bold text-primary hover:underline">
+              Contact Support Here
+            </Link>
+          </>
+        )
+      }
     </div>
   )
 }

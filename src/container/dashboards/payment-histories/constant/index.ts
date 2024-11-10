@@ -4,7 +4,7 @@ interface Column {
   "userID" |
   "amount" |
   "description" |
-  "created_at" |
+  "when" |
   "actions";
   label: string;
   minWidth?: number;
@@ -29,8 +29,8 @@ export const columns: readonly Column[] = [
     align: 'left',
   },
   {
-    id: 'created_at',
-    label: 'Created At',
+    id: 'when',
+    label: 'When',
     minWidth: 200,
     align: 'left',
   },

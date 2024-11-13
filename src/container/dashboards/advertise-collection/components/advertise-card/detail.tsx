@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 import isEqual from "react-fast-compare";
 import { IAdvertise } from "../../../../../types/advertise";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogProps, DialogTitle } from "@mui/material";

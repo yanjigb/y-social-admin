@@ -50,6 +50,7 @@ export const MENUITEMS: MenuItems = [
     menutitle: "",
   },
   createMenuItem("Advertises", RouteNames.ADVERTISES),
+  createMenuItem("Advertise Collection", RouteNames.ADVERTISE_COLLECTION, []),
   createMenuItem("Users", RouteNames.USERS, [ROLE.USER_PROFILE.id]),
   createMenuItem("Posts", RouteNames.POSTS),
   createMenuItem("Payments", RouteNames.PAYMENTS, [ROLE.STAFF_PROFILE.id, ROLE.USER_PROFILE.id]),

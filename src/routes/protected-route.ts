@@ -10,7 +10,7 @@ import PaymentsTablePage from "../container/dashboards/payments/payments-table";
 import ProfilePage from "../container/pages/profile/profile";
 import CrmPage from "../container/dashboards/crm/crm";
 import PaymentHistories from "../container/dashboards/payment-histories";
-
+import advertiseCollection from "../container/dashboards/advertise-collection";
 
 export const authProtectedRoutes = [
   {
@@ -63,4 +63,9 @@ export const authProtectedRoutes = [
     component: PaymentHistories,
     allowRole: []
   },
+  {
+    path: RouteNames.ADVERTISE_COLLECTION,
+    component: advertiseCollection,
+    allowRole: []
+  }
 ];

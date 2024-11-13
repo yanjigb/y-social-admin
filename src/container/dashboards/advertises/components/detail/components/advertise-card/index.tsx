@@ -29,9 +29,6 @@ const AdvertiseCard = (props: Props) => {
 
       <div className="p-4">
         <h2 className="text-xl font-bold">{title}</h2>
-        {/* <ReactMarkdown rehypePlugins={[rehypeRaw]} className="prose prose-lg w-full text-wrap text-gray-600 text-sm mb-2">
-          {description || "No description"}
-        </ReactMarkdown> */}
         {description.length < 100 ? (
           <ReactMarkdown rehypePlugins={[rehypeRaw]} className="prose prose-lg">
             {description}

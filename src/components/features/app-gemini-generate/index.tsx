@@ -5,6 +5,8 @@ import clsx from 'clsx';
 import { toast } from 'sonner';
 import CircularProgress from '@mui/joy/CircularProgress';
 import { ENV_KEYS } from '../../../constants/env-keys';
+import { ADVERTISEMENT_PROMPT } from './constant';
+import { convert } from 'html-to-text';
 
 interface Props {
   content: string;
@@ -20,9 +22,10 @@ export default function AppGeminiGenerate({ content }: Props) {
     targetDate,
     onEnd: () => setTargetDate(0),
   });
+  const formatText = convert(content)
 
   useEffect(() => {
-    console.log(content)
+    console.log(formatText);
   }, [content]);
 
   const generateText = async () => {
@@ -30,7 +33,15 @@ export default function AppGeminiGenerate({ content }: Props) {
       setLoading(true);
       const genAI = new GoogleGenerativeAI(ENV_KEYS.GOOGLE_GEMINI_API_KEY);
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-      const result = await model.generateContent(content);
+      const chat = model.startChat({
+        history: [
+          {
+            role: 'user',
+            parts: [{ text: ADVERTISEMENT_PROMPT }],
+          },
+        ]
+      });
+      const result = await chat.sendMessage(content);
       const response = await result.response;
       const sanitizedText = response.text().replace(/[^\w\s.,!?-]/g, '');
 
@@ -46,7 +57,7 @@ export default function AppGeminiGenerate({ content }: Props) {
   const remainingSeconds = Math.round(countdown / 1000);
 
   return (
-    <div className="w-full">
+    <div className="w-full z-10">
       <button
         onClick={generateText}
         disabled={loading || !content || remainingSeconds > 0}

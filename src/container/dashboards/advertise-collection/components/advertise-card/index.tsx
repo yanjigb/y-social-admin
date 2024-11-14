@@ -39,18 +39,15 @@ const AdvertiseCard = ({ ad }: AdvertiseCardProps) => {
         <div className="p-4 flex-grow">
           <h2 className="text-lg font-semibold mb-2 text-gray-800">{ad.title}</h2>
           <p className="text-sm text-gray-600 break-words">
-            {ad.description.length < 100 ? (
-              <ReactMarkdown rehypePlugins={[rehypeRaw]} className="prose prose-lg break-words">
-                {ad.description}
-              </ReactMarkdown>
-            ) : (
-              <button
-                onClick={handleToggleAdvertiseDetail}
-                className="text-primary font-medium mt-2 focus:outline-none"
-              >
-                Read More
-              </button>
-            )}
+            <ReactMarkdown rehypePlugins={[rehypeRaw]} className="prose prose-lg">
+              {ad.description.length < 100 ? ad.description : ad.description.slice(0, 50) + "..."}
+            </ReactMarkdown>
+            <button
+              onClick={handleToggleAdvertiseDetail}
+              className="text-primary font-medium mt-2 focus:outline-none"
+            >
+              More Details
+            </button>
           </p>
         </div>
         <div className="p-4 pt-0">

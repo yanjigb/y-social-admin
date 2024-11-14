@@ -12,13 +12,17 @@ interface Props {
 const DailyPerformance = (props: Props) => {
   const { result, currency } = props;
 
+  const sortedResult = Array.isArray(result)
+    ? [...result].sort((a, b) => Date.parse(new Date(b.date).toISOString()) - Date.parse(new Date(a.date).toISOString()))
+    : [];
+
   return (
     <div className="flex flex-col gap-6">
       <Typography variant="h5" fontWeight="bold">
         Advertise Insight
       </Typography>
 
-      <InsightDataTable result={result} currency={currency} />
+      <InsightDataTable result={sortedResult} currency={currency} />
     </div>
   );
 };

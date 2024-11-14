@@ -46,7 +46,7 @@ const CustomTooltip = ({
     return (
       <div className="bg-white p-2 rounded-md">
         <p className="label font-bold">{`${label}`}</p>
-        <p className="label text-emerald-400">{`CPC: ${currencyFormat(Number(payload?.[0].value))}`}%</p>
+        <p className="label text-emerald-400">{`CPC: ${currencyFormat(Number(payload?.[0].value))}`} VND</p>
         <p className="label">{`Date: ${payload?.[0].payload.date ? formatDate(payload?.[0].payload.date) : "-"}`}</p>
       </div>
     );

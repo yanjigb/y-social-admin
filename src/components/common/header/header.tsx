@@ -4,7 +4,6 @@ import store from "../../../redux/store";
 import { connect } from "react-redux";
 import { ThemeChanger } from "../../../redux/action";
 import desktoplogo from "../../../assets/images/brand-logos/desktop-logo.png";
-import togglelogo from "../../../assets/images/brand-logos/toggle-logo.png";
 import desktopdark from "../../../assets/images/brand-logos/desktop-dark.png";
 import toggledark from "../../../assets/images/brand-logos/toggle-dark.png";
 import desktopwhite from "../../../assets/images/brand-logos/desktop-white.png";
@@ -257,7 +256,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                       alt="logo"
                       className="desktop-logo"
                     />
-                    <img src={togglelogo} alt="logo" className="toggle-logo" />
+                    <img src="/logo.svg" alt="logo" className="toggle-logo" />
                     <img
                       src={desktopdark}
                       alt="logo"

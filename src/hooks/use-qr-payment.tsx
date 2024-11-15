@@ -39,7 +39,6 @@ const useQRPayment = () => {
         },
       });
 
-      console.log(response.data.data)
       setQrData(response.data.data.qrDataURL);
     } catch (err: any) {
       setError(err.response ? err.response.data : 'An error occurred');

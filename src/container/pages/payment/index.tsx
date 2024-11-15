@@ -24,14 +24,16 @@ export default function Payment() {
   }, [])
 
   useEffect(() => {
-    generateQRCode(
-      PAYMENT_DESCRIPTION.accountNo,
-      PAYMENT_DESCRIPTION.accountName,
-      PAYMENT_DESCRIPTION.bankId,
-      PAYMENT_DESCRIPTION.description + " " + user?._id,
-      PAYMENT_DESCRIPTION.additionalInfo,
-      PAYMENT_DESCRIPTION.template
-    );
+    if (user) {
+      generateQRCode(
+        PAYMENT_DESCRIPTION.accountNo,
+        PAYMENT_DESCRIPTION.accountName,
+        PAYMENT_DESCRIPTION.bankId,
+        PAYMENT_DESCRIPTION.description + " " + user?._id,
+        PAYMENT_DESCRIPTION.additionalInfo,
+        PAYMENT_DESCRIPTION.template
+      );
+    }
   }, [user]);
 
   if (error) {

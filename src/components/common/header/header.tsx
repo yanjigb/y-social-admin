@@ -248,7 +248,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
               <div className="header-element">
                 <div className="horizontal-logo">
                   <a
-                    href={`${import.meta.env.BASE_URL}dashboards/crm/`}
+                    href={RouteNames.ADVERTISES}
                     className="header-logo"
                   >
                     <img

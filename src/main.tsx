@@ -26,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <AppAuthProvider>
             <Routes>
               <Route path="/" element={<Navigate to={RouteNames.ADVERTISES} />} />
+              <Route path="/dashboards/crm" element={<Navigate to={RouteNames.ADVERTISES} />} />
 
               <Route path={`${import.meta.env.BASE_URL}`} element={<AppAuthProtected />}>
                 {

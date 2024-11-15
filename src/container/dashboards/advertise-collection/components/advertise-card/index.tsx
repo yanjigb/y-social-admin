@@ -3,7 +3,6 @@ import isEqual from "react-fast-compare";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 import { IAdvertise } from "../../../../../types/advertise";
-import { Link } from "react-router-dom";
 import Skeleton from "./skeleton";
 import AdvertiseDetail from "./detail";
 import clsx from "clsx";
@@ -51,9 +50,9 @@ const AdvertiseCard = ({ ad }: AdvertiseCardProps) => {
           </p>
         </div>
         <div className="p-4 pt-0">
-          <Link to={ad.link_action} className="w-full flex justify-center bg-primary text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out">
+          <button onClick={handleToggleAdvertiseDetail} className="w-full flex justify-center bg-primary text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out">
             {ad.cta}
-          </Link>
+          </button>
         </div>
       </div>
 

@@ -10,7 +10,7 @@ interface Props {
   control: Control<IAdvertiseForm, any>;
 }
 
-const Topic = ({ errors, control }: Props) => {
+const Topic = ({ control }: Props) => {
   const [selectedValue, setSelectedValue] = useState(HobbiesList[0].value);
 
   const handleChangeCTA = (event: SelectChangeEvent<string>) => {

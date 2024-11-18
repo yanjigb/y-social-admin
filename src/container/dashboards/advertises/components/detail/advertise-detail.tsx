@@ -19,6 +19,7 @@ import LocalStorageKeys from "../../../../../constants/local-storage-keys";
 import checkAllowRole from "../../../../../lib/check-allow-role";
 import ROLE from "../../../../../constants/role";
 import LinkAction from "./components/link-action";
+import Topic from "./components/topic";
 
 const role = localStorage.getItem(LocalStorageKeys.ROLE);
 const isAllowRole = checkAllowRole(Number(role), [ROLE.ADMIN_PROFILE.id, ROLE.STAFF_PROFILE.id, ROLE.SUPER_ADMIN_PROFILE.id]);
@@ -79,9 +80,10 @@ export default function AdvertiseDetail() {
           </div>
         </div>
 
-        <div className="grid xl:grid-cols-2 gap-6">
+        <div className="grid xl:grid-cols-3 gap-6">
           <DetailGoal goal={advertise?.goal?.goalID!} />
           <LinkAction url={advertise.link_action} />
+          <Topic topic={advertise.topic} />
         </div>
 
         <Insights result={advertise.result} />

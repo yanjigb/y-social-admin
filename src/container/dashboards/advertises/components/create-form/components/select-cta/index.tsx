@@ -23,7 +23,7 @@ export default function SelectCTA({ control }: Props) {
       defaultValue={selectedValue}
       control={control}
       render={({ field: { onChange } }) => (
-        <div className="flex flex-col gap-2 mb-3">
+        <div className="flex flex-col gap-2 mb-3 flex-1">
           <span className="text-base">Choose your CTA</span>
           <FormControl fullWidth>
             <Select

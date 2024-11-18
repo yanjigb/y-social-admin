@@ -60,4 +60,5 @@ export interface IAdvertise extends IBase {
   score: number;
   link_action: string;
   isEnoughBudget: boolean;
+  topic: string;
 }

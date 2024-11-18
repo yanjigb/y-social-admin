@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useCountDown, useLocalStorageState } from 'ahooks';
 import clsx from 'clsx';
@@ -6,7 +6,6 @@ import { toast } from 'sonner';
 import CircularProgress from '@mui/joy/CircularProgress';
 import { ENV_KEYS } from '../../../constants/env-keys';
 import { ADVERTISEMENT_PROMPT } from './constant';
-import { convert } from 'html-to-text';
 
 interface Props {
   content: string;
@@ -22,17 +21,12 @@ export default function AppGeminiGenerate({ content }: Props) {
     targetDate,
     onEnd: () => setTargetDate(0),
   });
-  const formatText = convert(content)
-
-  useEffect(() => {
-    console.log(formatText);
-  }, [content]);
 
   const generateText = async () => {
     try {
       setLoading(true);
       const genAI = new GoogleGenerativeAI(ENV_KEYS.GOOGLE_GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
       const chat = model.startChat({
         history: [
           {
@@ -43,6 +37,8 @@ export default function AppGeminiGenerate({ content }: Props) {
       });
       const result = await chat.sendMessage(content);
       const response = await result.response;
+      setResponse(response.text());
+      setTargetDate(Date.now() + 45 * 1000);
       const sanitizedText = response.text().replace(/[^\w\s.,!?-]/g, '');
 
       setResponse(sanitizedText);

@@ -45,14 +45,6 @@ const Advertises: FC<UsersProps> = () => {
     fetchAdvertiseList();
   }, [])
 
-  // const [ads, setAds] = useState<IAdvertise | any>({});
-  // useEffect(() => {
-  //   AllUsers("/").then((response: any) => {
-  //     const { totalUsers } = response;
-  //     setTotalUsers(totalUsers);
-  //   });
-  // }, []);
-
   const handleOpenUpsertPost = () => {
     setOpenUpsertModal(!openUpsertModal);
   };

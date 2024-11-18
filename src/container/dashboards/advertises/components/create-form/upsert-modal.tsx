@@ -32,6 +32,7 @@ import SubmitBtn from "./components/submit-btn";
 import LocalStorageKeys from "../../../../../constants/local-storage-keys";
 import { DEFAULT_BUDGET } from "./constants/budget";
 import AppGeminiGenerate from "../../../../../components/features/app-gemini-generate";
+import Topic from "./components/topic";
 
 interface UpsertModalProps {
   open: boolean;
@@ -94,6 +95,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
         schedule_start: dataEdit.schedule_start,
         schedule_end: dataEdit.schedule_end,
         media_content: dataEdit.media_content,
+        topic: dataEdit.topic,
       });
     }
   }, [dataEdit, reset]);
@@ -194,8 +196,11 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
             <Description errors={errors} control={control} />
             <AppGeminiGenerate content={getValues("description")} />
             <UploadMedia onChange={handleUploadMedia} control={control} register={register} />
-            <SelectCTA control={control} />
             <LinkAction errors={errors} control={control} />
+            <div className="flex gap-4 flex-col lg:flex-row">
+              <SelectCTA control={control} />
+              <Topic errors={errors} control={control} />
+            </div>
             <Schedule getValues={getValues} control={control} errors={errors} watch={watch} />
             <Budget control={control} onChangeBudget={handleChangeBudget} budget={budget} />
           </div>

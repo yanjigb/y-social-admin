@@ -20,7 +20,7 @@ const LinkAction = (props: Props) => {
         </span>
         <Link size={16} />
       </div>
-      <div className="font-semibold text-sm text-wrap max-w-full">
+      <div className="font-semibold text-sm text-wrap max-w-full truncate">
         {url}
       </div>
     </div>

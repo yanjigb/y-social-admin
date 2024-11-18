@@ -20,7 +20,9 @@ export default function SubmitBtn(props: Props) {
     !watch("schedule_end") ||
     !watch("budget") ||
     !watch("cta") ||
-    !watch("link_action") || isLoading;
+    !watch("link_action") ||
+    !watch("topic") ||
+    isLoading;
 
   return (
     <>

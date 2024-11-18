@@ -199,7 +199,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
             <LinkAction errors={errors} control={control} />
             <div className="flex gap-4 flex-col lg:flex-row">
               <SelectCTA control={control} />
-              <Topic control={control} />
+              <Topic errors={errors} control={control} />
             </div>
             <Schedule getValues={getValues} control={control} errors={errors} watch={watch} />
             <Budget control={control} onChangeBudget={handleChangeBudget} budget={budget} />

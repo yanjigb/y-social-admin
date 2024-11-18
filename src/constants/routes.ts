@@ -31,4 +31,5 @@ export enum RouteNames {
   PROFILE = "pages/profile",
   PAYMENT_HISTORIES = "dashboards/payment-histories",
   ADVERTISE_COLLECTION = "dashboards/advertise-collection",
+  CALCULATE = "dashboards/calculate",
 }

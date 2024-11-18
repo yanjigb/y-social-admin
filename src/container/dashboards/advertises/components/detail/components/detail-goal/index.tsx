@@ -20,7 +20,7 @@ const DetailGoal = (props: Props) => {
         </span>
         <Flag size={16} />
       </div>
-      <span className="font-semibold text-lg">
+      <span className="font-semibold">
         {goal}
       </span>
     </div>

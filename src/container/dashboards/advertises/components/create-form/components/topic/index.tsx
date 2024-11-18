@@ -18,34 +18,40 @@ const Topic = ({ errors, control }: Props) => {
     setSelectedValue(value);
   };
 
-  return <Controller
-    name="topic"
-    defaultValue={selectedValue}
-    control={control}
-    render={({ field: { onChange } }) => (
-      <div className="flex flex-col gap-2 mb-3 flex-1">
-        <span className="text-base">Choose your topic</span>
-        <FormControl fullWidth>
-          <Select
-            value={selectedValue}
-            onChange={(e) => {
-              onChange(e.target.value);
-              handleChangeCTA(e);
-            }}
-          >
-            {HobbiesList.map((hobby) => (
-              <MenuItem key={hobby.value} value={hobby.value}>
-                <div className="flex items-center gap-2">
-                  <Icon component={hobby.icon} />
-                  <span>{hobby.label}</span>
-                </div>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    )}
-  />;
+  return (
+    <div className="flex flex-col gap-2 flex-1">
+      <span className="text-base">Choose your topic</span>
+      <Controller
+        name="topic"
+        defaultValue={selectedValue}
+        control={control}
+        render={({ field: { onChange } }) => (
+          <FormControl fullWidth>
+            <Select
+              value={selectedValue}
+              onChange={(e) => {
+                onChange(e.target.value);
+                handleChangeCTA(e);
+              }}
+            >
+              {HobbiesList.map((hobby) => (
+                <MenuItem key={hobby.value} value={hobby.value}>
+                  <div className="flex items-center gap-2">
+                    <Icon component={hobby.icon} />
+                    <span>{hobby.label}</span>
+                  </div>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+      />
+
+      {errors.topic && (
+        <span className="text-red">{errors.topic.message}</span>
+      )}
+    </div>
+  );
 };
 
 export default memo(Topic, isEqual);

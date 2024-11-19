@@ -8,9 +8,21 @@ export default function Sample() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Metric</TableCell>
-              <TableCell>Calculation</TableCell>
-              <TableCell>Result</TableCell>
+              <TableCell>
+                <strong>
+                  Metric
+                </strong>
+              </TableCell>
+              <TableCell>
+                <strong>
+                  Calculation
+                </strong>
+              </TableCell>
+              <TableCell>
+                <strong>
+                  Result
+                </strong>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

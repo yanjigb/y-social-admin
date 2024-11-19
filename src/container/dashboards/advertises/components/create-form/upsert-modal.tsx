@@ -33,6 +33,8 @@ import LocalStorageKeys from "../../../../../constants/local-storage-keys";
 import { DEFAULT_BUDGET } from "./constants/budget";
 import AppGeminiGenerate from "../../../../../components/features/app-gemini-generate";
 import Topic from "./components/topic";
+import { useNavigate } from "react-router-dom";
+import { RouteNames } from "../../../../../constants/routes";
 
 interface UpsertModalProps {
   open: boolean;
@@ -69,6 +71,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
   const [media, setMedia] = React.useState<File | Blob>();
   const userID = localStorage.getItem(LocalStorageKeys.USER_ID);
   const [isLoading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -148,6 +151,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
     Create(formAdvertiseData).then(async () => {
       toast.success("Create Ads Successfully")
       await FetchAdvertiseList();
+      navigate(RouteNames.ADVERTISES);
     }).catch(() => toast.error("Something went wrong"));
 
     setLoading(false);

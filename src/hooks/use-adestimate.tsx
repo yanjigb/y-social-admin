@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 const useAdEstimator = (budget: number, audienceSize: number, engagementRate: number) => {
   const reachEfficiency = useMemo(() => {
     // Example logic: efficiency decreases slightly with a larger audience
-    // Assume a base reach of 1000 accounts per dollar, with audience size affecting it
+    // Assume a base reach of 10 accounts per 1000 vnd, with audience size affecting it
     const baseReachEfficiency = 10;
     return baseReachEfficiency * (1 - audienceSize / 10000); // Larger audience lowers efficiency
   }, [audienceSize]);

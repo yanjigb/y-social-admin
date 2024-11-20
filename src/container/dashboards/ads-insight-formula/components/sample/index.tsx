@@ -51,6 +51,11 @@ export default function Sample() {
               <TableCell>(CTR + Engagement Rate) / 2</TableCell>
               <TableCell>(1.5% + 10%) / 2 = 5.75</TableCell>
             </TableRow>
+            <TableRow>
+              <TableCell>Advertise Cost (VND)</TableCell>
+              <TableCell>advertise budget - discount amount</TableCell>
+              <TableCell>1000000 - 300000 = 700000</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </CardContent>

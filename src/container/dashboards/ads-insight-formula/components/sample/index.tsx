@@ -8,9 +8,21 @@ export default function Sample() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Metric</TableCell>
-              <TableCell>Calculation</TableCell>
-              <TableCell>Result</TableCell>
+              <TableCell>
+                <strong>
+                  Metric
+                </strong>
+              </TableCell>
+              <TableCell>
+                <strong>
+                  Calculation
+                </strong>
+              </TableCell>
+              <TableCell>
+                <strong>
+                  Result
+                </strong>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -38,6 +50,11 @@ export default function Sample() {
               <TableCell>Advertise Score (0-100)</TableCell>
               <TableCell>(CTR + Engagement Rate) / 2</TableCell>
               <TableCell>(1.5% + 10%) / 2 = 5.75</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Advertise Cost (VND)</TableCell>
+              <TableCell>advertise budget - discount amount</TableCell>
+              <TableCell>1000000 - 300000 = 700000</TableCell>
             </TableRow>
           </TableBody>
         </Table>

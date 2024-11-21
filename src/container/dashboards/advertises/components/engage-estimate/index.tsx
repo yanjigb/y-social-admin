@@ -9,12 +9,13 @@ import { currencyFormat } from '../../../../../lib/currency-format';
 interface Props {
   budget: number;
   audienceSize: number;
-  engagementRate: number;
 }
 
 const EngageEstimate = (props: Props) => {
-  const { budget, audienceSize, engagementRate } = props;
-  const { estimates } = useAdEstimator(budget, audienceSize, engagementRate);
+  // const { budget, audienceSize, engagementRate } = props;
+  const { budget, audienceSize } = props;
+  // const { estimates } = useAdEstimator(budget, audienceSize, engagementRate);
+  const { estimates } = useAdEstimator(budget, audienceSize);
 
   return (
     <div className="bg-gray-200 p-4 rounded-lg flex flex-col gap-4">

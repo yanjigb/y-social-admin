@@ -19,7 +19,6 @@ export enum RouteNames {
   POSTS = "dashboards/posts",
   ANALYTICS = "dashboards/analytics",
   ECOMMERCE = "dashboards/ecommerce",
-  SALES = "dashboards/sales",
   PERSONAL = "dashboards/personal",
   PAYMENTS = "dashboards/payments",
   LIST_VIEW = "listview",

@@ -35,6 +35,7 @@ import AppGeminiGenerate from "../../../../../components/features/app-gemini-gen
 import Topic from "./components/topic";
 import { useNavigate } from "react-router-dom";
 import { RouteNames } from "../../../../../constants/routes";
+import { Get as GetAllUser } from "../../../../../services/user.service";
 
 interface UpsertModalProps {
   open: boolean;
@@ -72,6 +73,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
   const userID = localStorage.getItem(LocalStorageKeys.USER_ID);
   const [isLoading, setLoading] = React.useState(false);
   const navigate = useNavigate();
+  const [usersList, setUsersList] = React.useState(0);
 
   const {
     register,
@@ -184,6 +186,15 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
     setFormData((prev) => ({ ...prev, [id]: numericValue }));
   };
 
+  const fetchUsersList = React.useCallback(async () => {
+    const res: any = await GetAllUser();
+    setUsersList(res.result.length);
+  }, []);
+
+  React.useEffect(() => {
+    fetchUsersList();
+  }, []);
+
   return (
     <Dialog
       open={open}
@@ -236,7 +247,7 @@ const UpsertModal: React.FC<Readonly<UpsertModalProps>> = ({
                 - Your ads auto run in 00:00:00 AM on your selected start date.
               </span>
             </div>
-            <EngageEstimate budget={Number(budget)} audienceSize={AdsRate.AUDIENCE_SIZE} engagementRate={AdsRate.ENGAGEMENT_RATE} />
+            <EngageEstimate budget={Number(budget)} audienceSize={usersList} />
           </div>
         </DialogContent>
 

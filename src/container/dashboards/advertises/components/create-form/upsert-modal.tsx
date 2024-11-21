@@ -13,7 +13,6 @@ import { UpdateInfo } from "../../../../../services/user.service";
 import { IAdvertise } from "../../../../../types/advertise";
 import { TransitionProps } from "@mui/material/transitions";
 import PreviewCard from "../preview-card";
-import { AdsRate } from "../../../../../constants/ads-target";
 import { AdvertiseFormSchema, DEFAULT_ADVERTISE_FORM, IAdvertiseForm } from "./schema";
 import EngageEstimate from "../engage-estimate";
 import SelectCTA from "./components/select-cta";

@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { calculateTotalCostFromClicks, calculateCostPerClick, calculateCostPerView, calculateCPM, calculateDiscount, calculateTotalCostPerDay, calculateTotalCostImpressions } from "./lib/calculate-advertise-fee";
+import { calculateTotalCostFromClicks, calculateCostPerClick, calculateCPM, calculateDiscount, calculateTotalCostPerDay, calculateTotalCostImpressions } from "./lib/calculate-advertise-fee";
 import Results from "./components/results";
 
 const MAX_DISCOUNT = 0.3;

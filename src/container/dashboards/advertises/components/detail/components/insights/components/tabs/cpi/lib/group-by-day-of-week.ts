@@ -4,31 +4,34 @@ import { IResult } from "../../../../../../../../../../../types/advertise";
 interface IWeekDaysData {
   [key: string]: {
     date: any;
-    ctr: number;
+    cpm: number;
+    impressions: number;
   };
 }
 
 interface IChartData {
-  name: string
+  name: string;
   date: any;
-  ctr: number;
+  cpm: number;
+  impressions: number;
 }
 
 export const GroupByDayOfWeek = (data: IResult[]): IChartData[] => {
   const weekDaysData: IWeekDaysData = {
-    Mon: { date: '', ctr: 0 },
-    Tue: { date: '', ctr: 0 },
-    Wed: { date: '', ctr: 0 },
-    Thu: { date: '', ctr: 0 },
-    Fri: { date: '', ctr: 0 },
-    Sat: { date: '', ctr: 0 },
-    Sun: { date: '', ctr: 0 },
+    Mon: { date: '', cpm: 0, impressions: 0 },
+    Tue: { date: '', cpm: 0, impressions: 0 },
+    Wed: { date: '', cpm: 0, impressions: 0 },
+    Thu: { date: '', cpm: 0, impressions: 0 },
+    Fri: { date: '', cpm: 0, impressions: 0 },
+    Sat: { date: '', cpm: 0, impressions: 0 },
+    Sun: { date: '', cpm: 0, impressions: 0 },
   };
 
   data.forEach(item => {
     const day = getDayOfWeek(item.date);
     weekDaysData[day].date = item.date;
-    weekDaysData[day].ctr = item.ctr;
+    weekDaysData[day].cpm = item.cpm;
+    weekDaysData[day].impressions = item.impressions;
   });
 
   const result = Object.keys(weekDaysData).map(day =>({

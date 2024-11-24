@@ -1,15 +1,11 @@
 import { memo, useEffect, useState } from "react"
 import isEqual from "react-fast-compare"
-import CpcChart from "./components/cpc-chart";
 import { GetById } from "../../../../../../../../../../services/ads.service";
 import { GroupByDayOfWeek } from "./lib/group-by-day-of-week";
+import CpcChart from "./components/cpc-chart";
 
 interface IChartData {
   name: string;
-  impressions: number;
-  clicks: number;
-  conversions: number;
-  cost: number;
   date: any;
   cpc: number;
 }

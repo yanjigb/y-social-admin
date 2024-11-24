@@ -2,18 +2,15 @@ import { memo } from "react"
 import isEqual from "react-fast-compare"
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, TooltipProps, XAxis, YAxis } from "recharts";
 import { NameType, ValueType } from "recharts/types/component/DefaultTooltipContent";
-import { currencyFormat } from "../../../../../../../../../../../lib/currency-format";
-import formatDate from "../../../../../../../../../../../utils/date";
+import { currencyFormat } from "../../../../../../../../../../../../lib/currency-format";
+import formatDate from "../../../../../../../../../../../../utils/date";
 
 interface IChartData {
   name: string;
-  impressions: number;
-  clicks: number;
-  conversions: number;
-  cost: number;
   date: any;
   cpc: number;
 }
+
 
 interface Props {
   chartData: IChartData[]

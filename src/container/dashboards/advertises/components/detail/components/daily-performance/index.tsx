@@ -19,7 +19,7 @@ const DailyPerformance = (props: Props) => {
   return (
     <div className="flex flex-col gap-6">
       <Typography variant="h5" fontWeight="bold">
-        Advertise Insight
+        Daily Advertise Performance
       </Typography>
 
       <InsightDataTable result={sortedResult} currency={currency} />

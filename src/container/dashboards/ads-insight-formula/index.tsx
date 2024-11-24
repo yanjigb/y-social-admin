@@ -1,3 +1,4 @@
+// Update Explain formula
 
 import Pageheader from '../../../components/common/pageheader/pageheader'
 import Formula from './components/formula'
@@ -19,7 +20,7 @@ export default function AdsInsightFormula() {
           <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
             <div className="flex flex-col gap-6">
               <div className="box !mb-0">
-                <div className="box-header flex flex-wrap">
+                <div className="box-header flex flex-wrap flex-col !items-start">
                   <h1 className="text-3xl font-bold">Ad Insights Calculation Formula</h1>
                   <p className="text-lg text-gray-500">
                     This document outlines how our system calculates ad insights in the admin page, providing a comprehensive view of ad performance metrics.
@@ -28,9 +29,9 @@ export default function AdsInsightFormula() {
               </div>
 
               <Formula />
+              <Explain />
               <Calculator />
               <Sample />
-              <Explain />
             </div>
           </div>
         </div>

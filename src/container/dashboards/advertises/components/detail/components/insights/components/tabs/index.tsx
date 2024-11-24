@@ -1,9 +1,12 @@
 import { memo, useState } from "react"
 import isEqual from "react-fast-compare"
+import { useParams } from "react-router-dom"
+
 import Overview from "./overview"
 import Ctr from "./ctr"
 import Cpc from "./cpc"
-import { useParams } from "react-router-dom"
+import Cost from "./cost"
+import Cpi from "./cpi"
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -17,7 +20,7 @@ const Tabs = () => {
     <div className="flex flex-col gap-6">
       <div className="border-b border-gray-200">
         <nav className="flex -mb-px">
-          {['Overview', 'CTR', 'CPC'].map((tab) => (
+          {['Overview', 'CTR', 'CPC', 'CPI', 'Cost'].map((tab) => (
             <button
               key={tab}
               onClick={() => handleActiveTab(tab.toLowerCase())}
@@ -35,6 +38,8 @@ const Tabs = () => {
       {activeTab === 'overview' && <Overview advertiseID={id!} />}
       {activeTab === 'ctr' && <Ctr advertiseID={id!} />}
       {activeTab === 'cpc' && <Cpc advertiseID={id!} />}
+      {activeTab === 'cpi' && <Cpi advertiseID={id!} />}
+      {activeTab === 'cost' && <Cost advertiseID={id!} />}
     </div>
   )
 }

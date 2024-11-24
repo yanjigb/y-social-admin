@@ -1,6 +1,5 @@
 import { Paper, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { ChangeEvent, memo, useState } from "react";
-import MockData from "./mock-data";
 import Table from '@mui/material/Table';
 import { columns } from "./constant";
 import randomId from "../../../../../../../utils/random-id";
@@ -8,10 +7,6 @@ import isEqual from "react-fast-compare";
 import { IResult, TCurrency } from "../../../../../../../types/advertise";
 import formatDate from "../../../../../../../utils/date";
 import { currencyFormat } from "../../../../../../../lib/currency-format";
-
-const rows = [
-  MockData('123', 'IN', 1324171354, 3287263, 3287263, 3287263),
-];
 
 interface Props {
   result: IResult[];
@@ -64,7 +59,8 @@ const InsightDataTable = (props: Props) => {
                       )}</TableCell>
                       <TableCell align="left">{row.impressions}</TableCell>
                       <TableCell align="right">{row.clicks}</TableCell>
-                      <TableCell align="right">{row.conversions}%</TableCell>
+                      <TableCell align="right">{currencyFormat(row.cpc)} {currency}</TableCell>
+                      <TableCell align="right">{currencyFormat(row.cpm)} {currency}</TableCell>
                       <TableCell align="right">{currencyFormat(row.cost)} {currency}</TableCell>
                       <TableCell align="right">{row.ctr}%</TableCell>
                     </TableRow>
@@ -77,7 +73,7 @@ const InsightDataTable = (props: Props) => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={result.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

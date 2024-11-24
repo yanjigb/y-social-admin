@@ -1,5 +1,5 @@
 interface Column {
-  id: 'date' | 'impressions' | 'clicks' | 'conversions' | 'cost' | 'ctr';
+  id: 'date' | 'impressions' | 'clicks' | 'cpc' | 'cpm' | 'cost' | 'ctr';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -17,8 +17,15 @@ export const columns: readonly Column[] = [
     format: (value: number) => value.toLocaleString('en-US'),
   },
   {
-    id: 'conversions',
-    label: 'Conversions',
+    id: 'cpc',
+    label: 'Cost Per Click ( CPC )',
+    minWidth: 170,
+    align: 'right',
+    format: (value: number) => value.toLocaleString('en-US'),
+  },
+  {
+    id: 'cpm',
+    label: 'Cost Per Impression ( CPM )',
     minWidth: 170,
     align: 'right',
     format: (value: number) => value.toLocaleString('en-US'),
@@ -32,7 +39,7 @@ export const columns: readonly Column[] = [
   },
   {
     id: 'ctr',
-    label: 'CTR',
+    label: 'Click Through Rate ( CTR )',
     minWidth: 170,
     align: 'right',
     format: (value: number) => value.toFixed(2),

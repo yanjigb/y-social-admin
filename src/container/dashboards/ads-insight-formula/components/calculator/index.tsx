@@ -1,19 +1,26 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { calculateTotalCostFromClicks, calculateCostPerClick, calculateCPM, calculateDiscount, calculateTotalCostPerDay, calculateTotalCostImpressions } from "./lib/calculate-advertise-fee";
+import Results from "./components/results";
 
 const MAX_DISCOUNT = 0.3;
 
 export default function Calculator() {
   const [budget, setBudget] = useState(0);
   const [clicks, setClicks] = useState(0);
+
   const [impressions, setImpressions] = useState(0);
   const [costPerClick, setCostPerClick] = useState(0);
-  const [totalCost, setTotalCost] = useState(0);
-  const [error, setError] = useState("");
+  const [costPerImpression, setCostPerImpression] = useState(0);
   const [advertiseScore, setAdvertiseScore] = useState(0);
+
+  const [costBeforeDiscount, setCostBeforeDiscount] = useState(0);
+  const [totalCost, setTotalCost] = useState(0);
+
+  const [error, setError] = useState("");
+
   const discountPercentage = Math.min((advertiseScore / 100) * MAX_DISCOUNT, MAX_DISCOUNT).toFixed(3);
   const discountAmount = budget * parseFloat(discountPercentage);
-  const finalCost = budget - discountAmount;
 
   const calculateMetrics = () => {
     // Reset error message
@@ -25,26 +32,34 @@ export default function Calculator() {
       return;
     }
 
-    // Calculate Cost Per Click (CPC)
-    const initialCPC = Math.round(budget / clicks);
-    const effectiveCPC = (initialCPC * (clicks / impressions)).toFixed(2);
-    // Calculate Total Cost
-    const totalCost = finalCost;
+    const costPerClick = calculateCostPerClick(Number(budget), Number(clicks));
+    const totalCostFromClicks = calculateTotalCostFromClicks(Number(clicks), Number(costPerClick));
 
-    // Update state with calculated values
-    setCostPerClick(parseFloat(effectiveCPC));
-    setTotalCost(totalCost);
+    const costPerImpression = calculateCPM(Number(budget), Number(impressions));
+    const totalCostImpressions = calculateTotalCostImpressions(Number(impressions), Number(costPerImpression));
+
+    const costPerDay = calculateTotalCostPerDay(Number(totalCostImpressions), Number(totalCostFromClicks));
+    const finalCost = calculateDiscount(Number(costPerDay), Number(budget), Number(advertiseScore));
+
+    setCostPerClick(Number(costPerClick));
+    setCostPerImpression(Number(costPerImpression));
+    setCostBeforeDiscount(Number(costPerDay));
+    setTotalCost(Number(finalCost));
   };
 
   return (
     <div className="box">
       <div className="box-header">
-        <h2 className="text-2xl font-bold mb-4">Ad Cost Calculator</h2>
+        <div className="flex flex-col gap-2">
+          <h2 className="text-2xl font-bold">Ad Cost Calculator</h2>
+          <p className="text-sm text-slate-500">This will helps you calculate your advertise insights fees</p>
+        </div>
       </div>
       <div className="box-body grid grid-cols-2 gap-6">
         <div>
-          <div className="flex flex-col gap-4">
-            <label htmlFor="budget">Budget (VND)</label>
+          <h3 className="text-xl font-bold mb-5">Calculator:</h3>
+
+          <div className="flex flex-col gap-5">
             <TextField
               id="budget"
               label="Budget (VND)"
@@ -53,7 +68,6 @@ export default function Calculator() {
               onChange={(e) => setBudget(Number(e.target.value))}
               className="input border rounded p-2"
             />
-            <label htmlFor="clicks">Total Clicks</label>
             <TextField
               id="clicks"
               label="Total Clicks"
@@ -62,16 +76,6 @@ export default function Calculator() {
               onChange={(e) => setClicks(Number(e.target.value))}
               className="input border rounded p-2"
             />
-            <label htmlFor="advertiseScore">Advertise Score</label>
-            <TextField
-              id="advertiseScore"
-              label="Advertise Score"
-              type="number"
-              value={advertiseScore}
-              onChange={(e) => setAdvertiseScore(Number(e.target.value))}
-              className="input border rounded p-2"
-            />
-            <label htmlFor="impressions">Total Impressions</label>
             <TextField
               id="impressions"
               label="Total Impressions"
@@ -80,17 +84,28 @@ export default function Calculator() {
               onChange={(e) => setImpressions(Number(e.target.value))}
               className="input border rounded p-2"
             />
+            <TextField
+              id="advertiseScore"
+              label="Advertise Score"
+              type="number"
+              value={advertiseScore}
+              onChange={(e) => setAdvertiseScore(Number(e.target.value))}
+              className="input border rounded p-2"
+            />
             <Button onClick={calculateMetrics} size="medium" variant="contained">Calculate</Button>
           </div>
 
           {error && <p className="text-red mt-4">{error}</p>}
         </div>
 
-        <div className="text-base">
-          <h3 className="text-xl font-bold">Results:</h3>
-          <p>Cost per Click: {costPerClick} VND</p>
-          <p>Total Cost for {clicks} Clicks: {totalCost} VND</p>
-        </div>
+        <Results
+          costPerClick={costPerClick}
+          costPerImpression={costPerImpression}
+          discountAmount={discountAmount}
+          discountPercentage={discountPercentage}
+          costBeforeDiscount={costBeforeDiscount}
+          finalCost={totalCost}
+        />
       </div>
     </div>
   );

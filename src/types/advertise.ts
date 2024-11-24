@@ -19,6 +19,8 @@ export interface IResult {
   cost: number;
   ctr: number;
   cpc: number;
+  cpv: number;
+  cpm: number;
 }
 
 export interface IGoal {

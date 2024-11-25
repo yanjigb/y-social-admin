@@ -5,6 +5,8 @@ import { HtmlTooltip } from '../../../../../components/ui/html-tooltip';
 import { Fade } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { currencyFormat } from '../../../../../lib/currency-format';
+import Formula from './components/formula';
+import Explain from './components/explain';
 
 interface Props {
   budget: number;
@@ -12,12 +14,10 @@ interface Props {
 }
 
 const EngageEstimate = (props: Props) => {
-  // const { budget, audienceSize, engagementRate } = props;
   const { budget, audienceSize } = props;
-  // const { estimates } = useAdEstimator(budget, audienceSize, engagementRate);
   const { estimates } = useAdEstimator(budget, audienceSize);
 
-  return (
+  return <>
     <div className="bg-gray-200 p-4 rounded-lg flex flex-col gap-4">
       <h5 className="font-bold">Estimated daily results</h5>
 
@@ -70,7 +70,10 @@ const EngageEstimate = (props: Props) => {
         </span>
       </div>
     </div>
-  );
+
+    <Formula />
+    <Explain />
+  </>;
 };
 
 export default memo(EngageEstimate, isEqual);

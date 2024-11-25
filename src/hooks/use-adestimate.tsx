@@ -50,7 +50,7 @@ const useAdEstimator = (budget: number, audienceSize: number) => {
     const engagementRate = calculateEngagementRate(reachEfficiency);
     const result = reachEfficiency * engagementRate;
     return result;
-  // }, [reachEfficiency, engagementRate]);
+    // }, [reachEfficiency, engagementRate]);
   }, [reachEfficiency]);
 
   const estimates = useMemo(() => {

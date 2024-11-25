@@ -1,9 +1,8 @@
 import  { FC, Fragment } from 'react';
 import Pageheader from '../../../components/common/pageheader/pageheader';
 import { badges, gradientbadge, lightbadges, outlinebadges } from './badgesdata';
-import { badges1, badges10, badges11, badges12, badges13, badges2, badges3, badges4, badges5, badges6, badges7, badges8, badges9 } from '../../../components/ui/data/uielementsdata';
+import {badges10, badges11, badges12, badges13, badges2, badges3, badges4, badges5, badges6, badges7, badges8, badges9 } from '../../../components/ui/data/uielementsdata';
 import Showcode from '../../../components/ui/showcode/showcode';
-import { data } from '../../tables/datatables/datatablesdata';
 import face2 from "../../../assets/images/faces/2.jpg";
 import face15 from "../../../assets/images/faces/15.jpg";
 import face10 from "../../../assets/images/faces/10.jpg";
@@ -14,16 +13,9 @@ interface BadgeProps {}
 const Badge: FC<BadgeProps> = () => {
   return(
   <Fragment>
-  
+
   <Pageheader currentpage="Badges" activepage="Ui Elements" mainpage="Badges" />
             <div className="grid grid-cols-12 gap-x-6">
-                <div className="xl:col-span-6 col-span-12">
-                        <Showcode title="Badges" className={data} code={badges1} customCardBodyClass="flex flex-wrap gap-2">
-                            {badges.map((idx) => (
-                            <span className={`badge bg-${idx.color}`} key={Math.random()}>{idx.class}</span>
-                            ))}
-                        </Showcode>
-                        </div>
                 <div className="xl:col-span-6 col-span-12">
                     <Showcode title="Pill Badges" code={badges2} customCardBodyClass="flex flex-wrap gap-2">
                             {badges.map((idx) => (

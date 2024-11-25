@@ -1,5 +1,3 @@
-// Update Explain formula
-
 import Pageheader from '../../../components/common/pageheader/pageheader'
 import Formula from './components/formula'
 import Sample from './components/sample'

@@ -26,8 +26,8 @@ export const calculateTotalCostPerDay = (costFromImpressions: number, costFromCl
 
 export const calculateDiscount = (totalCost: number, budget: number, score: number) => {
   const MAX_DISCOUNT = 0.3;
-  const discountPercentage = Math.min((score / 100) * MAX_DISCOUNT, MAX_DISCOUNT);
-  const discountAmount = budget * discountPercentage;
+  const discountPercentage = Math.min((score / 100) * MAX_DISCOUNT, MAX_DISCOUNT).toFixed(3);
+  const discountAmount = budget * Number(discountPercentage);
   const result = (totalCost - discountAmount).toFixed(1);
 
   return result;

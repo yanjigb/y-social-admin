@@ -15,7 +15,8 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "react"
+    "react",
+    "unused-imports"
   ],
   "rules": {
     "no-multiple-empty-lines": [
@@ -52,6 +53,8 @@
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/no-unknown-property": "off",
-    "embeddedLanguageFormatting": "off"
+    "embeddedLanguageFormatting": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": "warn"
   }
 }

@@ -32,7 +32,7 @@ const CPM = (props: Props) => {
   return (
     <div>
       <h3 className="text-lg font-semibold text-gray-900 mb-2">Cost Per Impression (CPI)</h3>
-      <p className="text-sm text-gray-600 mb-4">Daily CPI for the past week</p>
+      <p className="text-sm text-gray-600 mb-4">Daily CPI for the last 7 days</p>
       {
         chartData.length > 0 ? (
           <CpiChart chartData={chartData} />

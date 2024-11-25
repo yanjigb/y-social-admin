@@ -32,7 +32,7 @@ const CTR = (props: Props) => {
   return (
     <div className="col-span-2">
       <h3 className="text-lg font-semibold text-gray-900 mb-2">Click-Through Rate (CTR)</h3>
-      <p className="text-sm text-gray-600 mb-4">CTR for Each Day of the Week</p>
+      <p className="text-sm text-gray-600 mb-4">CTR for the last 7 days</p>
       {
         chartData.length > 0 ? (
           <CtrChart chartData={chartData} />

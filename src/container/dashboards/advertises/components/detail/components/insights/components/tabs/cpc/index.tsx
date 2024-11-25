@@ -31,7 +31,7 @@ const CPC = (props: Props) => {
   return (
     <div>
       <h3 className="text-lg font-semibold text-gray-900 mb-2">Cost Per Click (CPC)</h3>
-      <p className="text-sm text-gray-600 mb-4">Daily CPC for the past week</p>
+      <p className="text-sm text-gray-600 mb-4">Daily CPC for the last 7 days</p>
       {
         chartData.length > 0 ? (
           <CpcChart chartData={chartData} />

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';
 import useAdEstimator from '../../../../../hooks/use-adestimate';
 import { HtmlTooltip } from '../../../../../components/ui/html-tooltip';
-import { Fade, Typography } from '@mui/material';
+import { Fade } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { currencyFormat } from '../../../../../lib/currency-format';
 import Formula from './components/formula';

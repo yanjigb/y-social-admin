@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 
 export default function Formula() {
-  return <div className="grid grid-cols-2 gap-4">
+  return <div className="flex flex-col gap-4">
     <div className="bg-gray-200 p-4 rounded-lg flex flex-col gap-4">
       <Typography variant="subtitle2">How we calculate Accounts Center accounts reached</Typography>
 

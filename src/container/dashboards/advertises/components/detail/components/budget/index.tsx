@@ -25,10 +25,6 @@ const Budget = (props: Props) => {
     setHasChanged(false);
   }, [budget])
 
-  useEffect(() => {
-
-  }, [newBudget])
-
   const updateBudget = async (newBudget: number) => {
     if (isError || !hasChanged) return;
 

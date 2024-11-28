@@ -12,7 +12,8 @@
     "sass": "sass ./src/assets/scss:./src/assets/css/",
     "sass-min": "sass ./src/assets/scss:./src/assets/css/ --style compressed",
     "nano-install": "yarn add",
-    "predev": "vite optimize --force"
+    "predev": "vite optimize --force",
+    "time:build": "vite --debug transform"
   },
   "dependencies": {
     "@emotion/styled": "^11.13.5",

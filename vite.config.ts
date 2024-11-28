@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     chunkSizeWarningLimit: 50000,
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: {
@@ -17,6 +18,13 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react-quill', 'react-lazy-load-image-component', '@emotion/styled', '@mui/material'],
+    esbuildOptions: {
+      target: 'esnext' // Optimize for modern browsers
+    },
+  },
+  esbuild: {
+    logLevel: 'error', // Reduce log noise
+    treeShaking: true, // Enable tree shaking
   },
   cacheDir: '.vite',
   server: {

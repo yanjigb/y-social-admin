@@ -7,7 +7,7 @@ import rehypeRaw from 'rehype-raw';
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 
-import { Update } from "../../../../../../../../../services/ads.service";
+import { Update, GetById } from "../../../../../../../../../services/ads.service";
 
 import { CircularProgress } from "@mui/material";
 interface Props {
@@ -18,6 +18,7 @@ const Content = (props: Props) => {
   const { description } = props;
   const [isExpanded, setIsExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [currentDescription, setCurrentDescription] = useState(description);
   const [editedDescription, setEditedDescription] = useState(description);
   const [hasChanged, setHasChanged] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,18 +26,24 @@ const Content = (props: Props) => {
   const { id } = useParams();
 
   useEffect(() => {
+    setCurrentDescription(description);
     setEditedDescription(description);
-    setHasChanged(false);
-  }, [description])
+  }, [description]);
 
   const updateDescription = async (newDescription: string) => {
     if (!hasChanged) return;
 
     try {
       setIsLoading(true);
-      const res: any = await Update(id, { description: newDescription });
+      await Update(id, { description: newDescription });
+
+      const updatedData: any = await GetById(id);
+      const newDescriptionFromServer = updatedData.description;
+
+      setCurrentDescription(newDescriptionFromServer);
+      setEditedDescription(newDescriptionFromServer);
+      setHasChanged(false);
       toast.success("Updated successfully");
-      setEditedDescription(res.description);
     } catch {
       toast.error("Something went wrong");
     } finally {
@@ -44,28 +51,28 @@ const Content = (props: Props) => {
     }
   };
 
-  const onExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-
-  const handleSave = () => {
-    updateDescription(editedDescription);
-    setIsEditing(!isEditing);
+  const handleSave = async () => {
+    await updateDescription(editedDescription);
+    setIsEditing(false);
   };
 
   const toggleEdit = () => {
     if (isEditing) {
       handleSave();
     } else {
-      setEditedDescription(description);
+      setEditedDescription(currentDescription);
     }
     setIsEditing(!isEditing);
   };
 
   const handleCancel = () => {
-    setEditedDescription(description);
+    setEditedDescription(currentDescription);
     setIsEditing(false);
+    setHasChanged(false);
+  };
+
+  const onExpand = () => {
+    setIsExpanded(!isExpanded);
   };
 
   const handleChange = (newDescription: string) => {

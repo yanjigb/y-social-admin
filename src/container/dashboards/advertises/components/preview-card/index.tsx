@@ -29,7 +29,6 @@ export default function PreviewCard(props: Props) {
           sx={{
             objectFit: "contain",
             maxHeight: 400,
-            maxWidth: 716,
           }}
           className="w-full h-full aspect-[400/716] max-h-[25rem]"
         /> : <div className="w-full flex flex-col h-[25rem] bg-gray-200 items-center justify-center">
